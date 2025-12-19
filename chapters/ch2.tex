@@ -500,6 +500,27 @@ $d$维方阵$A$,$\langle \partial_x \partial_\mu f(\mu)(x),A\rangle=\partial_x \
     根据有界性的假设,当$N\to\infty$时,$I_3\to 0$;同样是由于有界性,应用\citep{FG}的定理1以及强大数定律,可得任意$s\in [0.t]$,$W_2(\mu_s^N,\mu_s)$以概率1
     收敛到0.由$f$的$C^2$正则性,可得当$N\to \infty$,$\mathbb{E}[f(\bar{\mu}^N_s)]\to f(\mu)$.\par
     \textbf{第二步}:\par
-    这一步证明去掉对$f$及其导数的有界性和一致连续性后,公式(3.15)仍然成立.
-    
+    这一步证明去掉对$f$及其导数的有界性和一致连续性后,公式(3.15)仍然成立.首先我们承认以下引理:
+
+\begin{lemma}
+    设$f:\mathscr{P}_2\to \mathbb{R}$是$C^2$正则的,$\rho:\mathbb{R}^d\to \mathbb{R}^d$为光滑紧支映射.则函数
+\begin{equation}
+    \begin{aligned}
+        f^*\rho:\mathscr{P}_2&\to \mathbb{R}\\
+        \mu&\mapsto f(\mu\circ \rho)
+    \end{aligned}
+\end{equation}
+是完全$C^2$正则的,且$f^*\rho$及其一阶和二阶导数都是有界和一致连续的.
+\end{lemma}
+
+取一列紧支光滑映射$\{\rho_n:\mathbb{R}^d\to \mathbb{R}^d\}$使得在紧集上,$(\rho_n(x),D\rho_n(x),D^2\rho_n(x))$一致收敛到
+$(x,I_d,0)$.不妨设存在常数$C$使得任意$n\geq 1,x\in \mathbb{R}^d$,
+\begin{equation}
+    \begin{aligned}
+        &\abs{\rho_n(x)}\leq C\abs{x},\\
+        &\abs{D\rho_n(x)}\leq C,\\
+        &\abs{D^2\rho_n(x)}\leq C.
+    \end{aligned}
+    \notag
+\end{equation}
 \end{proof}
