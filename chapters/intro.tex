@@ -1,0 +1,40 @@
+\chapter{导论}
+在古典微积分中，对于一个性质足够好的函数
+$$
+f:\mathbb{R}\rightarrow\mathbb{R},
+$$
+可以从两种观点去看待它在$x\in \mathbb{R}$处的局部性态,一种是差商的极限,称$f$在$x$处可导,
+是指极限：
+$$
+f'(x)\coloneq \lim_{y\rightarrow 0}\frac{f(x+y)-f(x)}{y},
+$$存在.
+另一种则是用线性映射局部逼近,即称$f$在$x\in \mathbb{R}$处可微,是指:存在一个连续线性映射
+$$
+L_{x}:\mathbb{R}\rightarrow \mathbb{R},
+$$使得当$y\rightarrow 0$时,
+$$
+\delta(y)=f(x+y)-f(y)-L_x(y)\rightarrow 0.
+$$并且由于$\mathbb{R}$上连续泛函全体$\mathscr{L}(\mathbb{R};\mathbb{R})$同构于$\mathbb{R}$,
+所以这两种角度实际上是一致的.\par
+
+当考虑$f:\mathbb{R}^{d}\rightarrow\mathbb{R},d\geq 2$时,$\mathbb{R}^d$中元素之间不存在天然的除法,差商的极限的观点不能完全推广,
+只能考虑方向导数,即固定$v\in \mathbb{R}^{d}$,考察
+$$
+\partial_{v} f(x)\coloneq \lim_{h\rightarrow 0\in\mathbb{R}}\frac{f(x+hv)-f(x)}{h},
+$$上面的极限如果存在,则称为$f$沿$v$的方向导数.而线性逼近的观点则可以完全推广,定义完全一致,即称$f$在$x\in \mathbb{R}^{d}$处可微,是指:存在一个连续线性映射
+$$
+L_{x}:\mathbb{R}^{d}\rightarrow \mathbb{R},
+$$使得当$\lvert y\rvert \rightarrow 0$时,
+$$
+\delta(y)=f(x+y)-f(y)-L_x(y)\rightarrow 0.
+$$由于$\mathbb{R}^d$上连续泛函全体$\mathscr{L}(\mathbb{R}^d;\mathbb{R})$同构于$\mathbb{R}^d$,该线性映射在$\mathbb{R}$中的对应表示就是
+$$
+\nabla f(x)\coloneq (\partial_{e_1} f(x),\cdots,\partial_{e_d} f(x)),
+$$其中$e_i$表示$\mathbb{R}^d$中第$i$个分量为$1$,其余分量为$0$的元素,$i=1,\cdots,d$.虽然这两种
+观点依然有紧密的联系,但由于空间几何性质较之一维情形复杂很多,所以两者并不完全等同,具体地说:如果$f$在一点
+可微,则该点处各方向导数均存在;但各方向导数存在并不能推出可微性,需要对方向导数添加额外的连续性要求.\par
+
+当考虑更一般的赋范向量空间之间的映射时,可以继承这两种观点去考察映射的局部性态:从线性逼近的角度推广得到
+Fr\'{e}chet导数的概念,而从差商极限或方向导数的角度推广得到G\^{a}teaux导数的概念,这是第二章的主要内容;而在此基础上,出于随机分析
+研究的需要,第三章将引入L-可微和Lions导数的概念,并介绍其在分布依赖型随机微分方程或称Mckean-Vlasov型随机微分方程
+中的初步应用.

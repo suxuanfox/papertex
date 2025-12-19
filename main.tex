@@ -1,0 +1,31 @@
+% !TeX encoding = UTF-8
+% !TeX program = xelatex
+% !TeX spellcheck = en_US
+
+\documentclass[degree=doctor,oneside]{ustcthesis}
+
+% 加载宏包、全部的配置
+\input{ustcsetup}
+
+
+\begin{document}
+
+%%\maketitle
+\frontmatter
+
+%%\include{chapters/abstract}
+\tableofcontents
+
+\mainmatter
+%%\include{chapters/intro}
+%%\include{chapters/ch1}
+\include{chapters/ch2}
+
+\bibliography{bib/ref}  % 参考文献使用 BibTeX 编译
+%\printbibliography       % 参考文献使用 BibLaTeX 编译
+
+%\appendix
+
+\backmatter
+
+\end{document}

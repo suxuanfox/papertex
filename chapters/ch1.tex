@@ -1,0 +1,435 @@
+\chapter{赋范向量空间中的Fr\'{e}chet导数和G\^{a}teaux导数}
+本章内容主要参考引用自\citep{FA}的Chapter 9: Differential Calculus in Normed Vector Spaces及其第一版的中译本\citep{FA2}的第七章相关内容。
+
+如无特殊说明,本章涉及$X,Y$为Banach空间,即完备赋范向量空间,$\Vert\cdot\Vert_{X},\Vert\cdot\Vert_{Y}$分别
+为$X,Y$上的完备范数,在不致混淆的前提下,均简记为$\Vert\cdot\Vert$;$0_X,0_Y$分别表示$X,Y$中的零元,在不致混淆的前提下均简记为$0$;$X$上拓扑一般为该完备范数诱导的拓扑,
+$\Omega$为$X$中在范数拓扑下的开集.$\mathscr{L}(X;Y)$表示$X$到$Y$的有界线性算子全体,$A\in\mathscr{L}(X;Y)
+$的算子范数为
+$$
+\Vert A\Vert_{\mathscr{L}(X;Y)} \coloneq \sup_{x\in X:\Vert x \Vert_X > 0} \frac{\Vert Ax\Vert_Y}{\Vert x\Vert_X}.
+$$
+$\mr{L}_k(X;Y)$表示从$\underbrace{X\times\cdots\times X}_{k\text{个}}$到$Y$的连续$k-$线性映射全体.
+对赋范向量空间$X$和给定的$a,b\in X$,定义开区间$(a,b)\coloneq \{ta+(1-t)b:0<t<1\}$和闭区间$[a,b]\coloneq \{ta+(1-t)b:0\leq t\leq 1\}$
+
+\section{Fr\'{e}chet导数和G\^{a}teaux导数的定义和例子}
+\subsection{Fr\'{e}chet导数的定义}
+\begin{definition}\label{2.1}
+    给定映射$f:\Omega\rightarrow Y,x\in \Omega$,称$f$在$x$处Frechet可微,是指:存在$A\in\mathscr{L}(X;Y)$,使得当
+    $h\rightarrow 0_X$,时
+    \begin{equation}
+        \delta(h)\coloneq \frac{f(x+h)-f(h)-Ah}{\Vert h\Vert_X} \rightarrow 0_Y.
+    \end{equation}
+    记此连续线性算子$A$为$f'(x)$或$\dif f(x)$,称为$f$在$x$处的Fr\'{e}chet导数.
+\end{definition}
+
+根据定义,可以得到Frechet导数以下两个基本性质.
+\begin{proposition}
+    给定映射$f:\Omega\rightarrow Y,x\in \Omega$,若$f'(x)$存在,则$f'(x)$是唯一的.
+\end{proposition}
+
+\begin{proof}
+    假设存在$A_1,A_2\in \mathscr{L}(X;Y)$均满足定义\ref{2.1}中的要求.由于$\Omega$为开集,存在$r> 0$使得$B(x,r)\subset\Omega$.对任意$h\in B(0,r)$,
+    \begin{align}
+        f(x+h) &=f(x)+A_1 h+\nm{h}\delta_1 (h) \notag \\
+               &=f(x)+A_2 h+\nm{h}\delta_2 (h),
+    \end{align}
+    所以对任意$h\in B(0,r)$,
+    \begin{align}
+        \nm{(A_1 -A_2)h}=\nm{h}\nm{\delta_1 (h)-\delta_2(h)},
+    \end{align}
+    对任意$u\in X$,存在充分大的$R> 0$使得$\frac{1}{R}u \in B(0,r)$,则
+    \begin{align}
+        \nm{(A_1-A_2)u}&=R\nm{(A_1-A_2)(\frac{u}{R})}\notag \\
+        &\leq R\nm{\frac{u}{R}}\nm{\delta_1 (\frac{u}{R})-\delta_2 (\frac{u}{R})}\notag \\
+        &=\nm{u}\nm{\delta_1 (\frac{u}{R})-\delta_2 (\frac{u}{R})}.
+    \end{align}
+    令$R\rightarrow\infty$即可.
+\end{proof}
+\begin{proposition}
+    若$f:\Omega\rightarrow Y$在$x\in \Omega$处Frechet可微,则$f$在$x$处连续.
+\end{proposition}
+\begin{definition}
+    称$f:\Omega\rightarrow Y$在$\Omega$内可微,是指:任意$x\in \Omega$,$f$在$x$处可微.此时定义映射
+    \begin{align}
+        f':\Omega &\rightarrow \mr{L}(X;Y)\notag\\
+           x      &\mapsto     f'(x).\notag
+    \end{align}
+    若$f'$是连续的,则称$f$在$\Omega$内连续可微,简称在$\Omega$内是$C^1$的.\par
+    若$f$为单射,$f(\Omega)$为$Y$中开集且$f^{-1}:f(\Omega)\to X$在$f(\Omega)$内是$C^{1}$的,则称
+    $f$是一个$C^1$微分同胚.
+\end{definition}
+\begin{remark}
+    记$C^1(\Omega;Y)\coloneq \{f:\Omega\to Y :f\text{在}\Omega\text{内是}C^1\text{的}\}$,特别地,当$Y=\mb{R}$
+    时,记$C^1(\Omega)=C^1(\Omega;\mb{R})$.容易验证,$C^1(\Omega;Y)$是向量空间.
+\end{remark}
+类似于欧式空间,考虑$X$或$Y$为有限个Banach空间的乘积空间的情形,对乘积空间配备最大值范数,即考虑$X=X_1\times\cdots\times X_n$,
+其中$X_i,1\leq i\leq n$为Banach空间,对$x=(x_1,\cdots,x_n)\in X$,定义$\nm[\infty]{x}=\max_{1\leq i\leq n} \nm[X_i]{x_i}$.
+乘积空间在最大值范数下仍为Banach空间且最大值范数诱导了乘积拓扑(见\citep{FA1}的2.2节).
+
+\begin{theorem}
+    设$Y_1,\cdots,Y_m$为Banach空间,$Y=Y_1\times\cdots\times Y_m$并配备最大值范数.给定映射$f_i:\Omega\to Y,1\leq i\leq m$和映射
+    \begin{align}
+        f:\Omega&\to Y=Y_1\cdots Y_m\notag\\
+        x&\mapsto (f_1 (x),\cdots,f_m(x)).
+    \end{align}
+    则$f$在$a\in\Omega$处可微等价于任意$1\leq i\leq m$,$f_i$在$a$处可微,且此时$f'(a)\in\mr{L}(X;Y)$
+    等同于$(f'_1(a),\cdots,f'_m(a))\in \mr{L}(X;Y_1)\times\cdots\times\mr{L}(X;Y_m)$.
+\end{theorem}
+\begin{proof}
+    若$f$在$a\in \Omega$处可微,则
+    $$
+    f(a+h)=f(a)+f'(a)h+\nm{h}\delta (h),
+    $$
+    其中当$h\to 0_X$时,$\delta(h)\to 0_Y$.\par
+    写成分量形式即:
+    $$
+    f_i(a+h)=f_i(a)+A_i h+\nm{h}\delta_i (h),i=1,\cdots,m,\notag
+    $$
+    其中$A_i\in\mr{L}(X;Y_i)$是$f\in\mr{L}(X;Y)$的第$i$个分量,$i=1,\cdots,m$.由此即得
+    $f_i$在$a$处的可微性以及$f'_i(a)=A_i$.\par
+    反过来,若任意$1\leq i\leq m$,$f_i$在$a\in\Omega$处可微,即
+    $$
+    f_i(a+h)=f_i(a)+f'_i(a) h+\nm{h}\delta_i (h),i=1,\cdots,m,\notag
+    $$
+
+    定义线性映射
+    \begin{align}
+        A:X&\to Y\notag\\
+        x&\mapsto (f'_1(a)x,\cdots,f'_m(a)x),\notag
+    \end{align}
+    则有
+    \begin{align}
+        f(a+h)=f(a)+Ah+\nm{h}\delta(h),
+    \end{align}
+    其中$\delta(h)=(\delta_1(h),\cdots,\delta_m(h))$.
+    由于
+    \begin{align}
+        \nm[Y]{Ah}&=\max_{1\leq i\leq m} \nm[Y_i]{f'_i(a)h}\notag\\
+        &\max_{1\leq i\leq m} \nm[\mr{L}(X;Y_i)]{f'_i(a)}\nm[X]{h},
+    \end{align}
+    所以$A\in\mr{L}(X;Y)$,从而$f$在$a$处可微且$f'(a)=A$.
+\end{proof}
+
+下面考虑$X$为乘积空间的情况.
+\begin{definition}\label{2.3}
+    给定$X_1,\cdots,X_n$为Banach空间,$X=X_1\times\cdots\times X_n$,配备最大值范数,$\Omega$为Banach空间$X$
+    中开集,$a\in\Omega$,且任意$1\leq i\leq n$,存在$X_i$中开集$\Omega_i$,使得$\Omega_1\times\cdots\times\Omega_n\subset\Omega$.
+    若对某个$1\leq i\leq n$,映射
+    \begin{align}
+        f(a_1,\cdots,a_{i-1},\cdot,a_{i+1},\cdots,a_n):\Omega_i&\to Y\notag\\
+        x&\mapsto f(a_1,\cdots,a_{i-1},x,a_{i+1},\cdots,a_n)\notag
+    \end{align}
+    在$a_i$处可微,则称其导数为$f$在$a$处的第$i$个偏导数,记为$\partial_i f(a)$.
+\end{definition}
+下面的定理给出了映射在一点的微分和其偏导数间的关系.
+\begin{theorem}
+    给定$X_1,\cdots,X_n$为Banach空间,$X=X_1\times\cdots\times X_n$.
+    若映射$f:\Omega\subset X\to Y$在$a\in\Omega$处可微,则其各偏导数均存在,且任意
+    $$
+    f'(a)h=\sum_{i=1}^n \partial_i f(a)h_i,\ h=(h_1,\cdots,h_n)\in X.
+    $$
+\end{theorem}
+
+\begin{proof}
+    只证$n=2$的情形,$n\geq 3$时证明没有本质区别.\par
+    定义线性映射
+    \begin{align}
+        A_1:X_1&\to Y\notag\\
+        h_1&\mapsto f'(a)(h_1,0),\notag
+    \end{align}
+    和
+    \begin{align}
+        A_2:X_2&\to Y\notag\\
+        h_2&\mapsto f'(a)(0,h_2).\notag
+    \end{align}
+    则
+    \begin{align}
+        f(a_1+h_1,a_2)&=f(a_1,a_2)+f'(a)(h_1,0)+\nm[\infty]{(h_1,0)}\delta(h_1,0)\notag\\
+        &=f(a_1,a_2)+A_1 h_1+\nm[X_1]{h_1}\delta(h_1,0).
+    \end{align}
+    且$\nm[Y]{A_1 h_1}=\nm[Y]{f'(a)(h_1,0)}\leq \nm[\mr{L}(X;Y)]{f'(a)}\nm[X_1]{h_1}$,
+    所以$A_1=\partial_1 f(a)\in\mr{L}(X_1;Y)$.对第二个分量的证明类似.
+\end{proof}
+\subsection{Gateaux导数的定义}
+Frechet可微可以看作是欧氏空间之间映射局部线性逼近的自然推广,下面考虑推广方向导数的概念.
+\begin{definition}
+    给定映射$f:\Omega\to Y$,$a\in\Omega,h\in X$以及一个开区间$I_h\in\mb{R}$,其中$I_h$满足:\\
+    (1)\ $0\in I_h$;\\
+    (2)\ $\forall\theta\in I_h$,$a+\theta h\in\Omega$.\par
+    称$f$在$a$处有沿方向$h$的Gateaux导数,是指:极限
+    $$
+    \partial_h f(a)\coloneq \lim_{\theta\to 0}\frac{f(a+\theta h)-f(a)}{\theta}
+    $$
+    在$Y$中存在,$\partial_h f(a)$即为$f$在$a$处沿方向$h$的Gateaux导数.
+\end{definition}
+\begin{remark}
+    与欧式空间之间的映射相同,若$f$在一点处可微,则沿任意方向的Gateaux导数均存在,并且$\partial_h f(a)=f'(a)h$;反之则不成立.此外,
+定义\ref{2.3}中的偏导数可以看作特殊方向上的Gateaux导数.
+\end{remark}
+\subsection{若干例子}
+下面介绍几个简单的例子.
+\begin{example}[仿射映射]
+    给定$A\in\mr{L}(X;Y),b\in Y$,定义映射
+    \begin{align}
+    f:X &\to Y\notag\\
+    x&\mapsto Ax+b.\notag
+    \end{align}\par
+    易见$\forall x\in X,f'(x)=A$.
+\end{example}
+\begin{example}[双线性映射]\label{eg2.2}
+    设$B:X\times X\to Y$是连续双线性映射.由于$B$是双线性的,
+    $$
+    B(a_1+h_1,a_2+h_2)=B(a_1,a_2)+(B(h_1,a_2)+B(a_1,h_2))+B(h_1,h_2),
+    $$
+    且$\nm{B(h_1,h_2)}\leq \nm{B}\nm{h_1}\nm{h_2}$,所以
+    \begin{align}
+        &B'(a_1,a_2)(h_1,h_2)=B(h_1,a_2)+B(a_1,h_2),\ (h_1,h_2)\in X_1\times X_2,\notag\\
+        &\partial_1 B(a_1,a_2)(h_1)=B(h_1,a_2),\ h_1\in X_1,\notag\\
+        &\partial_2 B(a_1,a_2)(h_2)=B(a_1,h_2),\ h_2\in X_2.\notag
+    \end{align}
+    \begin{remark}
+        $B'(a_1,a_2)$表示一个连续线性算子,而$B'(a_1,a_2)(h_1,h_2)$则表示该算子作用于$(h_1,h_2)$.
+    \end{remark}
+\end{example}
+\begin{example}[续例\ref{eg2.2}]
+    设$B$是对称的,即$B(x,y)=B(y,x),\forall x, y\in X$.定义映射$\tilde{B}(x)\coloneq B(x,x)$.
+    则$\tilde{B}'(a)(h)=2B(a,h)$.\par
+    进一步地,设$M\in\mr{L}_k(X;Y)$是一个对称的$k-$线性映射,令$\tilde{M}(x)=M(x,\cdots,x)$,则$(\tilde{M})'(a)(h)=
+    kM(a,\cdots,a,h)$,简记$(\tilde{M})'(a)=Ma^{k-1}$.
+\end{example}
+\begin{example}[方阵的函数]\label{eg2.4}
+    记$M_n(\mb{R})$为$n$阶实方阵的全体,$U_n(\mb{R})$为$n$阶可逆实方阵的全体,$M_n(\mb{R})\stackrel{\tr}{\longrightarrow}\mb{R}$和$M_n(\mb{R})\stackrel{\det}{\longrightarrow}\mb{R}$
+    分别表示取迹和行列式运算.\par
+    $\tr(\cdot)$作为连续线性泛函,$\forall W\in M_n(\mb{R})$,$\tr(\cdot)$在$W$处的Frechet导数
+    由$(\tr)'(W)(H)=\tr(H)=\langle I_n,H\rangle$决定,
+    其中$\langle A,B\rangle\coloneq \tr(A^* B)$表示$n$阶实方阵上的内积.\par
+    另一方面,若$W\in U_n(\mb{R})$,则
+    \begin{align}
+        \det(W+H)&=\det(W)\det(I_n+W^{-1}H)\notag\\
+                 &=\det(W)(1+\tr(W^{-1}H)+o(\nm{W^{-1}H}))\notag\\
+                 &=\det(W)+\tr((\det(W)W^{-1})H)+\det(W)o(\nm{W^{-1}H}).\notag
+    \end{align}
+    所以$(\det)'(W)(H)=\tr((\text{Adj}(W))H)=\langle \text{Adj}(W)^T,H\rangle$,其中$\text{Adj}(W)$表示$W$的伴随矩阵.
+
+\end{example}
+\begin{example}[续例\ref{eg2.4}]
+    考虑取逆映射
+    \begin{align}
+        f:U_n(\mb{R})&\to U_n(\mb{R})\notag\\
+        A&\mapsto A^{-1}.\notag
+    \end{align}
+    由\citep{FA1}的定理3.6-3,当$H$的矩阵范数充分小时
+    \begin{align}
+        f(A+H)&=(A+H)^{-1}\notag\\
+              &=(I_n+A^{-1}H)^{-1}A^{-1}\notag\\
+              &=(I_n-A^{-1}H+o(H))A^{-1}\notag\\
+              &f(A)-A^{-1}HA^{-1}+o(H)A^{-1}.\notag
+    \end{align}
+    所以$f'(A)(H)=-A^{-1}HA^{-1}$.
+\end{example}
+\section{链式法则}
+在古典微积分中,链式法则是计算导数的重要工具,在一般的Banach空间中对Frechet同样有链式法则.
+\begin{theorem}[链式法则]
+    给定Banach空间$X,Y,Z$,$U,V$分别为$X,Y$中开集.映射$f:U\to Y$在$a\in U$处可微且$f(U)\subset V$,
+    映射$g:V\to Z$在$f(a)\in V$处可微.则映射$g\circ f:U\to Z$在$a$处可微,且
+    $$
+    (g\circ f)'(a)=g'(f(a))\circ f'(a).
+    $$
+    此外,若$f\in C^1(U;Y),g\in C^1(V;Z)$,则$g\circ f\in C^1(U;Z)$.
+\end{theorem}
+\begin{proof}
+    对任意$a+h\in U$,定义
+    $$
+    b\coloneq f(a),k(h)=f(a+h)-f(a).
+    $$
+    由$f,g$的可微性可得,
+    \begin{align}
+        &f(a+h)=f(a)+f'(a)h+\nm{h}\delta(h),\lim_{h\to 0} \delta(h)=0\notag\\
+        &g(b+k)=g(b)+g'(b)k+\nm{k}\eta(k),\lim_{k\to 0} \eta(k)=0.\notag
+    \end{align}
+    所以
+    \begin{align}
+        &(g\circ f)(a+h)-(g\circ f)(a)\notag\\
+        =&g(f(a+h))-g(f(a))\notag\\
+        =&g'(f(a))(k(h))+\nm{k(h)}\eta(k(h))\notag\\
+        =&g'(f(a))(f'(a)h+\nm{h}\delta(h))+\nm{k(h)}\eta(k(h))\notag\\
+        =&g'(f(a))(f'(a)h)+\nm{h}g'(f(a))\delta(h)+\nm{k(h)}\eta(k(h))
+    \end{align}
+    并且当$h\to 0$时,
+    $$
+    \frac{\nm{h}g'(f(a))\delta(h)+\nm{k(h)}\eta(k(h))}{\nm{h}}\to 0,
+    $$
+    另外连续线性映射的复合仍然是连续线性映射,所以$g\circ f$在$a$处可微且$(g\circ f)'(a)=g'(f(a))\circ f'(a)$.\par
+    若$f\in C^1(U;Y),g\in C^1(V;Z)$,为证$g\circ f \in C^1(U;Z)$,只需证映射
+    $$
+    x\mapsto (f'(x),g'(f(x)))=(f'(x),(g'\circ f)(x))
+    $$和
+    $$
+    \mr{L}(X;Y)\times\mr{L}(Y;Z)\ni (A,B)\mapsto B\circ A\in \mr{L}(X;Z)
+    $$
+    的连续性.而这两个的映射的连续性则由$f',g'$以及映射复合保持连续性得到.
+
+\end{proof}
+\section{高阶导数和Taylor展开}
+在古典微积分中,如果一个函数$f:\mb{R}\to \mb{R}$处处可导,则自然地有一个导函数$f':\mb{R}\to\mb{R}$,
+则可以考察导函数的连续性和可微性.而对于一般的向量空间,若$X,Y$是Banach空间,则$\mr{L}(X;Y)$也是Banach空间,所以对于
+$f\in C^1(\Omega;Y)$,同样可以考察$f':\Omega\to \mr{L}(X;Y)$的Frechet可微性,也就是二阶导数.
+\begin{definition}
+    设$f:\Omega\to Y$在$\Omega$内可微.称$f$在$a\in\Omega$处二次可微,是指:映射
+    \begin{align}
+        f':\Omega&\to \mr{L}(X;Y)\notag\\
+        x&\mapsto f'(x)
+    \end{align}
+    在$a$处Frehcet可微.记$f''(a)\coloneq (f')'(a)$为$f$处的二次导数.\par
+    若$f$在$\Omega$内处处二次可微,且映射
+    \begin{align}
+        f'':\Omega&\to \mr{L}(X;\mr{L}(X;Y))\notag\\
+        x&\mapsto f''(x)
+    \end{align}是连续的,则称$f$在$\Omega$内是$C^2$的,$\Omega$内到$Y$的$C^2$映射全体记为$C^2(\Omega;Y)$,
+    特别地,$Y=\mb{R}$时,记$C^2(\Omega;Y)=C^2(\Omega)$
+\end{definition}
+\begin{remark}
+    由\citep{FA1}的定理2.11-5,$\mr{L}(X;\mr{L}(X;Y))$同构于$\mr{L}_2(X;Y)$,所以对$h,k\in X$,
+    $(f''(a)h)k=f''(a)(h,k)$,这里$f''(a)$作为$\mr{L}(X;\mr{L}(X;Y))$中的元素先作用于$h$再作用于$k$,但下面的
+    定理说明这两步操作的顺序可以交换:即先作用于$h$再作用于$k$和先作用于$k$再作用于$h$的结果是相同的,
+    也即$f''(a)$作为一个双线性映射是对称的.
+\end{remark}
+
+\begin{theorem}
+    设$f:\Omega\to Y$在$a\in\Omega$处二次可微,则$f''(a)\in\mr{L}_2(X;Y)$是对称的.
+\end{theorem}
+定理的证明见\citep{FA2}的定理7.8-1,该证明依赖于如下的中值定理.
+\begin{theorem}
+    给定映射$f:\Omega\to Y$,闭区间$[a,b]\subset \Omega$,$\forall x\in [a,b]$,$f$在$x$处连续,$\forall x\in (a,b)$,$f$在$x$处可微.
+    则
+    $$
+    \nm[Y]{f(b)-f(a)}\leq (\sup_{x\in (a,b)} \nm[\mr{L}(X;Y)]{f'(x)})\nm[X]{b-a}.
+    $$
+\end{theorem}\label{2.7}
+\begin{proof}
+    不妨设$M=\sup_{x\in (a,b)} \nm[\mr{L}(X;Y)]{f'(x)}<\infty$.\par
+    定义映射$\phi(t)\coloneq f(ta+(1-t)b),t\in [0,1]$,则$\phi:[0,1]\to Y$连续,在$(0,1)$可微,且
+    $$
+    \phi'(t)=f'(ta+(1-t)b)(b-a),t\in (0,1)\ \implies \sup_{t\in(0,1)} \nm{\phi'(t)}\leq M\nm{b-a}
+    $$\par
+    以下讨论被称为"连续性方法".\par
+    对任意$\epsilon>0$,定义映射
+    \begin{align}
+        F:[0,1]&\to \mb{R}\notag\\
+        t&\mapsto \nm{\phi(t)-\phi(0)}-(M\nm{b-a}+\epsilon)t-\epsilon \notag
+    \end{align}
+    以及$I(\epsilon)=F^{-1}((\infty,0])$,由于$0\in I(\epsilon)$,所以$I(\epsilon)$非空.\par
+    $F$是由连续函数的复合和四则运算得到,因此仍是连续的,从而$I(\epsilon)$是闭集,所以
+    $t_0\coloneq \sup (I(\epsilon)\cap [0,1])\in I(\epsilon)$.往证$t_0=1$.\par
+    假设$t_0<1$,则对于充分小的$\delta>0$有$t_0+\delta<1$,
+    $$
+    \phi(t_0+\delta)-\phi(t_0)=\phi(t_0)+\phi'(t_0)\delta+\delta\eta(\delta),\ \lim_{\delta\to 0}\eta(\delta)=0.
+    $$
+    取充分小$\delta_0$使得$t_0+\delta_0<1$且$\eta(\delta)<\epsilon$,则
+    \begin{align}
+        \nm{\phi(t_0+\delta_0)-\phi(0)}&\leq \nm{\phi(t_0+\delta_0)-\phi(t_0)}+\nm{\phi(t_0)-\phi(0)}\notag\\
+        &\leq (M\nm{b-a}+\epsilon)(t_0+\delta_0)+\epsilon.
+    \end{align}
+    矛盾,所以$t_0=1$.这也就证明了定理.
+
+\end{proof}
+
+上述中值定理只对单点处可微性有要求,如果$f\in C^1(\Omega;Y)$,则还有更精确的表达.
+\begin{theorem}\label{2.8}
+    设$f\in C^1(\Omega;Y),[a,b]\subset \Omega$.则
+    $$
+    f(b)-f(a)=\int_0^1 f'((1-t)a+tb)(b-a)\mathrm{d}t.
+    $$
+\end{theorem}
+
+\begin{remark}
+    关于向量值函数的积分或称Bochner积分的相关定义和性质见\citep{Yosida},上述定理的证明见\citep{FA1}.
+\end{remark}
+
+类似于二阶导数,可以归纳定义高阶导数,为统一记号,记$f^{(0)}=f,f^{(1)}=f',f^{(2)}=f''$.
+\begin{definition}
+    设$m\in\mb{N}$,设映射$f:\Omega\to Y$在$\Omega$内$(m-1)$次可微,称$f$在$a\in\Omega $处$m$次可微,是指:映射
+    \begin{align}
+        f^{(m-1)}:\Omega&\to \mr{L}(X;\mr{L}_{m-1}(X;Y))\notag\\
+        x&\mapsto f^{(m-1)}(x)\notag
+    \end{align}
+    在$a$处可微,$a$处的$m$阶导数记为$f^{(m)}(a)=(f^{(m-1)})'(a)$.
+    若$m$阶导数映射连续,则称$f$在$\Omega$内是$C^m$的;若$f$是任意次可微的,则称$f$是光滑的.
+\end{definition}
+
+\begin{remark}
+    类似$C^1(\Omega;Y)$和$C^1$微分同胚,可以定义$C^m(\Omega;Y)$和$C^m$微分同胚,$m\in \mb{N}\cup\{\infty\}$;另外,简记$f^{(m)}(a)h^m=f^{(m)}(a)(\underbrace{h,\cdots,h}_{m\text{个}})$
+\end{remark}
+
+有了以上准备,可以叙述并证明Banach空间中的Taylor公式.
+\begin{theorem}[Taylor公式]
+    给定映射$f:\Omega\to Y$,$[a,a+h]\subset \Omega$,以及整数$m\geq 1$.\par
+(1)\ $f$在$\Omega$中$(m-1)$次可微且在$a$处$m$次可微,则
+$$
+f(a+h)=f(a)+\sum_{i=1}^m \frac{1}{i!}f^{(i)}(a)h^i +\nm{h}^m\delta(h).
+$$\par
+(2)\ 若$Y=\mb{R}$,$f$在$\Omega$中$(m-1)$次连续可微,在$(a,a+h)$中$m$次可微,则存在$\theta\in(0,1)$使得
+$$
+f(a+h)=f(a)+f'(a)h+\cdots+\frac{1}{(m-1)!}f^{(m-1)}(a)h^{m-1}+\frac{1}{m!}f^{(m)}(a+\theta h)h^m.
+$$\par
+(3)设$f$在$\Omega$内$m$次连续可微,则
+$$
+f(a+h)=f(a)+f'(a)h+\cdots+\frac{1}{(m-1)!}f^{(m-1)}(a)h^{m-1}+\frac{1}{(m-1)!}\int_0^1 (1-t)^{m-1}(f^m(a+th)h^m)\mathrm{d}t.
+$$\par
+(4)设$f$在$\Omega$中$(m-1)$次连续可微,在$(a,a+h)$中$m$次可微,则
+$$
+\nm{f(a+h)-f(a)+\sum_{i=1}^{m-1} \frac{1}{i!}f^{(i)}(a)h^i}\leq \frac{1}{m!}(\sup_{x\in(a.a+h)}\nm{f^{(m)}(x)})\nm{h}^m.
+$$
+\end{theorem}
+\begin{remark}
+    上述定理的(1),(2),(3)分别对应单变量微积分中带Peano余项,Lagrange余项和积分余项的Taylor展开公式,(4)则是中值定理\ref{2.7}对高阶导数的推广.
+\end{remark}
+\begin{proof}
+    \par
+    先证明(1).当$m=1$时根据导数定义自动成立.假设对$m=1,\cdots,k-1$都成立.存在$r>0$使得$B(a,r)\subset \Omega$且映射
+    \begin{align}
+        g:B(a,r)&\to Y\notag\\
+        x&\mapsto f(a+x)-f(a)-(\sum_{i=1}^k \frac{1}{i!}f^{(k)}(a)x^k)\notag
+    \end{align}
+    在$B(a,r)$内可微,且
+    $$
+    g'(x)=f'(a+x)-(\sum_{i=1}^k \frac{1}{(i-1)!}f^{(k)}(a)x^{k-1}).
+    $$
+    根据归纳假设,
+    $$
+    f'(a+x)=f'(a)+\cdots+\frac{1}{(k-1)!}f^{(k)}(a)x^{k-1}+\nm{x}^{k-1}\delta(x)
+    $$且 $\lim_{x\to 0}\delta(x)=0.$
+    由中值定理\ref{2.7},
+    \begin{align}
+        &\nm{f(a+h)-f(a)-(\sum_{i=1}^m \frac{1}{i!}f^{(i)}(a)h^i)}\notag\\
+        =&\nm{g(h)-g(0)}\notag\\
+        \leq &(\sup_{x\in (a,a+h)}\nm{g'(x)})\nm{h}\notag\\
+        \leq &(\sup_{x\in (a,a+h)}\nm{x}^{k-1}\nm{\delta(x)})\nm{h}\notag\\
+        \leq &\nm{h}^k\nm{\eta(h)}.
+    \end{align}
+    且$\lim_{h\to 0}\eta(h)=0_Y$.\par
+    定义辅助函数$\phi(t)\coloneq f(a+th),t\in(0,1)$,则在(2)的条件下分别使用链式法则和单变量实函数的带Lagrang余项的Taylor展开式
+    即可证得(2).\par
+    而在(3)的条件下可知$\phi$在一个包含$[0,1]$的开区间上是$m$次连续可微的.定义函数$\psi(t)\coloneq \phi(t)+\sum_{i=1}^{m-1}(1-t)^i\phi^{(i)}(t)$,
+    再将定理\ref{2.8}应用于
+    $$\psi(1)-\psi(0)=\int_0^1 \psi'(t)\mathrm{d}t$$
+    即可证得(3).\par
+    最后证明(4).当$m=1$时由中值定理\ref{2.7}成立,假设对$m=1,\cdots,k-1$均成立.\par
+    令$u(t)=\phi(t)-(f(a)+\sum_{i=1}^{k-1}\frac{1}{i!}f^{(i)}(a)(th)^{i-1})$.由$f$的可微性可得
+    $u$在包含$[0,1]$的一个开区间上可微.\par
+    对$f'$用归纳假设可得,
+    \begin{align}
+        \nm{u'(t)}&=\nm{(f'(a+th)-(f'(a)+\cdots+\frac{1}{(k-2)!}f^{(k-1)}(th)^{k-2})h)}\notag\\
+        &\leq \frac{1}{(k-1)!}(\sup_{x\in(a,a+h)}\nm{f^{(k)}(x)})t^{k-1}\nm{h}^{k},0\leq t\leq 1.
+    \end{align}\par
+    令$\chi(t)\coloneq \frac{1}{(k)!}(\sup_{x\in(a,a+h)}\nm{f^{(k)}(x)})t^{k}\nm{h}^{k}$.则
+    \begin{align}
+        \nm{u(1)-u(0)}&\leq \sum_{i=0}^{l-1}\nm{u(\frac{j+1}{l})-u(\frac{j}{l})}\notag\\
+        &\leq \frac{1}{l}\sum_{i=0}^{l-1} \sup_{t\in (\frac{j}{l},\frac{j+1}{l})} \nm{u'(t)}\notag\\
+        &\leq \frac{1}{l}\sum_{j=0}^{l-1} \sup_{t\in (\frac{j}{l},\frac{j+1}{l})} \chi'(t).
+    \end{align}
+    右边是一个Riemann和的形式,令$l\to\infty$,即得
+    $$
+    \nm{u(1)-u(0)}\leq \chi(1)-\chi(0).
+    $$也即证得了结论.
+\end{proof}
