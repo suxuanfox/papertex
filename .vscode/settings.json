@@ -44,8 +44,6 @@
     ],
     "latex-workshop.latex.autoClean.run": "onBuilt",
 "latex-workshop.latex.clean.fileTypes": [
-"*.aux",
-"*.bbl",
 "*.blg",
 "*.idx",
 "*.ind",
