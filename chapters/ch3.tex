@@ -1,5 +1,140 @@
-\chapter{内蕴导数和外在导数}
-Lions导数可以看作是Frechet导数的延伸,在这一章则主要介绍Gateaux导数或方向导数的概念在测度变量的函数
-上的应用.\citep{MFG}
+\chapter{外在导数,内蕴导数和线性泛函导数}
+本章内容主要参考引用自\citep{wrde},\citep{mpsa},\citep{brw}和\citep{ddsde}.\par
+Lions导数可以看作是Frechet导数的延伸,这一章则主要介绍Gateaux导数或方向导数的概念在测度变量的函数
+上的应用.
+参考文献是在Riemann流形上对一般情况定义了几种导数,为简单起见,此处只考虑欧氏空间$\mathbb{R}^d$的情形.$\mathscr{M}$表示$\mathbb{R}^d$上有限测度全体,
+记$\mathscr{M}_p=\{\mu\in\mathscr{M}:\mu(\abs{\cdot}^p)<\infty\}$表示$\mathbb{R}^d$上$p$阶矩有限测度的全体,$p\in [0,\infty)$,配备通常的加法,减法和数乘.定义
+\[
+    W_p(\mu,\nu)=(\mu(\mathbb{R}^d)\wedge \nu(\mathbb{R}^d))W_p(\frac{\mu}{\mu(\mathbb{R}^d)},\frac{\nu}{\nu(\mathbb{R}^d)})+\abs{\mu(\mathbb{R}^d)-\nu(\mathbb{R}^d)},
+\]
+$(\mathscr{M}_p,W_p)$是一个完备度量空间.
 \section{定义}
-我们首先给出内蕴导数和外在导数的定义
+我们首先给出外在导数的定义.
+\begin{definition}
+    设$p\geq 0$.称$f:\mathscr{M}_p\to \mathbb{R}$在$\mathscr{M}_p$上是外在可导的,是指:任意$(x,\eta)\in \mathbb{R}^d\times \mathscr{M}_p$极限
+    \[
+        D^Ef(\eta)(x)\coloneq \lim_{\epsilon\downarrow 0} \frac{f(\eta+\epsilon \delta_x)-f(\eta)  }{\epsilon}
+    \]
+    存在,其中$\delta_x$表示$x\in \mathbb{R}^d$处的Diarc质量.$D^E f$称为$f$的外在导数.
+\end{definition}
+\begin{remark}
+    在内蕴导数的定义的基础上,定义若干常用的函数类.\par
+    称函数$f:\mathscr{M}_p\to \mathbb{R}\in C^{E,1}(\mathscr{M}_p)$,是指:$f$在$\mathscr{M}_p$上是外在可导的,
+    且映射$(x,\eta)\mapsto D^E f(\eta)(x)$是$\mathbb{R}^d\times \mathscr{M}_p$上的连续函数.\par
+    称函数$f:\mathscr{M}_p\to \mathbb{R}\in C^{E,1}_K(\mathscr{M}_p)$,是指:$f\in C^{E,1}(\mathscr{M}_p)$,且对任意紧集
+    $K\subset \mathscr{M}_p$,存在常数$C$,使得任意 $\eta\in K$,$\abs{D^Ef(\eta)(x)}\leq C(1+\abs{x}^p)$.\par
+    称函数$f:\mathscr{M}_p\to \mathbb{R}\in C^{E,1,1}(\mathscr{M}_p)$,是指:$f\in C^{E,1}(\mathscr{M}_p)$,$D^E f(\eta)(x)$关于$x$可微,
+    且$\nabla D^E f(\eta)(x)$是$\mathbb{R}^d\times \mathscr{M}_p$上的连续函数.\par
+    此外,$C^{E,1}_b(\mathscr{M}_p),C^{E,1,1}_b(\mathscr{M}_p)$分别表示$C^{E,1}(\mathscr{M}_p),C^{E,1,1}(\mathscr{M}_p)$和$\mathscr{M}_p$上有界函数的交集.
+\end{remark}
+
+容易看出,外在导数的定义不能直接限制在$p$阶矩有限的的概率测度组成的集合$\mathscr{P}_p\subset \mathscr{M}_p$上,
+因此对以上定义稍作修改,引入凸外在导数的概念.
+\begin{definition}
+    设$p\geq 0$.称函数$f:\mathscr{P}_p\to \mathbb{R}$凸外在可导,是指:对任意$(x,\mu)\in \mathbb{R}^d\times \mathscr{P}_p$,极限
+    \[
+        \tilde{D}^E f(\mu)(x)\coloneq \lim_{s\downarrow 0}\frac{f((1-s)\mu+s\delta_x)}{s}
+    \]
+    存在,$\tilde{D}^E f$称为$f$的凸外在导数.
+\end{definition}
+
+\begin{remark}
+    类比外在导数,同样可以类似的函数空间.\par
+    称函数$f:\mathscr{P}_p\to \mathbb{R}\in C^{E,1}(\mathscr{P}_p)$,是指:$f$在$\mathscr{P}_p$上是外在可导的,
+    且映射$(x,\eta)\mapsto \tilde{D}^E f(\eta)(x)$是$\mathbb{R}^d\times \mathscr{P}_p$上的连续函数.\par
+    称函数$f:\mathscr{P}_p\to \mathbb{R}\in C^{E,1}_K(\mathscr{P}_p)$,是指:$f\in C^{E,1}(\mathscr{P}_p)$,且对任意紧集
+    $K\subset \mathscr{P}_p$,存在常数$C$,使得任意 $\eta\in K$,$\abs{\tilde{D}^Ef(\eta)(x)}\leq C(1+\abs{x}^p)$.\par
+    称函数$f:\mathscr{P}_p\to \mathbb{R}\in C^{E,1,1}(\mathscr{P}_p)$,是指:$f\in C^{E,1}(\mathscr{P}_p)$,$\tilde{D}^E f(\eta)(x)$关于$x$可微,
+    且$\nabla \tilde{D}^E f(\eta)(x)$是$\mathbb{R}^d\times \mathscr{P}_p$上的连续函数.\par
+    此外,$C^{E,1}_b(\mathscr{P}_p),C^{E,1,1}_b(\mathscr{P}_p)$分别表示$C^{E,1}(\mathscr{P}_p),C^{E,1,1}(\mathscr{P}_p)$和$\mathscr{P}_p$上有界函数的交集.
+\end{remark}
+虽然凸外在导数和外在导数定义上稍有差别,但存在着紧密关联:若函数$f:\mathscr{M}_p\to \mathbb{R}\in C^{E,1}_b(\mathscr{M}_p)$,则$f|_{\mathscr{P}_p}\in C^{E,1}(\mathscr{P}_p)$,且对任意
+$\mu\in \mathscr{P}_p$,
+\[
+    \tilde{D}^E f|_{\mathscr{P}_p}(\mu)=D^E f(\mu)-\mu(D^E f(\mu)),
+\]
+在这个意义下,可以将凸外在导数看作外在导数的中心化.
+
+给定向量场$\phi:\mathbb{R}^d\to \mathbb{R}^d\in \mathscr{B}(\mathbb{R}^d\to \mathbb{R}^d)$,定义
+\[
+    \phi_s(x)\coloneq x+s\phi(x),s\geq 0,
+\]
+也即$\phi_s=\mathrm{id}_{\mathbb{R}^d}+s\phi,s\geq 0$.
+\par
+对于任意测度$\eta\in \mathscr{M}_p,p\in (0,2]$,定义$\eta$处的切空间为$L^2(\mathscr{B}(\mathbb{R}^d\to \mathbb{R}^d);\eta)$,
+这是一个Hilbert空间,可以应用Riesz表示定理,将其上的连续线性泛函视为其中一个元素.
+\begin{definition}
+    设$p\in [0,2]$.称函数$f:\mathscr{M}_p\to \mathbb{R}$在$\eta\in \mathscr{M}_p$内蕴可导,是指:对于任意
+    $\phi\in L^2(\mathscr{B}(\mathbb{R}^d\to \mathbb{R}^d);\eta)$,极限
+    \[
+        D^I_\phi f(\eta)\coloneq \lim_{s\downarrow 0}\frac{f(\eta\circ \phi_s^{-1})-f(\eta)}{s}
+    \]
+    存在,且是$\phi$的连续线性泛函.此时存在唯一的$D^I f(\eta)\in L^2(\mathscr{B}(\mathbb{R}^d\to \mathbb{R}^d);\eta)$,使得
+    \[
+        D^I_\phi f(\eta)=\ipr{D^I f(\eta)}{\phi}_{L^2(\mathscr{B}(\mathbb{R}^d\to \mathbb{R}^d);\eta)}=\int_{\mathbb{R}^d} \ipr{D^I f(\eta)}{\phi} \mathrm{d}\eta,
+    \]
+    称$D^I f(\eta)$为$f$在$\eta$处的内蕴导数,若对任意$\mu\in \mathscr{M}_p$,$f$在$\mu$处都是内蕴可导的,
+    则称$f$在$\mathscr{M}_p$上内蕴可导或简称内蕴可导.
+\end{definition}
+\begin{remark}
+    由于内蕴导数的定义不依赖于$\mathscr{M}_p$的线性结构,因此对$\mathscr{P}_p$上的实值函数有完全相同的定义.
+\end{remark}
+
+作为比较,这里给出Lions导数的另一种定义.在第二章中,是将测度变量函数$f:\mathscr{P}_2\to \mathbb{R}$提升为以随机变量
+为变量的函数$\td{f}=f\circ \mathscr{L}:L^2(\Omega;\mathbb{R}^d)\to \mathbb{R}$,然后用随机变量空间上的Frechet导数来刻画$f$的局部性态.
+在考虑差$\td{f}(X+Y)-\td{f}(X)$以及$\nm[L^2]{Y}$逐渐趋于$0$时,如果固定一个方向取$Y=s\phi(X)$,则
+\begin{equation}
+    \begin{aligned}
+        \td{f}(X+Y)-\td{f}(X)&=\td{f}(X+s\Phi(X))-\td{f}(X)\\
+        &=f(\mathscr{L}(X)\circ (\mathrm{id}+s\phi)^{-1})-f(\mathscr{L}(X))\\
+        &=f(\mathscr{L}(X)\circ \phi_s^{-1})-f(\mathscr{L}(X)),
+    \end{aligned}\notag
+\end{equation}
+这就是内蕴导数的形式.而Lions导数本质是Frechet导数,应该考虑任意方向,所以在令$Y$的二阶矩趋于$0$的过程不应该通过
+给一个固定的函数做伸缩来实现,而应该让函数本身充分小,用严格的数学语言来叙述即如下定义.
+\begin{definition}
+    给定$p\in [0,2]$.称函数$f:\mathscr{P}_p\to \mathbb{R}$在$\eta\in \mathscr{P}_p$L-可导,是指:$f$是内蕴可导的,且
+    \[
+        \lim_{\nm[L^2(\eta)]{\phi}\downarrow 0}\frac{\abs{f(\eta\circ (\mathrm{id}+\phi)^{-1})-f(\eta)-D^I_\phi f(\eta)}}{\nm[L^2(\eta)]{\phi}}=0,
+    \]
+    若$f$在任意$\eta\in \mathscr{P}_p$都L-可导,则称$f$是L-可导的,此时将$D^I f$记为$D^L f$.
+\end{definition}
+\begin{remark}
+    根据第二章的相关讨论,在这个定义中,要求$f$内蕴可导是自然的;另外,在这个L-可导的定义下,L-可导显然强于
+    内蕴可导,而当$f$L-可导时,其L-导数就是内蕴导数. 以上定义对$\mathscr{M}_p$上的函数同样成立.
+\end{remark}
+    
+
+在第一章中,对于Banach空间之间的映射如果是可微的并满足合适的条件,则有中值定理成立.对于$\mathscr{M}_p$或$\mathscr{P}_p$,则可以
+用"中值定理"来定义一点处的导数,从而一定程度上在形式上与Banach空间上的Frechet导数保持一致.
+\begin{definition}
+    设$p\in [0,\infty)$.给定$f:\mathscr{M}_p\to \mathbb{R}$,称可测函数
+    $D^F f(\eta):\mathbb{R}^d\to \mathbb{R}$是$f$在$\eta$处的线性泛函导数,是指:对任意$L>0$,存在$C_L$使得
+    \[
+        \sup_{\eta(\abs{\cdot}^p)\leq L} \abs{D^F f(\eta)(y)}\leq C_L(1+\abs{y}^p),y\in \mathbb{R}^d,
+    \]
+    且对任意$\mu,\nu\in \mathscr{M}_p$,
+    \[
+        f(\mu)-f(\nu)=\int_{0}^{1}\int_{\mathbb{R}^d} D^F f(\nu+t(\mu-\nu))(y)(\mu-\nu)(\mathrm{d}y) \mathrm{d}t.
+    \]
+\end{definition}
+\begin{remark}
+    由于只涉及到凸组合,所以线性泛函导数的定义对$\mathscr{P}_p$上的实值函数完全成立.
+\end{remark}
+
+\subsection{几种导数的关系}
+\subsubsection{外在导数和L-导数}
+由于L-导数可以视为更强的内蕴导数,所以这里只讨论外在导数和L-导数的关系.从定义的形式上来看,外在导数的定义要比
+L-导数的计算"简单"一些,所以希望能找到它们间的关联,从而通过计算外在导数来简化L-导数的计算.事实上,有以下定理.
+\begin{theorem}
+    设
+\end{theorem}
+\subsubsection{L-导数和线性泛函导数}
+\subsection{若干例子}
+对上一节定义的几种导数,我们介绍几个简单可计算的例子,并体现它们之间的联系.\par
+称函数$f:\mathscr{M}_p\to \mathbb{R}$为$C^1_b-$柱函数或$f\in \mathscr{F}C^1_b(\mathscr{M}_p)$,是指:存在$n\in \mathbb{N}$,$g\in C^2(\mathbb{R}^n)$和
+${h_i:1\leq i\leq n}\subset C^1_b(\mathbb{R}^d)$,使得
+\[
+    f(\mu)=g(\mu(h_1),\cdots,\mu(h_n)),\mu\in \mathscr{P}_p.
+\]
+柱函数是较大的一类的函数,例如线性函数就是一种特殊的柱函数,在此给出柱函数的外在导数公式.

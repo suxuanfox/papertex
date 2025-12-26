@@ -234,6 +234,19 @@ $\mu_0$处的Lions导数或L-导数.此时有
 \end{equation}
 
 其中$\mathscr{L}(X)=\mu,\mathscr{L}(X_0)=\mu_0$.
+
+作为以上微分公式的一个应用,给出如下命题,这是\citep{brw}的定理2.1的特殊情形.
+\begin{corollary}
+    设函数$f:\mathscr{P}_2\to \mathbb{R}$连续,在一个无原子的概率测度$\mu_0$处L-可微,存在常数$C$使得
+    \[
+        \abs{\partial_{\mu}f(\mu_0)(x)}\leq C(1+\abs{x}).
+    \]
+    $(X_s)_{s\in[0,1]}\subset L^2(\Omega;\mathbb{R}^d)$是一族随机变量,$\mathscr{L}(X_0)=\mu_0$,$X_s$关于$s$连续,且
+    $\dot{X}_0\coloneq \lim_{s\downarrow} \frac{X_s-X_0}{s}$在$L^2(\Omega;\mathbb{R}^d)$中存在.则
+    \[
+        \lim_{s\downarrow 0}\frac{f(\mathscr{L}(X_s))-f(\mu_0)}{s}=\mathbb{E}[\ipr{\partial_{\mu}f(\mu_0)(X_0) }{\dot{X}_0}].
+    \]
+\end{corollary}
 \subsection{若干例子}
 \begin{example}[线性函数]\label{eg3.1}
     我们首先计算积分形式给出的线性函数.给定光滑函数$h:\mathbb{R}^d\to \mathbb{R}$,且$\abs{\nabla h(x)}\leq C(1+\abs{x})$.
