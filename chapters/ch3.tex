@@ -3,11 +3,16 @@
 Lions导数可以看作是Frechet导数的延伸,这一章则主要介绍Gateaux导数或方向导数的概念在测度变量的函数
 上的应用.
 参考文献是在Riemann流形上对一般情况定义了几种导数,为简单起见,此处只考虑欧氏空间$\mathbb{R}^d$的情形.$\mathscr{M}$表示$\mathbb{R}^d$上有限测度全体,
-记$\mathscr{M}_p=\{\mu\in\mathscr{M}:\mu(\abs{\cdot}^p)<\infty\}$表示$\mathbb{R}^d$上$p$阶矩有限测度的全体,$p\in [0,\infty)$,配备通常的加法,减法和数乘.定义
+记$\mathscr{M}_p=\{\mu\in\mathscr{M}:\mu(\abs{\cdot}^p)<\infty\}$表示$\mathbb{R}^d$上$p$阶矩有限测度的全体,$p\in [0,\infty)$,配备通常的加法,减法和数乘.对$p>0$,定义Wasserstein距离
 \[
     W_p(\mu,\nu)=(\mu(\mathbb{R}^d)\wedge \nu(\mathbb{R}^d))W_p(\frac{\mu}{\mu(\mathbb{R}^d)},\frac{\nu}{\nu(\mathbb{R}^d)})+\abs{\mu(\mathbb{R}^d)-\nu(\mathbb{R}^d)},
 \]
-$(\mathscr{M}_p,W_p)$是一个完备度量空间.
+当$p=0$时,定义Prokhorov度量
+\[
+    W_0(\mu,\nu )=\inf \{\epsilon>0:\mu(A)\leq\epsilon+\nu(A^\epsilon),\nu(A)\leq\epsilon+\mu(A^\epsilon),A\in \mathscr{B}(\mathbb{R}^d)\},
+\]
+其中$A^\epsilon=\{x\in \mathbb{R}^d:d(x,A)<\epsilon\}$.\par
+对于任意$p\in [0,\infty)$,$(\mathscr{M}_p,W_p)$是一个可分完备度量空间.
 \section{定义}
 我们首先给出外在导数的定义.
 \begin{definition}
@@ -91,17 +96,20 @@ $\mu\in \mathscr{P}_p$,
     \end{aligned}\notag
 \end{equation}
 这就是内蕴导数的形式.而Lions导数本质是Frechet导数,应该考虑任意方向,所以在令$Y$的二阶矩趋于$0$的过程不应该通过
-给一个固定的函数做伸缩来实现,而应该让函数本身充分小,用严格的数学语言来叙述即如下定义.
-\begin{definition}
-    给定$p\in [0,2]$.称函数$f:\mathscr{P}_p\to \mathbb{R}$在$\eta\in \mathscr{P}_p$L-可导,是指:$f$是内蕴可导的,且
+给一个固定的函数做伸缩来实现,而应该让函数本身充分"小",用严格的数学语言来叙述即如下定义.
+\begin{definition}\label{L可微的第二定义}
+    给定$p\in [0,2]$.称函数$f:\mathscr{M}_p\to \mathbb{R}$在$\eta\in \mathscr{M}_p$L-可导,是指:$f$是内蕴可导的,且
     \[
-        \lim_{\nm[L^2(\eta)]{\phi}\downarrow 0}\frac{\abs{f(\eta\circ (\mathrm{id}+\phi)^{-1})-f(\eta)-D^I_\phi f(\eta)}}{\nm[L^2(\eta)]{\phi}}=0,
+        \lim_{\nm[L^p(\eta)]{\phi}\downarrow 0}\frac{\abs{f(\eta\circ (\mathrm{id}+\phi)^{-1})-f(\eta)-D^I_\phi f(\eta)}}{\nm[L^p(\eta)]{\phi}}=0,
     \]
-    若$f$在任意$\eta\in \mathscr{P}_p$都L-可导,则称$f$是L-可导的,此时将$D^I f$记为$D^L f$.
+    若$f$在任意$\eta\in \mathscr{M}_p$都L-可导,则称$f$是L-可导的,此时将$D^I f$记为$D^L f$.
 \end{definition}
 \begin{remark}
     根据第二章的相关讨论,在这个定义中,要求$f$内蕴可导是自然的;另外,在这个L-可导的定义下,L-可导显然强于
-    内蕴可导,而当$f$L-可导时,其L-导数就是内蕴导数. 以上定义对$\mathscr{M}_p$上的函数同样成立.
+    内蕴可导,而当$f$L-可导时,其L-导数就是内蕴导数. 以上定义对$\mathscr{M}_p$上的函数同样成立.\par
+    称$f\in C^{L,1}(\mathscr{M}_p)$,是指:$f$是L-可导的,且存在$\eta$版本的$D^L f(\eta)(\cdot)$使得$(x,\eta)\mapsto D^L f(\eta)(x)$是$\mathbb{R}^d\times \mathscr{M}_p$上的连续映射;若在此基础上,$D^L f$还是有界的,
+    则记$f\in C^{L,1}_b(\mathscr{M}_p)$.\par
+    以上关于L-导数的定义和函数类均可完全限制在$\mathscr{P}_p$的情形下给出对应的定义和记号.
 \end{remark}
     
 
@@ -122,19 +130,157 @@ $\mu\in \mathscr{P}_p$,
     由于只涉及到凸组合,所以线性泛函导数的定义对$\mathscr{P}_p$上的实值函数完全成立.
 \end{remark}
 
-\subsection{几种导数的关系}
-\subsubsection{外在导数和L-导数}
+以上定义的几种导数并不是完全孤立的,在合适的条件下,它们之间可以相互表达.将外在导数和凸外在导数看作一类,内蕴导数和L-导数
+看作一类,线性泛函导数看作一类,这三类导数之间都存在一定的联系.\par
+
 由于L-导数可以视为更强的内蕴导数,所以这里只讨论外在导数和L-导数的关系.从定义的形式上来看,外在导数的定义要比
 L-导数的计算"简单"一些,所以希望能找到它们间的关联,从而通过计算外在导数来简化L-导数的计算.事实上,有以下定理.
 \begin{theorem}
-    设
+    设$p\in[0,2]$.\ 若$f\in C^{E,1,1}_b(\mathscr{M}_p)$,则$f\in C^{L,1}_b(\mathscr{M}_p)$,
+    且
+    \[
+        D^L f(\eta)=\nabla [D^E f(\eta)],\eta\in \mathscr{M}_p
+    \]
 \end{theorem}
-\subsubsection{L-导数和线性泛函导数}
-\subsection{若干例子}
+证明思路和细节参见\citep{mpsa}的定理2.1和\citep{wrde}的定理2.1(3).\par
+实际上,上述定理还说明在一定条件下,测度变量的函数在一点处的L-导数可以视为某标量函数的梯度;反过来,如果
+已知L-导数,则可以通过积分或中值定理计算,在相差一个常数的意义下得到外在导数,即
+\[
+    D^E f(\eta)(x)=D^E f(\eta)(0)+\int_{0}^{1} D^L f(\eta )(x)\cdot x \mathrm{d}x.
+\]
+
+而对于线性泛函导数,在多数情况下,如果只根据定义只能验证而非计算一个测度变量函数的线性泛函导数,但以下定理说明
+对一大类函数,外在导数若存在,则外在导数就是线性泛函导数.
+\begin{theorem}
+    若函数$f\in C^{E,1}_K(\mathscr{M}_p)$,则$f$的线性泛函导数存在,且$D^F f=D^E f$.
+\end{theorem}
+\section{链式法则}
+由于在一定条件下,三类导数可以相互表示,所以这里只给出L-导数的链式法则,也是推论\ref{cr1}的一般情形.
+\begin{theorem}
+    设$p\geq 1$.$f:\mathscr{P}_p\to \mathbb{R}$是连续函数,$(X_s)_{s\in[0,1]}$是一族$\mathbb{R}^d$值的随机变量,$X_s$在$L^p$意义下
+    关于$s$连续,
+    $\dot{X}_0\coloneq \lim_{s\downarrow 0}\frac{X_s-X_0}{s}$在$L^p(\Omega;\mathbb{R}^d)$中存在.下列两个条件至少满足其一:\par
+    (1)\ $\mu_0=\mathscr{L}(X_0)$无原子,$f$是L-可微的且$D^L f(\mu_0)$存在一个连续版本以及常数$C$使得
+    \[
+        \abs{D^L f(\mu_0)(x)}\leq C(1+\abs{x}^{p-1}),
+    \]\par
+    (2)\ $f$在$\mu_0$的一个邻域$O$内是L-可微的,$D^L f$有一个版本使得$\mathbb{R}^d\times O\ni (x,\mu)\mapsto D^L f(\mu)(x)$连续,且存在常数 $C$使得
+    \[
+        \abs{D^L f(\mu_0)(x)}\leq C(1+\abs{x}^{p-1}).
+    \] \par
+    则
+    \begin{align}\label{cr2}
+        \lim_{s\downarrow 0}\frac{f(\mathscr{L}(X_s))-f(\mu_0)}{s}=\mathbb{E}[\ipr{D^L f(\mu_0)(X_0)}{\dot{X}_0}].
+    \end{align}
+\end{theorem}
+
+\begin{proof}\ \par
+    (1)\ 当$\mu_0$无原子时,完全类比于第二章引理\ref{lm3.1}的讨论可得,对于任意$n\in \mathbb{N}$,存在可测映射$S_n:\Omega\to \mathbb{R}^d$和$T_n:\mathbb{R}^d\to \Omega$,使得
+    \begin{align}
+        &\mathbb{P}(T_n\circ S_n =\mathrm{id}_\Omega)=\mu_0(S_n\circ T_n=\mathrm{id}_{\mathbb{R}^d})=1,\\
+        &\mathbb{P}=\mu_0\circ T_n^{-1}, \mu_0=\mathbb{P}\circ S_n^{-1},\label{4.2}\\
+        &\nm[L^\infty(\mathbb{P})]{X_0-S_n}+\nm[L^\infty(\mu_0)]{\mathrm{id}_{\mathbb{R}^d}-X_0\circ T_n}\leq\frac{1}{n}.\label{4.3}
+    \end{align}
+    由L-可导的定义\ref{L可微的第二定义}可知,存在一个非增的函数$h$满足当$s\to 0$,$h(s)\to 0$,使得
+    \[
+        \sup_{\nm[L^p(\mu_0)]{\phi}\leq r} \abs{f(\mu_0\circ(\mathrm{id}_{\mathbb{R}^d}+\phi)^{-1})-f(\mu_0)-D^L_\phi f(\mu_0)}\leq rh(r),
+    \]
+    由$\mathscr{L}(X_s-X_0)\in \mathscr{P}_p$和式\ref{4.2}可得
+    $\phi_{n,s}\coloneq (X_s-X_0)\circ T_n\in L^p(\mu_0)$,这是因为$\nm[L^p(\mu_0)]{\phi_{n,s}}=\nm[L^p(\mathbb{P})]{X_s-X_0}$,
+    对任意的$A\in \mathscr{B}(\mathbb{R}^d)$
+    \begin{equation}
+        \begin{aligned}
+            \mathscr{L}(S_n+X_s-X_0)(A)&=\mathbb{P}((S_n+X_s-X_0)^{-1}(A))\\
+            &=(\mu_0\circ T_n^{-1})((S_n+X_s-X_0)^{-1}(A))\\
+            &=\mu_0(T_n^{-1}((S_n+X_s-X_0)^{-1}(A)))\\
+            &=\mu_0(((S_n+X_s-X_0)\circ T_n)^{-1(A)})\\
+            &=\mu_0((\mathrm{id}_{\mathbb{R}^d}+(X_s-X_0)\circ T_n)^{-1}(A))\\
+            &=\mu_0((\mathrm{id}_{\mathbb{R}^d}+\phi_{n,s})^{-1}(A))\\
+            &=(\mu_0\circ (\mathrm{id}_{\mathbb{R}^d}+\phi_{n,s})^{-1})(A).
+        \end{aligned}
+    \end{equation}
+    由条件可知,存在$\delta\in[0,1]$使得任意$s\in(0,\delta)$,
+    \[
+            \nm[L^p(\mathbb{P})]{\frac{X_s-X_0}{s}-\dot{X}_0}\leq \nm[L^2(\mathbb{P})]{\dot{X_0}}\implies \nm[L^2(\mathbb{P})]{X_s-X_0}\leq s(2\nm[L^2(\mathbb{P})]{\dot{X}_0}\vee 1)=cs,
+    \]
+    另一方面,
+    \begin{equation}
+        \begin{aligned}
+            D^L_{\phi_{n,s}}f(\mu_0)&=\ipr{D^L f(\mu_0)}{\phi_{n,s}}_{L^2(\mu_0)}\\
+            &=\int_{\mathbb{R}^d} \ipr{D^L f(\mu_0)(x)}{\phi_{n,s}(x)}\mathrm{d}\mu_0(x)\\
+            &=\int_{\mathbb{R}^d} \ipr{D^L f(\mu_0)(x)}{\phi_{n,s}(x)}\mathrm{d}(\mathbb{P}\circ S_n^{-1})(x)\\
+            &=\mathbb{E}[\ipr{D^L f(\mu_0)(S_n)}{\phi_{n,s}(S_n)}]\\
+            &=\mathbb{E}[\ipr{D^L f(\mu_0)(S_n)}{X_s-X_0}].
+        \end{aligned}
+    \end{equation}
+    综上可得,
+    \begin{equation}
+        \begin{aligned}
+            &\abs{f(\mathscr{L}(S_n+X_s-X_0))-f(\mathscr{L}(X_0))-\mathbb{E}[\ipr{D^L f(\mu_0)(S_n)}{X_s-X_0}]}\\
+            =&\abs{f(\mu_0\circ (\mathrm{id}_{\mathbb{R}^d}+\phi_{n,s})^{-1})-f(\mu_0)-D^L_{\phi_{n,s}} f(\mu_0)}\\
+            \leq &\nm[L^p(\mu_0)]{\phi_{n,s}}h(\nm[L^p(\mu_0)]{\phi_{n,s}})\\
+            =&\nm[L^p(\mathbb{P})]{X_s-X_0}h(\nm[L^p(\mathbb{P})]{X_s-X_0}),s\in[0,\frac{1}{c}]
+        \end{aligned}
+    \end{equation}
+    由式\ref{4.3}可知,当$n\to\infty$,$S_n$几乎处处收敛到$X_0$,且由控制收敛定理加上$f$及其导数的连续性可得
+    \[
+        \abs{f(\mathscr{L}(X_s)-f(\mu_0)-\mathbb{E}[\ipr{D^L f(\mu_0)(X_0)}{X_s-X_0}]}\leq \nm[L^p(\mathbb{P})]{X_s-X_0}h(\nm[L^p(\mathbb{P})]{X_s-X_0}),
+    \]
+    两边同时除以$s$再令$s\to 0$即可. \par
+    (2)\ 若$\mu_0$不是无原子的,取一个独立于$(X_s)$且分布无原子的随机变量$X$,则随机变量$X_0+\epsilon X+r(X_s-X_0)$的分布总是无原子的.当$\delta$充分小时,
+    应用中值定理可得,
+    \begin{equation}
+        \begin{aligned}
+            &f(\mathscr{L}(X_s+\epsilon X))-f(\mathscr{L}(X_0+sX))\\
+            =&\int_{0}^{1}\frac{\mathrm{d}}{\mathrm{d}\delta    }|_{\delta=0}f(\mathscr{L}(X_0+\epsilon X+(r+\delta)(X_s-X_0)))\mathrm{d}r\\
+            =&\int_{0}^{1}\mathbb{E}[\langle D^L f(\mathscr{L}(X_0+\epsilon X+(r+\delta)(X_s-X_0)))(X_0+\epsilon X+(r+\delta)(X_s-X_0)),X_s-X_0\rangle],
+        \end{aligned}
+    \end{equation}
+    令$\epsilon\to 0$即可.
+\end{proof}
+\section{若干例子}
 对上一节定义的几种导数,我们介绍几个简单可计算的例子,并体现它们之间的联系.\par
 称函数$f:\mathscr{M}_p\to \mathbb{R}$为$C^1_b-$柱函数或$f\in \mathscr{F}C^1_b(\mathscr{M}_p)$,是指:存在$n\in \mathbb{N}$,$g\in C^2(\mathbb{R}^n)$和
 ${h_i:1\leq i\leq n}\subset C^1_b(\mathbb{R}^d)$,使得
 \[
     f(\mu)=g(\mu(h_1),\cdots,\mu(h_n)),\mu\in \mathscr{P}_p.
 \]
-柱函数是较大的一类的函数,例如线性函数就是一种特殊的柱函数,在此给出柱函数的外在导数公式.
+柱函数是应用较广的一类函数,例如取$n=1,g(x)=x$以及适当的$h:\mathbb{R}^d\to \mathbb{R}$,此时$f(\mu)=\mu(h)$就是一个线性函数,
+当$\mu\in \mathscr{M}_p$或$\mathscr{P}_p$时,容易计算
+\begin{equation}
+    \begin{aligned}
+        &D^E f(\mu)(x)=h(x),\\
+        &\tilde{D}^E f(x)=h(x)-\mu(h),
+    \end{aligned}
+\end{equation}
+并且可以验证$D^E f$就是线性泛函导数,且根据第三章计算知,当$h$连续可微时,$D^L f(\mu)(x)=\nabla h(x)$.\par
+对于任意光滑函数$g:\mathbb{R}\to \mathbb{R}$,
+\begin{equation}
+    \begin{aligned}
+        &f(\mu+s\delta_x)-f(\mu)\\
+        =&g((\mu+s\delta_x)(h))-g(\mu(h))\\
+        =&\int_{0}^{1} g'(\mu(h)+t((\mu+s\delta_x)(h)-\mu(h)))((\mu+s\delta_x)(h)-\mu(h))\mathrm{d}t\\
+        =&\int_{0}^{1} g'(\mu(h)+sth(x))sh(x)\mathrm{d}t,
+    \end{aligned}
+\end{equation}
+观察并验证可得,$D^E f(\mu)(x)=g'(\mu(h))h(x)$.
+对于$f$的内蕴导数,取光滑向量场$\phi$,
+\begin{equation}
+    \begin{aligned}
+        &f(\mu\circ (\mathrm{id}+s\phi)^{-1})-f(\mu)\\
+        =&g(\mu(h\circ (\mathrm{id}+s\phi)))-g(\mu(h))\\
+        =&\int_{0}^{1} g'(\mu(h)+t(\mu(h\circ (\mathrm{id}+s\phi))-\mu(h)))(\mu(h\circ (\mathrm{id}+s\phi))-\mu(h)))\mathrm{d}t,
+    \end{aligned}
+\end{equation}
+设$h$是紧支光滑的,则$\lim_{s\downarrow 0}\frac{h(x+s\phi(x))-h(x)}{s}=\ipr{\nabla h(x)}{\phi(x)}$,观察并验证可得
+$D^I_\phi f(\mu)=g'(\mu(h))\ipr{\nabla}{\phi}$,也即$D^I f(\mu)=g'(\mu(h))\nabla h$.
+以上讨论均可推至一般的柱函数$f(\mu)=g(\mu(h_1),\cdots,\mu(h_n))$,
+\begin{equation}
+    \begin{aligned}
+        &D^E f(\mu)=\sum_{i=1}^{n}\partial_{i}g(\mu(h_1),\cdots,\mu(h_n))h_i,\\
+        &D^L f(\mu)=\sum_{i=1}^{n}\partial_{i}g(\mu(h_1),\cdots,\mu(h_n))\nabla h_i.
+    \end{aligned}
+\end{equation}
+
+下面考虑卷积函数$f(\mu)=\mu(h*\mu)=\int_{\mathbb{R}^d} (h*\mu)(x) \mathrm{d}x=\int_{\mathbb{R}^d}\int_{\mathbb{R}^d}h(x-y)\mathrm{d}\mu(y)\mathrm{d}\mu(x)$,则
+$f(\mu+s\delta_z)=f(\mu)+s\mu(h)+s((h+\bar{h})*\mu)(z)+s^2 h(0)$,其中$\bar{h}(x)=h(-x)$,即$D^E f(\mu)(z)=((h+\bar{h})*\mu)(z)$,这也与第三章的计算相对应.

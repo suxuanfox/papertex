@@ -1,0 +1,349 @@
+\chapter{水平导数和垂直导数}
+本章主要参考引用自\citep{fic}和\citep{Peng2023}.\par
+考虑一个带流的概率空间$(\Omega,\mathscr{F},(\mathscr{F}_t)_{t\geq 0},\mathbb{P})$,其中滤流$(\mathscr{F}_t)$满足通常条件,即$(\mathscr{F}_t)$右连续:对任意$t\geq 0,\mathscr{F}_{t+}\coloneq \cap_{s>t}\mathscr{F}_s=\mathscr{F}_t$
+且$\mathscr{F}_0$包含所有的$\mathbb{P}-$零测集.记$\mathcal{P},\mathcal{O}$分别表示$\mathbb{R}_+\times \Omega$上由全体
+左连续过程和全体右连左极\footnote{对$[0,\infty]$或连通子集上取值于一个度量空间的映射来说,右连左极是指处处右连续且左极限存在;对随机过程
+则是指样本路径作为函数是右连左极的.左连右极类似,但较少使用.}过程生成的$\sigma$代数,分别称为可料$\sigma$代数和可选$\sigma$代数.
+$X:[0,T]\times \Omega\to \mathbb{R}^d$是一个连续半鞅,$\mathscr{F}^X_t$表示$X$生成的自然$\sigma$代数流.$\langle X\rangle\coloneq (\ipr{X^i}{X^j})_{1\leq i,j\leq d}$表示
+$X$的二次变差,是一个取值于$S^+_d$的过程,其中$S^+_d$表示全体$d$维正定方阵.我们总假设存在一个取值于$S^+_d$的右连左极过程$(A_s)$,使得
+\[
+    \langle X\rangle _t=\int_{0}^{t} A_s \mathrm{d}s.
+\]\par
+记$D([0,T];\mathbb{R}^d)$表示$[0,T]$上全体右连左极的$\mathbb{R}^d$值函数,$D([0,T];S^+_d)$表示$[0,T]$上全体右连左极的$S^+_d$值函数$C_0([0,T];\mathbb{R}^d)$则表示$[0,T]$上全体
+在$0$时刻取值为0的连续函数.对于以上函数空间中的元素或其他正半轴及其子集上的函数$x$,不加区分地使用$x_t$或$x(t)$表示函数$x$在$t$处的取值.
+而对于$\Omega$上的随机过程$Z=(Z_t)$,$Z_t$或$Z(t,\cdot)$表示一个随机变量,而$Z_{\cdot} (\omega)$或$Z(\cdot,\omega)$表示一个样本路径.\par
+
+
+\section{水平延拓和垂直扰动}
+
+对于一个右连左极函数$x\in D([0,T];\mathbb{R}^d)$或$x\in D([0,T];S^+_d)$,它在$t$时刻的截断记为$x^t=(x_s,0\leq s \leq t)\in D([0,t];\mathbb{R}^d)$.(类似地对于一个随机过程$X$,定义
+在$t$时刻的截断为$X^t=(X_s,0\leq s\leq t)$)\par
+对$r>0$,定义$x^t$到$[0,t+r]$的水平延拓为$x^{t,\to r}\in D([0,t+r];\mathbb{R}^d)$,
+
+    \begin{equation}
+        x^{t,\to r}_s=\left\{
+                \begin{aligned}
+                  &x_s,&&s\in[0,t],\\
+                  &x_t,&&s\in(t,t+r].  
+                \end{aligned}
+        \right.
+    \end{equation}
+
+对$v\in \mathbb{R}^d$,定义$x^t$沿方向$v$的垂直扰动为$x^{t,\uparrow v}\in D([0,t];\mathbb{R}^d)$,
+\begin{equation}
+    x^{t,\uparrow v}_s=\left\{
+        \begin{aligned}
+            &x_s,&&s\in [0,t)\\
+            &x_t+v,&&s=t.
+        \end{aligned}
+    \right.
+\end{equation}
+\begin{remark}
+    水平延拓和垂直扰动分别满足交换律和结合律,这继承自欧式空间的交换律和结合律,也即对$\forall x\in D([0,T];\mathbb{R}^d),\forall t<T$,
+    \begin{equation}
+        \begin{aligned}
+            &\forall r,s\in [0,T-t]\text{且}r+s\in [0,T-t],(x^{t,\to r})^{t+r,\to s}=(x^{t,\to s})^{t+s,\to r}=x^{t,\to r+s},\\
+            &\forall v,w\in \mathbb{R}^d,(x^{t,\uparrow v})^{t,\uparrow w}=(x^{t,\uparrow w})^{t,\uparrow v}=x^{t,\uparrow v+w},
+        \end{aligned}
+    \end{equation}
+    但水平延拓和垂直扰动两种操作一般不能交换顺序.
+\end{remark}
+\begin{remark}
+    直观上看,如果将一个右连左极函数看作粒子运动轨迹的话,水平延拓就是用当前时刻粒子的位置来近似预测往后一小段时间的位置,而垂直扰动则是修改当前时刻
+    粒子位置,使其沿某一方向做微小平移.
+\end{remark}
+此外,对于$x\in D([0,T];\mathbb{R}^d)$(或$x\in D([0,T];S^+_d)$),定义$x^{t-}\in D([0,t];\mathbb{R}^d)$(或$x\in D([0,t];S^+_d)$),
+\begin{equation}
+    x^{t-}_s=\left\{
+        \begin{aligned}
+            &x_s,&&s\in [0,t)\\
+            &x_{t-},&&s=t.
+        \end{aligned}
+    \right.
+\end{equation}
+即将$t$时刻的函数值修改为左极限.(一个右连左极函数将任意点的值修改为该点的左极限是可行的,修改后的函数不再是右连左极而是左连右极的.)
+
+考虑停止路径空间$\Gamma=\{(t,\omega^{t,\to T-t}):\omega\in D([0,T];\mathbb{R}^d)\times D([0,T];S^+_d)\}$,配备一致度量$d_\infty$,
+\[
+    d_\infty((t,x),(s,y))=\abs{t-s}+\sup_{r\in [0,T]}\abs{x^{t,\to T-t}_r-y^{s,\to T-s}_r},
+\]
+\begin{remark}
+    在\citep{Peng2023}第3节的定义中,对$\mathbb{R}_+\times D([0,T];\mathbb{R}_d)$使用的距离是
+    \[
+        \tilde{d}_\infty((t,x),(s,y))=\abs{t-s}^{\frac{1}{2} }+\sup_{r\in [0,T]}\abs{x^{t,\to T-t}_r-y^{s,\to T-s}_r},
+    \]
+    但没有本质上的差异.
+\end{remark}
+在不致混淆的前提下,对$\Gamma$中的元素$(t,(x^{t,\to T-t},a^{t,\to T-t}))$,简记为$(x^t,a^t)$.对记$\mathcal{R}_t=D([0,t];\mathbb{R}^d,\mathcal{S}_t=D([0,t];S^+_d)$
+以及$\mathcal{D}_t= D([0,T];\mathbb{R}^d)\times D([0,T];S^+_d)$.以下总假设$F=(F_t)_{t\in[0,T]}$满足:\par
+(1)\ $\forall t\in [0,T]$,$F_t$是$\mathcal{D}_t$上的泛函,$F(t,x,a)=F_t(x^t,a^t)$;\par
+(2)\ $\forall t\in [0,T]$,$F_t$是关于$\mathscr{B}(\mathcal{R}_t)\otimes \mathscr{B}(\mathcal{S}_t)$可测,其中路径空间上
+的拓扑取为\citep{lim}第七章第5节中度量$d_0$诱导生成的Skorohod拓扑;而任意$t\in [0,T]$,映射$\mathbb{R}_+\times \mathcal{R}_T\times \mathcal{S}_T\ni (s,x,a)\mapsto F(s,x,a)=F_s(x^s,a^s),s\in [0,t]$
+是关于$\mathscr{B}(\mathbb{R}_+)\otimes\mathscr{B}(\mathcal{R}_t)\otimes \mathscr{B}(\mathcal{S}_t)$可测的;\par
+
+(3)\ $F_t(x,a)=F_t(x,a^{t-}),(x,a)\in \mathcal{D}_t.$\par
+
+\begin{remark}
+    粗略地讲,泛函$F_t$对第一个变量要求依赖于$t$时刻及之前的行为,而对第二个变量的要求不依赖于$t$时刻;另外,在讨论$F(t,x,a)$或$F_t(x,a)$时,默认通过
+    截断或水平延拓的方法使得$(x,a)$取于对应的定义域中.
+\end{remark}
+
+\section{泛函的连续性}
+
+考虑一个泛函$F=(F_t)$,它可以看作是$\Gamma$上的泛函,而$\Gamma$已经配备了一个距离,所以定义泛函的连续性是可行的.
+\begin{definition}\label{def4.1}
+    称泛函$F=(F_t)_{t\in [0,T]}$在固定时间连续,是指:任意$t\in [0,T]$,$\forall\epsilon >0$,$\forall (x,a)\in\mathcal{D}_t$,
+    存在$\delta>0$,使得若$(x',a')\in \mathcal{D}_t$满足
+    \[
+        d_\infty((t,(x,a)),(t,(x',a')))<\delta,
+    \]则
+    \[
+        \abs{F_t(x,a)-F_t(x',a')}<\epsilon.
+    \]
+\end{definition}
+
+\begin{definition}
+    称泛函$F=(F_t)_{t\in [0,T]}$在$(x,a)\in \mathcal{D}_t$处连续,是指:
+    $\forall \epsilon>0$,存在$\delta>0$,使得若$(s,(y^s,b^s))\in \Gamma$满足
+    \[
+        d_\infty((t,(x,a)),(s,(y^s,b^s)))<\delta,
+    \]则
+    \[
+        \abs{F_t(x,a)-F_s(y^s,b^s)}<\epsilon.
+    \]
+\end{definition}
+
+\begin{definition}
+    称泛函$F=(F_t)_{t\in [0,T]}$左连续,是指:$\forall t\in [0,T],\forall\epsilon>0,\forall(x,a)\in \mathcal{D}_t$,存在$\delta>0$,
+    使得任意$h>0$,$\forall(x',a')\in \mathcal{D}_{t-h}$,若满足
+    \[
+        d_\infty((t,(x,a)),(t-h,(x',a')))<\delta,
+    \]则
+    \[
+        \abs{F_t(x,a)-F_{t-h}(x',a')}<\epsilon.
+    \]
+\end{definition}
+类似于左连续,还可以定义右连续.将$\Gamma$上全体连续泛函记为$C^{0,0}([0,T])$,全体左连续泛函记为$C^{0,0}_l([0,T])$.
+
+\begin{proposition}\label{保连续性}
+    设$F\in C^{0,0}_l([0,T])$.则对任意$(x,a)\in\mathcal{D}_T$,映射$t\mapsto F_t(x^{t-},a^{t-})$是左连续的.
+\end{proposition}
+由于修改后的函数是左连右极的,所以这个性质是自然的.
+
+\begin{definition}
+    称泛函$F=(F_t)$保持有界,是指:对任意$\mathbb{R}^d$中的紧集$K$,任意$R>0,t<T$,都存在$C>0$,使得$\forall s<t,\forall(x,a)\in D([0,T];K)\times \mathcal{S}_t$,蕴含关系
+    \[
+        \sup_{s\in [0,t]}\abs{a_s}<R\implies\abs{F_t(x,a)}<C
+    \]成立.
+\end{definition}
+
+\section{路径导数的定义和例子  }
+
+下面给出水平导数和垂直导数的定义,这两种导数统称为Dupire导数(见\citep{dup})或路径导数.
+
+\begin{definition}
+    称泛函$F=(F_t)_{t\in [0,T]}$在$(x,a)\in \mathcal{D}_t$处水平可导,是指:极限
+    \[
+        D^H_t F(x,a)\coloneq \lim_{r\downarrow 0}\frac{F_{t+r}(x^{t,\to r},a^{t,\to r})-F_t(x,a)}{r}
+    \]存在.\par
+    如果$F$在所有$(x,a)\in \Gamma$处水平可导,则可以定义映射
+    \begin{equation}
+        \begin{aligned}
+            D^H_t F:\mathcal{D}_t&\to \mathbb{R}\\
+            (x,a)&\mapsto D^H_t F(x,a),
+        \end{aligned}
+    \end{equation}
+    以及泛函$D^H F=(D^H_t F)_{t\in [0,T]}$,称为$F$的水平导数.
+\end{definition}
+\begin{remark}
+    在\citep{Peng2023}中,对$u:\mathbb{R}_+\times \mathcal{R}_T$的水平导数定义中,考虑的是$(u(t+r,x^t)-u(t,x^t))/r$,这是一点细微的差别.
+\end{remark}
+
+\begin{definition}
+    称泛函$F=(F_t)_{t\in [0,T]}$在$(x,a)\in \mathcal{D}_t$处垂直可导,是指:存在$p\in \mathbb{R}^d$,使得任意
+    \[
+        F_t(x^{t,\uparrow v},a^t)=F_t(x^t,a^t)+\ipr{p}{v}+o(\abs{v}),\text{当}v\to 0_{\mathbb{R}^d},
+    \]
+    $p$称为$F$在$(x,a)$处的垂直导数,记为$D^V_t F(x,a)$,类似地有映射$D^V_t F$和泛函$D^V F=(D^V_t F)_{t\in [0,T]}$.
+\end{definition}
+\begin{remark}
+    类似于多元微积分,以上垂直导数可以看作一阶的,并可以定义高阶的垂直导数,例如二阶垂直导数在计算中可以视为一阶垂直导数逐分量求导,同构于
+    一个$d$维对称方阵,$k$阶垂直导数相应地记为$D^{V,k}_t F$和$D^{V,k} F$.
+\end{remark}
+水平导数可以看作是关于时间的导数,而垂直导数则是关于空间的导数,在理论和应用中,一般更关心对空间的正则性,而关于时间的正则性要求则不会太高,
+因此我们定义以下泛函类:称$F\in C^{1,k}([0,T])$,是指:\par
+(1)\ $F$水平可导,且$D^H f$在固定时刻连续(见定义\ref{def4.1});\par
+(2)\ $F$是$k$次垂直可导的,且任意$1\leq i \leq k$,$D^{V,k} F\in C^{0,0}_l([0,T])$.
+\section{若干例子}
+这里给出几种常见泛函的路径导数的例子.
+\begin{example}
+    设$F_t(x)=f(t,x_t),t\in [0,T],x\in \mathcal{R}_T$,其中$f\in C^1(\mathbb{R}^{1+d})$,记$\partial_{1}f$表示$f$
+    关于第一个分量的偏导数,$\partial_{2}f$表示对第二个分量的梯度,则
+    \begin{equation}
+        \begin{aligned}
+            &F_{t+r}(x^{t,\to r})-F_t(x^t)\\
+            =&f(t+r,x^{t,\to r}_{t+r})-f(t,x^t_t)\\
+            =&f(t+r,x_t)-f(t,x_t),
+        \end{aligned}
+    \end{equation}
+    所以$F$的水平导数为$D^H_t F(x)=\partial_{1} f(t,x_t)$.\par
+    而
+    \[
+        F_t(x^{t,\uparrow he_i})-F_t(x^t)=f(t,x_t+he_i)-f(t,x_t),
+    \]
+    所以$F$的垂直导数为$D^V_t F(x)=\partial_{2}f(t,x_t)$.\par
+    可以看出,$f$的对第二个变量的光滑性越好,$F$的垂直光滑性也越好.
+\end{example}
+
+\begin{example}
+    给定$h\in C^k(\mathbb{R}^d)$,$g\in C(\mathbb{R}^n)$以及$\{t_i,i=1,\cdots,n\}\subset [0,T]$,设
+    \[
+        F_t(x)=h(x_t-x_{t_n -})I_{t\geq t_n} g(x(t_1 -),\cdots,x(t_n -)).
+    \]
+    注意到对$\forall t< t_n$,$F_t\equiv 0$,而对于$t\geq t_n$,
+    \begin{equation}
+        \begin{aligned}
+            F_{t+r}(x^{t,\to r})&=h(x^{t,\to r}_t-x^{t,\to r}_t)g(x^{t,\to r}_{t_1-},\cdots,x^{t,\to r}_{t_n-})\\
+            &=h(x_t-x_{t_n -})I_{t\geq t_n} g(x(t_1 -),\cdots,x(t_n -))\\
+            &=F_t(x^t),
+        \end{aligned}
+    \end{equation}
+    所以水平导数总是0.而垂直导数为
+    $$D^V_t F(x)=\nabla h(x_t-x_{t_n -})I_{t\geq t_n} g(x(t_1 -),\cdots,x(t_n -)).$$\par
+    注意对古典微积分或Banach空间中的Frechet导数,如果一个函数的导数在一个连通开集上恒为0,则可以得到该函数在这个开集上取常值,
+    但这个例子则说明,水平导数一般没有这样的性质,这是因为在水平导数的定义中,路径的变化实际上是通过水平延拓实现的,但水平延拓只是
+    扩展了函数的定义域,没有真正带来更多"信息",这也是\citep{fic}和\citep{Peng2023}中水平导数的定义稍有差异但很多时候没有本质区别的原因之一.
+\end{example}
+
+\begin{example}
+    给定$g\in C(\mathbb{R}^d)$,令$F_t(x,a)=\int_{0}^{t} g(x_s)a_s \mathrm{d}s$.上面两个例子中的泛函只依赖于路径在有限个时刻的取值,
+    这个例子则是依赖$t$时刻及之前所有时间的行为.\par
+    首先,
+    \begin{equation}
+        \begin{aligned}
+            F_{t+r}(x^{t,\to r},a^{t,\to r})&=\int_{0}^{t+r} g(x^{t,\to r}_s)a^{t,\to r}_s \mathrm{d}s\\
+            &=F_t(x^t,a^t)+\int_{t}^{t+r} g(x_t)a_t \mathrm{d}s\\
+            &=F_t(x^t,a^t)+rg(x_t)a_t,
+        \end{aligned}
+    \end{equation}
+    所有水平导数为$D^H_t F(x,a)=g(x_t)a_t$,而由于单点值的改变不影响积分,所以垂直导数为$0$,进而$F$还是任意阶垂直可导的.
+\end{example}
+
+\begin{example}
+    给定$\epsilon>0$,令$F_t(x)=x(t-\epsilon)$,显然$F$是任意阶垂直可导的且垂直导数总为$0$,但对充分小的$r>0$,
+    \[
+        F_{t+r}(x^{t,\to r})-F_t(x^t)=x^{t,\to r}(t+r-\epsilon)-x^t(t-\epsilon)=x(t+r-\epsilon)-x(t-\epsilon),
+    \]
+    由于$x$只是右连左极的,所以$F$在"绝大多数"点处都不是水平可导的.\par
+    这一例子说明水平可导和垂直可导之间不必有关联.
+\end{example}  
+
+\begin{example}
+    下面考虑一类简单的复合.给定$F\in C^{1,2}([0,T]),x\in \mathcal{D}_T$和$0\leq t<T$,定义映射
+    \begin{equation}
+        \begin{array}{r c c l}
+            \phi:&[0,T-t]&\longrightarrow&\mathbb{R}\\
+            \ &s &\longmapsto &F_{t+s}(x^{t,\to s}),\\
+            \psi:&\mathbb{R}^d&\longrightarrow&\mathbb{R}\\
+            \ &v&\longmapsto &F_t(x^{t,\uparrow v}),
+        \end{array}
+        \notag
+    \end{equation}
+    则$\phi$在$(0,T-t)$上是连续可导的,这是因为,对任意$s\in (0,T-t)$,
+    \begin{align*}
+        \lim_{r\downarrow 0}\frac{\phi(s+r)-\phi(s)}{r}&=\lim_{r\downarrow 0}\frac{F_{t+s+r}(x^{t,\to (s+r)})-F_{t+s}(x^{t,\to r})}{r}\\
+        &=\lim_{r\downarrow 0}\frac{F_{t+s+r}((x^{t,\to s})^{t+s,\to r})-F_{t+s}(x^{t,\to s})}{r}\\
+        &=D^H_{t+s} F(x^{t,\to s}),
+    \end{align*}
+    类似可得$\nabla \psi (v)=D^V_t F(x^{t,\uparrow v})$和$\nabla^2 \psi (v)=D^{V,2}_t F(x^{t,\uparrow v})$
+\end{example}
+
+\section{Ito公式}
+
+下面给出路径导数的Ito公式.
+\begin{theorem}
+    设泛函$F\in C^{1,2}([0,T])$.则对任意$0\leq t <T$,
+    \begin{equation}\label{ito公式}
+        \begin{aligned}
+            &F_t(X^t,A^t)-F_0(X^0,A^0)\\
+            =&\int_{0}^{t} D^H_s F(X^s,A^s)\mathrm{d}s+\int_{0}^{t} D^V_s F(X^s,A^s)\mathrm{d}s\\
+            &\quad +\frac{1}{2}\int_{0}^{t} \tr(D^{V,2}_s F(X^s,A^s)A_s)\mathrm{d}s
+        \end{aligned}
+    \end{equation}
+\end{theorem}
+\begin{proof}
+    首先假设$X$的支集包含在一个紧集$K$内,且$\nm[\infty]{A}\leq R$.\par
+    对于任意的$n\in \mathbb{N}$,将区间$[0,t]$做$2^n$等分,端点集$P_n=\{\frac{kt}{2^n}:k=0,1,\cdots,2^{n}-1\}$.
+    考虑一列停时$\{\tau^n_k,k=1,\cdots,k_n\}$,其中$\tau^n_0=0$,
+    \[
+        \tau^n_k=t\wedge\inf \{s>\tau^n_{k-1}:2^n s\in \mathbb{N}\text{或}\abs{A_s-A_{s-}}>\frac{1}{n}\},k\geq 1,
+    \]
+    直观上看,停时$\tau^n_1$就是第一个$2^n$分端点或第一次发生较大跳的时间,其余类似.且根据定义和$A$的一致有界性,一定会在有限个停时到达$t$,因此$2^n\leq k_n<\infty$,
+    从而$\{\tau^n_k,k=1,\cdots,k_n\}$给出了区间$[0,t]$的一个有限随机剖分,
+    且两个相邻停时之间的间隔$h^n_k=\tau^n_{k+1}-\tau^n_k\leq \frac{1}{2^n}$.
+    此外,定义
+    \[
+        \eta_n=\frac{t}{2^n}+\sup_{1\leq k\leq k_n}\sup_{s\in [\tau^n_k,\tau^n_{k+1})}\{\abs{A_s-A_{\tau^n_k}}+\abs{X_s-X_{\tau^n_k}}\},
+    \]
+    由于右连左极的性质,当$n\to \infty $,$\eta_n\to 0$.\par
+    考虑$(X_t,A_t)$的分段近似,对$n\in \mathbb{N}$,令
+    \begin{equation}
+        \begin{aligned}
+            &X^{(n)}_s=X_t I_{\{t\}}(s)+\sum_{k=0}^{k_n} X_{\tau^n_k} I_{[\tau^n_k,\tau^n_{k+1})}(s),\\
+            &A^{(n)}_s=A_t I_{\{t\}}(s)+\sum_{k=0}^{k_n} A_{\tau^n_k} I_{[\tau^n_k,\tau^n_{k+1})}(s),
+        \end{aligned}
+    \end{equation}
+    注意到如果某$\tau^n_k=t$,则$\tau_{k+1}^n=t$,从而$[\tau^n_k,\tau^n_{k+1})=\emptyset$,所以不会出现重复加和的情况.\par
+    考虑
+    \begin{equation}
+        \begin{aligned}
+            &F_{\tau^n_{k+1}}((X^{{(n)}})^{\tau_{k+1}^n-},(A^{{(n)}})^{\tau_{k+1}^n-})-F_{\tau^n_{k}}((X^{{(n)}})^{\tau_{k}^n-},(A^{{(n)}})^{\tau_{k}^n-})\\
+            =&F_{\tau^n_{k+1}}((X^{{(n)}})^{\tau_{k+1}^n-},(A^{{(n)}})^{\tau_{k}^n,\to h^n_k})-F_{\tau^n_{k}}((X^{{(n)}})^{\tau_{k}^n},(A^{{(n)}})^{\tau_{k}^n})\\
+            &\quad +F_{\tau^n_{k}}((X^{{(n)}})^{\tau_{k}^n},(A^{{(n)}})^{\tau_{k}^n-})-F_{\tau^n_{k}}((X^{{(n)}})^{\tau_{k}^n-},(A^{{(n)}})^{\tau_{k}^n-})\\
+            \overset{\triangle}{=}&I_1+I_2.
+        \end{aligned}
+    \end{equation}
+    结合性质\ref{保连续性}和$F$水平导数的连续性可得,
+    \begin{equation}
+        \begin{aligned}
+            &I_1=F_{\tau^n_{k+1}}((X^{{(n)}})^{\tau_{k+1}^n-},(A^{{(n)}})^{\tau_{k}^n,\to h^n_k})-F_{\tau^n_{k}}((X^{{(n)}})^{\tau_{k}^n},(A^{{(n)}})^{\tau_{k}^n})\\
+            =&F_{\tau^n_{k+1}}((X^{{(n)}})^{\tau_{k}^n,\to h^n_k},(A^{{(n)}})^{\tau_{k}^n,\to h^n_k})-F_{\tau^n_{k}}((X^{{(n)}})^{\tau_{k}^n},(A^{{(n)}})^{\tau_{k}^n})\\
+            =&\int_{0}^{h^n_k} D^H_{\tau^n_k+s}F ((X^{(n)})^{\tau^n_k,\to s},(A^{(n)})^{\tau^n_k,\to s})\mathrm{d}s,
+        \end{aligned}
+    \end{equation}
+    这对应于\ref{ito公式}的第一项.\par
+    定义$\phi(v)=F_{\tau^n_k}((X^{(n)})^{\tau^n_k-,\uparrow (v-X_{\tau^n_k})},(A^{(n)})^{\tau_k^n})$,这是一个从$\mathbb{R}^d$到$\mathbb{R}$的函数.
+    易见$\phi(X_{\tau^n_k})=F_{\tau^n_{k}}((X^{{(n)}})^{\tau_{k}^n-},(A^{{(n)}})^{\tau_{k}^n-})$,而
+    \begin{equation}
+        \begin{aligned}
+            \phi(X_{\tau^n_{k+1}})&=F_{\tau^n_k}((X^{(n)})^{\tau^n_k-,\uparrow (X_{\tau^n_{k+1}}-X_{\tau^n_k})},(A^{(n)})^{\tau_k^n})\\
+            &=F_{\tau^n_{k}}((X^{{(n)}})^{\tau_{k}^n},(A^{{(n)}})^{\tau_{k}^n-})
+        \end{aligned}
+    \end{equation}
+    另一方面,由于$F\in C^{1,2}_b([0,T])$,所以$\phi\in C^2(\mathbb{R}^d)$,且$\nabla \phi(v)=D^{V}_{\tau^n_k} F((X^{(n)})^{\tau^n_k-,\uparrow v},(A^{(n)})^{\tau_k^n})$,
+    $\nabla^2\phi(v)=D^{V,2}_{\tau^n_k}(X^{(n)})^{\tau^n_k-,\uparrow v},(A^{(n)})^{\tau_k^n}$,所以可以应用经典的Ito公式
+    \begin{equation}
+        \begin{aligned}
+            &I_2=\phi(X_{\tau^n_{k+1}})-\phi(X_{\tau^n_k})\\
+            =&\int_{\tau^n_k}^{\tau^n_{k+1}} \nabla\phi(X_s)\cdot\mathrm{d}X_s\\
+            &\quad +\frac{1}{2}\int_{\tau^n_k}^{\tau^n_{k+1}} \tr(\nabla^2 \phi(X_s)\mathrm{d}\langle X\rangle_s)\\
+            =&\int_{\tau^n_k}^{\tau^n_{k+1}} D^V_{\tau^n_k}F((X^{(n)})^{\tau^n_k-,\uparrow (X_s-X_{\tau^n_k})},(A^{(n)})^{\tau^n_k-})\cdot\mathrm{d}X_s\\
+            &\quad +\frac{1}{2}\int_{\tau^n_k}^{\tau^n_{k+1}} \tr(D^{V,2}_{\tau^n_k}F((X^{(n)})^{\tau^n_k-,\uparrow (X_s-X_{\tau^n_k})},(A^{(n)})^{\tau^n_k-})\mathrm{d}\langle X\rangle_s)
+        \end{aligned}
+    \end{equation}
+
+    综合以上,
+    \begin{align*}
+        &F_{t}((X^{(n)})^t,(A^{(n)})^t)-F_0(X^0,A^0)\\
+        =&\int_{0}^{t} D^H_{s}F ((X^{(n)})^{\tau^n_{k(s)},\to (s-\tau^n_{k(s)})},(A^{(n)})^{\tau^n_{k(s)},\to (s-\tau^n_{k(s)})})\mathrm{d}s\\
+        &\quad +\int_{0   }^{t} D^V_{\tau^n_{k(s)}}F((X^{(n)})^{\tau^n_{k(s)}-,\uparrow (X_s-X_{\tau^n_{k(s)}})},(A^{(n)})^{\tau^n_{k(s)}-})\cdot\mathrm{d}X_s\\
+            &\quad +\frac{1}{2}\int_{0}^{t} \tr(D^{V,2}_{\tau^n_{k(s)}}F((X^{(n)})^{\tau^n_{k(s)}-,\uparrow (X_s-X_{\tau^n_{k(s)}})},(A^{(n)})^{\tau^n_{k(s)}-})\mathrm{d}\langle X\rangle_s)
+    \end{align*}
+    令$n\to \infty$即得\ref{ito公式}成立.\par
+    对于一般的$X,A$,取$\overline{B_n}\coloneq \{v\in \mathbb{R}^d:\abs{x}\leq n\}$.定义停时
+    \[
+        \tau_n=t\wedge \{s:X_s\notin B_n\text{或}\abs{A_s}>n\}.
+    \]
+    对$(X^{t\wedge \tau_n},A^{t\wedge \tau_n})$应用公式\ref{ito公式},再令$n\to \infty$即可.
+\end{proof}
+

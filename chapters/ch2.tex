@@ -40,7 +40,7 @@ L^2(\Omega,\mr{F},\mb{P};\mb{R}^d) \arrow[rrr, "\mr{L}" description] \arrow[rrrd
 \end{definition}\par
 这个定义的表述是自然的,但良定性并不显然,具体地说,对于同一个概率测度,可能有多个随机变量以其为分布,那么
 就需要说明这些随机变量和其Frechet导数有某种不变量或者在某种等价关系下属于同一等价类,使得定义在一定的标准下具有唯一性.为此,我们先陈述以下引理.\par
-\begin{lemma}
+\begin{lemma}\label{lm3.1}
     设$X,Y\in L^2(\Omega;\mb{R}^d)$分布相同.则对任意$\epsilon>0$,存在保测映射\footnote{设$(X_1,\mr{F}_1,\mu_1),(X_2,\mr{F}_2,\mu_2)$是两个测度空间
     ,称$M:(X_1,\mr{F}_1,\mu_1)\to(X_2,\mr{F}_2,\mu_2)$是一个保测映射,是指:$M$可测且任意$A\in\mr{F}_2,\mu_2(A)=\mu_1(M^{-1}(A))$.}$S,T:\Omega\to\Omega$使得
     $$
@@ -66,7 +66,7 @@ L^2(\Omega,\mr{F},\mb{P};\mb{R}^d) \arrow[rrr, "\mr{L}" description] \arrow[rrrd
 
 
 
-\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+\tikzset{every picture/.style={line width=0.75pt}} 
 
 \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
 %uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
@@ -236,7 +236,7 @@ $\mu_0$处的Lions导数或L-导数.此时有
 其中$\mathscr{L}(X)=\mu,\mathscr{L}(X_0)=\mu_0$.
 
 作为以上微分公式的一个应用,给出如下命题,这是\citep{brw}的定理2.1的特殊情形.
-\begin{corollary}
+\begin{corollary}\label{cr1}
     设函数$f:\mathscr{P}_2\to \mathbb{R}$连续,在一个无原子的概率测度$\mu_0$处L-可微,存在常数$C$使得
     \[
         \abs{\partial_{\mu}f(\mu_0)(x)}\leq C(1+\abs{x}).
