@@ -238,6 +238,64 @@ L-导数的计算"简单"一些,所以希望能找到它们间的关联,从而�
     \end{equation}
     令$\epsilon\to 0$即可.
 \end{proof}
+
+\section{线性泛函导数和内蕴导数的补充}
+
+本节内容取自\citep{pfjp}.本节主要是补充对线性泛函导数和内蕴导数的其他观点,空间取为$d$维环面$\mathbb{T}^d$,$\mathscr{P}(\mathbb{T}^d)$表示$\mathbb{T}^d$上全体概率测度.
+\begin{definition}
+    称函数$U:\mathscr{P}(\mathbb{T}^d)\to \mathbb{R}$是$C^1$的,是指:存在连续映射$\frac{\delta U}{\delta m}:\mathscr{P}(\mathbb{T}^d)\times \mathbb{T}^d\to \mathbb{R}$,使得对任意$m,m'$都有
+    \[
+        \int_{\mathbb{T}^d}\frac{\delta U}{\delta m}(m,y)\mathrm{d}m(y)=0
+    \]
+    且
+    \[
+        \lim_{s\downarrow 0}\frac{U((1-s)m+sm')-U(m)}{s}=\int_{\mathbb{T}^d}\frac{\delta U}{\delta m}(m,y)\mathrm{d}(m-m')(y)
+    \]
+\end{definition}
+\begin{remark}
+    在该定义下,同样有
+    \[
+        U(m')-U(m)=\int_{0}^{1}\int_{\mathbb{T}^d} \int_{\mathbb{T}^d}\frac{\delta U}{\delta m}((1-s)m+sm',y)\mathrm{d}(m-m')(y)\mathrm{d}s,m,m'\in \mathscr{P}(\mathbb{T}^d),
+    \]
+    这一点与之前定义的线性泛函导数是一致的.
+\end{remark}
+\begin{definition}
+    设$U:\mathscr{P}(\mathbb{T}^d)\to \mathbb{R}$是$C^1$的,且$\frac{\delta U}{\delta m}$关于第二个变量是连续可微的,则定义$U$的内蕴导数为
+    \[
+        D_m U(m,y)=\nabla_y \frac{\delta U}{\delta m}(m,y):\mathscr{P}(\mathbb{T}^d)\times \mathbb{T}^d\to \mathbb{R}^d
+    \]
+\end{definition}
+\begin{remark}
+    可以证明,该内蕴导数的定义与之前也是一致的.实际上,在上一节已经指出:在一定条件下,内蕴导数就是L导数,线性泛函导数就是外在导数,而L导数又是
+    外在导数关于空间变量的梯度,因此这些不同定义可以看作用不同性质刻画"同一个对象",所以这些一致性的保持是自然的.
+\end{remark}
+
+依照同样的观点,在一定条件下,当固定空间变量$y$时,可以对线性泛函导数$\frac{\delta U}{\delta m}$再求一次线性泛函导数,这样
+就可以归纳定义高阶线性泛函导数和高阶内蕴导数.这里只考虑二阶的情形.\par
+$\frac{\delta^2 U}{\delta m^2}$是一个从$\mathscr{P}(\mathbb{T}^d)\times \mathbb{T}^d\times\mathbb{T}^d$到$\mathbb{R}$的连续映射,而
+$D_{mm}^2 U(m,y,y')=D_{y,y'}^2 \frac{\delta^2 U}{\delta m^2}(m,y,y')$则是从$\mathscr{P}(\mathbb{T}^d)\times \mathbb{T}^d\times\mathbb{T}^d$到$\mathbb{R}^{d\times d}$的映射.
+假设$U$的一阶和二阶线性泛函导数关于空间变量都是连续可微的,二阶线性泛函导数和$D_y \frac{\delta^2 U}{\delta m^2}$关于所有变量联合连续,则有以下关系成立:\par
+(1)\ $\frac{\delta^2 U}{\delta m^2}(m,y,y')-\frac{\delta^2 U}{\delta m^2}(m,y)=\frac{\delta U}{\delta m}(m,y',y)-\frac{\delta U}{\delta m}(m,y')$;\par
+(2)\ $D_y\frac{\delta^2 U}{\delta m^2}(m,y,y')=\frac{\delta}{\delta m}(D_m(m,y))(y')$;\par
+(3)\ $D_m(D_mU(\cdot,y))(m,y')=D^2_{mm}U(m,y,y')$.\par
+需要说明的是,上面的第三个等式并不是"天然"成立的,因为二阶内蕴导数并不是归纳定义得到的.
+
+设$(B_t),(W_t)$是一个完备带流概率空间上的两个布朗运动.考虑方程
+\[
+    dX_t=-\beta_t(X_t)\mathrm{d}t+\sqrt{2}(\mathrm{d}B_t+\mathrm{d}W_t),t\in[0,T],
+\]
+$(m_t)=(\mathscr{L}(X_t))$.映射$U:[0,T]\times \mathbb{T}^d\times \mathscr{P}(\mathbb{T}^d)$满足一系列正则性条件(具体见\citep{pfjp}的定义2.4.4),则存在一族随机变量
+$(\epsilon_{s,t})_{t\in [0,T],s\leq t}$,使得如下局部Ito-Taylor展开成立:
+\begin{align*}
+&\frac{1}{h}\biggl(\mathbb{E}\bigl[U\bigl(t + h, x + \sqrt{2}(W_{t+h}), m_{t+h}\bigr) - U\bigl(t + h, x + \sqrt{2}(W_{t+h} ), m_t\bigr) \bigm| \mathcal{F}_t\bigr]\biggr) \\
+=& \Delta_x U\bigl(t, x + \sqrt{2}(W_t), m_t\bigr) \\
+&\quad + 2\int_{\mathbb{T}^d} \mathrm{div}_y\bigl[D_m U\bigr]\bigl(t, x + \sqrt{2}(W_t ), m_t, y\bigr) dm_t(y) \\
+&\quad - \int_{\mathbb{T}^d} D_m U\bigl(t, x + \sqrt{2}(W_t ), m_t, y\bigr) \cdot \beta_t(y) dm_t(y) \\
+&\quad + 2\int_{\mathbb{T}^d} \mathrm{div}_x D_m U \bigl(t, x + \sqrt{2}(W_t ), m_t, y\bigr) dm_t(y) \\
+&\quad + \int_{[\mathbb{T}^d]^2} \mathrm{tr}\biggl(D_{mm}^2 U\bigl(t, x + \sqrt{2}(W_t ), m_t, y, y'\bigr)\biggr) dm_t(y) dm_t(y') \\
+&\quad + \epsilon_{t,t+h}.
+\end{align*}\par
+上述公式的完整陈述及证明见\citep{pfjp}的附录A.3.
 \section{若干例子}
 对上一节定义的几种导数,我们介绍几个简单可计算的例子,并体现它们之间的联系.\par
 称函数$f:\mathscr{M}_p\to \mathbb{R}$为$C^1_b-$柱函数或$f\in \mathscr{F}C^1_b(\mathscr{M}_p)$,是指:存在$n\in \mathbb{N}$,$g\in C^2(\mathbb{R}^n)$和

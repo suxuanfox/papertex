@@ -1,0 +1,1173 @@
+\chapter{Malliavin分析入门}
+本章主要内容参考引用自\citep{Nua1}.\par
+
+\section{Hilbert空间相关预备}
+由于Malliavin分析理论与Hilbert空间紧密关联,所以先在此陈述一些可能用到的Banach空间,Hilbert空间和线性代数相关内容.本节关于泛函分析
+的内容主要取自\citep{Brezis},\citep{kunze}和\citep{resi},线性代数相关内容主要取自\citep{lww}\par
+如无特别说明,本章涉及的向量空间(自然包括Hilbert空间)总是实线性的,Hilbert空间总是可分的,即有可数稠密子集.
+\subsection{直和与Hilbert和}
+\begin{definition}
+    设$\mathbb{H}$是一个Hilbert空间.称$\{e_n\}_{n\in \mathbb{N}}\subset \mathbb{H}$是$\mathbb{H}$的一个规范
+    正交基(orthonormal basis,有时简记为O.N.B.)\footnote{在有些教材或文献中会使用完备规范正交系(complete orthonormal system)一词来表示线性张成的正交补为零空间的集合,
+    而O.N.B.表示有限或无限线性组合张成整个空间的集合,二者是等价的,所以不作区分,具体见\citep{zgq}的1.6节},是指:\par
+    (1)\ $\abs{e_n}=1,\forall n\geq 1$且当$n\ne m,\ipr{e_n}{e_m}=0$;\par
+    (2)\ $\overline{\text{span}\{e_1,e_2,\cdots\}}=\mathbb{H}$,其中$\overline{\text{span}\{e_1,e_2,\cdots\}}$表示$\{e_n\}_{n\in \mathbb{N}}$所有可能的线性组合.
+\end{definition}
+
+\begin{definition}
+    称Hilbert空间$\mathbb{H}$的子集$T$为全子集(total set),是指:$\overline{\mathrm{span}(T)}=\mathbb{H}$.
+\end{definition}
+
+\begin{proposition}
+    设Hilbert空间$\mathbb{H}$可分.则$\mathbb{H}$有规范正交基.
+\end{proposition} 
+
+对于任意一族集合,可以定义它们的直积和直和,特别地考虑一族向量空间$(V_i)_{i\in I}$,其直积为
+\[
+    \Pi_{i\in I}V_i=\{(v_i)_{i\in I}:\forall i,v_i\in V_i\},
+\]
+加法和数乘定义为逐分量地继承自各分量原来所在的向量空间.直和作为直积的子空间,定义为
+\[
+    \oplus_{i\in I}V_i=\{(v_i)_{i\in I}\in \Pi_{i\in I}V_i:\text{仅有有限分量非}0\}.
+\]
+如果所有$V_i=V$,记直积为$V^I$,直和为$V^{\oplus I}$.\par
+给定一个一个向量空间$V$,和一族子空间$(V_i)_{i\in I}$,定义这族子空间的和为
+\[
+    \sum_{i\in I}V_i=\{\sum_{i}v_i:\forall i,v_i\in V_i \text{且仅有有限} i,v_i\ne 0\},
+\]
+若$\forall i,V_i\cap (\sum_{j\ne i}V_j)=\{0\}$,则称该族子空间的和为直和,记为$\oplus_{i\in I} V_i$.
+在Hilbert空间的情形下,在子空间直和的基础上有Hilbert和的概念.
+\begin{definition}
+    给定Hilbert空间$\mathbb{H}$和一列闭子空间$\{E_n\}_{n\in \mathbb{N}}$.称$\mathbb{H}$是$\{E_n\}$的Hilbert和,是指:\par
+    (1)\ $\{E_n\}$两两正交,即:若$n\ne m$,则$\forall v_n\in E_n,\forall v_m\in E_m,\ipr{v_n}{v_m}=0$;\par
+    (2)\ $\overline{\text{span}(\cup_{n\geq 1}E_n)}=\mathbb{H}$.
+    也记为$\mathbb{H}=\oplus_{n}E_n$
+\end{definition}
+对任一$\mathbb{H}$的闭子空间$M$,对应的正交投影算子记为$\mathrm{Proj}_M$.在一定意义下,Hilbert和给出了$\mathbb{H}$中元素的
+分解或逼近方式,即如下定理.
+\begin{theorem}
+    设Hilbert空间$\mathbb{H}=\oplus_{n\geq 1}E_n$.给定$u\in \mathbb{H}$,定义$u_n=\mathrm{Proj}_{E_n} u$,以及$S_n=\sum_{i=1   }^{n} u_n$.
+    则$\lim_{n\to \infty} S_n=u$且
+    \[
+        \abs{u}^2=\sum_{n=1}^{\infty}\abs{u_n}^2 
+    \]
+\end{theorem}
+\subsection{张量积}
+先从代数角度给出向量空间的张量积.在这一部分,尽管可以给出具体的向量空间构造,但更多关心的是泛性质.首先是线性映射定义的扩展.
+\begin{definition}
+    设$V_1,\cdots,V_n,W$是向量空间.称映射$M:V_1\times \cdots \times V_n\to W$是$n$重线性映射,是指:$M$对任一分量都是线性的,也即:
+    任意$1\leq i\leq n,\forall a,b\in \mathbb{R},\forall \alpha,\beta\in V_i$,都有
+\[
+    M(\cdots,a\alpha+b\beta,\cdots)=aM(\cdots,\alpha,\cdots)+bM(\cdots,\beta,\cdots).
+\]   
+特别地,当$W=\mathbb{R}$,称$M$为$n$重线性函数.
+\end{definition}
+
+先考虑一种简单的情形,即只有两个向量空间.
+\begin{theorem}[张量积的存在性和唯一性]
+    给定两个向量空间$V,W$.\par
+    (1)\ 存在向量空间$L_u$和双线性映射$B_u:V\times W\to L_u$,使得对所有向量空间$L$和双线性映射$B:V\times W\to L$,都
+    存在唯一的线性映射$\phi:L_u\to L$,使得下列图标交换:\par
+    \[
+        \begin{tikzcd}
+        V\times W \arrow[rd,"B"swap] \arrow[r,"B_u"] &L_u \ar[d,"\phi"]\\
+        &L
+        \end{tikzcd}
+    \]\par
+    (2)\ 若向量空间和双线性映射$(L_u,B_u),(L'_u,B'_u)$都满足(1)中性质,则存在唯一的线性同构$\td{\phi}:L_u\to L'_u$使得下列图标交换:\par
+    \[
+        \begin{tikzcd}
+            V\times W \arrow[rd,"B'_u"swap] \arrow[r,"B_u"] &L_u \ar[d,"\td{\phi}","~"]\\
+            &L'_u
+        \end{tikzcd}
+    \]
+\end{theorem}
+\begin{remark}
+    我们将$(L_u,B_u)$称为张量积,由于$L_u$在同构意义下唯一,因此记$V\otimes W=L_u$,其中的元素$v\otimes w=B_u(v,w)$,一般也直接称$V\otimes W$为$V,W$的张量积.$V\otimes W$可以具体实现为$V\times W$上
+    自由向量空间模去一个等价关系得到的商空间,具体参见\citep{lww}的命题15.1.1.
+\end{remark}
+
+对于任意有限个向量空间也可以讨论张量积,一种想法是在$n=2$的基础上归纳定义,下面通过多重线性映射给出直接的定义,但可以证明这与归纳定义实际上是一致的.
+\begin{definition}
+    给定向量空间$V_1,\cdots,V_n$.存在向量空间$M_u$和$n$重线性映射$C_u:V_1\times \cdots\times V_n\to M_u$,使得对任意$n$重线性映射$C:V_1\times \cdots\times V_n\to M$,都存在
+    唯一的线性映射$\phi:M_u\to M$,使得下列图表交换:\par
+        \[
+            \begin{tikzcd}
+            V_1\times \cdots\times V_n \arrow[rd,"C"swap] \arrow[r,"C_u"] &M_u \ar[d,"\phi"]\\
+            &M
+            \end{tikzcd}
+        \]\par
+\end{definition}
+
+类似于二元情形,将$(M_u,c_u)$称为$V_1,\cdots,V_n$的张量积,其中$M_u$记为$V_1\otimes \cdots \otimes V_n$.根据以上泛性质,实际上给出了双射
+\begin{align*}
+    \mathrm{Hom}(V_1\otimes \cdots \otimes V_n;M)&\overset{\sim}{\to} \mathrm{Mul}(V_1\times \cdots\times V_n;M)\\
+    \phi&\mapsto \phi\circ C_u
+\end{align*}
+
+我们还可以定义多重线性函数的张量积.
+\begin{theorem}
+    设$T:V_1\times \cdots\times V_k\to \mathbb{R}$和$S:V_{k+1}\times\cdots\times V_{k+l}\to \mathbb{R}$是两个多重线性函数,
+    则其张量积定义为如下函数:
+    \begin{equation}
+        \begin{aligned}
+            T\otimes S:V_1\times \cdots\times V_k\times V_{k+1}\times\cdots\times V_{k+l}&\to \mathbb{R}\\
+            (v_1,\cdots,v_k,v_{k+1},\cdots,v_{k+l})&\mapsto T(v_1,\cdots,v_k)S(v_{k+1},\cdots,v_{k+l})
+        \end{aligned}
+    \end{equation}
+\end{theorem}
+\begin{remark}
+    容易验证,$T\otimes S$可以看作$(V_1\times \cdots\times V_k)\times(V_{k+1}\times\cdots\times V_{k+l})$上的双线性函数,
+    且满足结合律,即$(T\otimes S)\otimes R=T\otimes (S\otimes R)$.
+\end{remark}
+
+我们来说明多元张量积在同构意义下的唯一性,这基于以下命题.
+\begin{theorem}
+    设$V_1,V_2,V_3$为向量空间.则存在以下同构:\par
+    (1)\ (幺约束)
+    \begin{equation}
+        \begin{array}{c c c c c}
+            \mathbb{R}\otimes V_1& \overset{\sim}{\longleftrightarrow}&V_1  &\overset{\sim}{\longleftrightarrow} &V_1\otimes \mathbb{R}\\
+            t\otimes v&\longmapsto &tv &\longmapsfrom &v\otimes t
+        \end{array}
+    \end{equation}\par
+    (2)\ (结合约束)
+    \begin{equation}
+        \begin{array}{c c c c c}
+             V_1 \otimes (V_2 \otimes V_3) & \overset{\sim}{\longleftrightarrow} & V_1 \otimes V_2 \otimes V_3 & \overset{\sim}{\longleftrightarrow} & (V_1 \otimes V_2) \otimes V_3 \\
+            v_1\otimes (v_2\otimes v_3) & \longmapsto & v_1\otimes v_2\otimes v_3 &\longmapsfrom & (v_1\otimes v_2)\otimes v_3
+        \end{array}
+    \end{equation}\par
+    (3)\ (交换约束)
+    \begin{equation}
+        \begin{array}{c c c}
+            V_1\otimes V_2 &\overset{\sim}{\longleftrightarrow}&V_2\otimes V_1\\
+            v_1\otimes v_2 &\longmapsto &v_2\otimes v_1
+        \end{array}
+    \end{equation}
+\end{theorem}
+ 
+
+
+下面考虑Hilbert空间的情形.设$H,V$为两个一般的Hilbert空间(不假设是可分的),$(h_\alpha)_{\alpha\in A},(v_\beta)_{\beta\in B}$分别是
+$H,V$的规范正交基.定义$H\otimes V$为所有形如$\sum c_{\alpha,\beta} h_\alpha\otimes v_\beta,(c_{\alpha,\beta})\in l^2(A\times B)$的全体,
+其中$l^2(A\times B)$表示计数测度下平方可积函数全体,这里的$h_\alpha\otimes v_\beta$暂时只是形式上的记号,无其他实际含义.在$H\otimes V$上定义内积如下:
+\[
+    \ipr{\sum c_{\alpha,\beta} h_\alpha\otimes v_\beta}{\sum d_{\alpha,\beta} h_\alpha\otimes v_\beta}\coloneq \sum c_{\alpha,\beta}d_{\alpha,\beta}.
+\]
+从而$H\otimes V$成为一个Hilbert空间,一个规范正交基为$(h_\alpha \otimes v_\beta)_{(\alpha,\beta)\in A\times B}$.易见,若
+$H,V$都是可分的,则$H\otimes V$也是可分的.\par
+类似于向量空间的张量积,对Hilbert空间的张量积也有泛性质.首先定义映射
+\begin{equation}
+    \begin{aligned}
+        \rho:H\times V&\to H\otimes V\\
+        (\sum a_\alpha h_\alpha,\sum b_\beta v_\beta)&\mapsto \sum a_\alpha b_\beta h_\alpha\otimes v_\beta.
+    \end{aligned}
+\end{equation}
+容易验证,$\rho$是一个连续双线性映射.
+
+\begin{theorem}
+    给定Hilbert空间$H,V$,以及如上定义的$H\otimes V$和连续双线性映射$\rho$.对任意的Hilbert空间$W$和连续双线性映射$\eta:H\times V\to W$,都存在唯一的
+    连续线性映射$T_\eta:H\otimes V\to W$,使得下列图表交换:
+    \[
+        \begin{tikzcd}
+            H\times V \ar[r,"\rho"] \ar[dr,"\eta"] &H\otimes V \ar[d,"T_\eta"]\\
+            &W
+        \end{tikzcd}
+    \]
+\end{theorem}
+
+张量积是一个比较抽象的概念,但对于一些特殊的Hilbert空间,可以利用泛性质说明张量积同构于更加具体的空间.以下命题说明两个空间上的平方可积
+空间的张量积同构于乘积空间上的平方可积空间.
+\begin{theorem}
+    设$(\Omega_i,\mathscr{F}_i,\mu_i)$是两个$\sigma$有限的测度空间.则有以下等距同构:
+    \begin{align*}
+        L^2(\Omega_1,\mathscr{F}_1,\mu_1)\otimes L^2(\Omega_2,\mathscr{F}_2,\mu_2)&\overset{\sim}{\longrightarrow} L^2(\Omega_1\times \Omega_2,\mathscr{F}_1\otimes \mathscr{F}_2,\mu_1\times\mu_2)\\
+        f\otimes g &\mapsto ((x,y)\mapsto f(x)g(y)) 
+    \end{align*}
+\end{theorem}
+
+下面给出可分Hilbert张量积的同构刻画,为此先引入HS算子(Hilbert-Schmidt operator)的概念.
+\begin{definition}
+    给定可分Hilbert空间$H,V$.称算子$T\in \mathscr{L}(H;V)$是一个HS算子,是指:存在一个规范正交基$(e_n)_{n\in \mathbb{N}}$,使得
+    \[
+        \sum_{n=1}^{\infty} \nm[V]{Te_n}^2 <\infty.
+    \]
+    若$T$是HS算子,定义其HS范数为$\nm[\text{HS}]{T}\coloneq (\sum_{n=1}^{\infty} \nm[V]{Te_n}^2)^{\frac{1}{2}}$.
+    
+\end{definition}
+
+\begin{remark}
+    实际上,HS算子$T$的HS范数不依赖于规范正交基的选取,因而是标准的.易见,全体HS算子在通常的加法和数乘之下是一个向量空间,记为$\mathscr{L}_{\mathrm{HS}}(H;V)$或$\mathscr{H}(H;V)$,并
+    配备HS范数.
+\end{remark}
+
+\begin{remark}
+    设$T$是一个HS算子,若
+    \[
+        \nm[1]{T}\coloneq\sup \sum_{n} \abs{\ipr{Tf_n}{g_n}_V}<\infty,
+    \]
+    其中上确界是取遍所有$H$的规范正交基$\{f_n\}$和$V$的规范正交基$\{g_n\}$,则称$T$为迹算子,$\nm[1]{T}$称为迹范数.\par
+    特别地,若$H=V$,则$\sum_{n} \abs{\ipr{Tf_n}{f_n}}$不依赖于基的选取,$\mathrm{Tr}(T)\coloneq \sum_{n} \abs{\ipr{Tf_n}{f_n}}$称为算子$T$的迹.
+\end{remark}
+
+
+\begin{theorem}
+    给定可分Hilbert空间$H,V$,$(e_n),(v_m)$分别是$H,V$的规范正交基.则有以下等距同构:
+    \begin{align*}
+        H\otimes V &\overset{\sim}{\longrightarrow} \mathscr{L}(H;V)\\
+        \sum_{n,m} a_{n,m} h_n\otimes v_m &\longmapsto \sum_{n,m}a_{n,m} \ipr{\cdot}{h_n}v_m
+    \end{align*}
+\end{theorem}
+
+以上同构已经给出了一种比较具体的视角,我们希望对多元张量积也有上述定理中的同构,从而给出更便于操作和理解的实现.以下观点和构造来自于\citep{resi}和\citep{yanhuang},在本章之后内容中,总是采取这种观点.\par
+考虑Hilbert空间$H_1,,H_2$,对任意$h_i\in H_i,i=1,2$,定义$h_1\otimes h_2$为乘积空间$H_1\times H_2$上的双线性函数:
+\[
+    (h_1\otimes h_2)(x_1,\cdots,x_2)=\Pi_{i=1}^{2}\ipr{h_i}{x_i}_{H_i},x_i\in H_i,
+\]
+记$\mathscr{E}$为所有形如$h_1\otimes h_2$的线性张成,在其上定义内积:
+\[
+    \ipr{h_1\otimes h_2}{l_1\otimes  l_2}_{\mathscr{E}}=\Pi_{i=1}^{2}\ipr{h_i}{l_i}_{H_i},
+\]
+而$(H_1\otimes H_2,\ipr{\cdot}{\cdot}_{H_1\otimes H_2})$则定义为$(\mathscr{E},\ipr{\cdot}{\cdot}_{\mathscr{E}})$的完备化,可以证明
+若$\{e^{(i)}_m\}$为$H_i$的规范正交基,则$\{e^{(1)}_{m_1}\otimes e^{(2)}_{m_2}\}$为$H_1\otimes H_2$的规范正交基.对于多元情形则有如下定义.
+\begin{definition}
+    给定Hilbert空间$H_1,\cdots,H_n$,$\{e^{(i)}_m\}$为$H_i$的规范正交基.对乘积空间$H_1\times \cdots\times H_n$上的任一$n$重线性函数$F$,定义其HS范数为$\nm[\mathrm{HS}]{F}$,
+    \[
+        \nm[\mathrm{HS}]{F}=\sum_{k_1,\cdots,k_n\in \mathbb{N}}\abs{F(e^{(1)}_{k_1},\cdots,e^{(n)}_{k_n})}^2,
+    \]
+    $H_1,\cdots,H_n$的张量积即为全体HS范数有限的$n$重线性函数.
+\end{definition}
+特别地,当$H_1=\cdots=H_n=H$时,记其张量积为$H^{\otimes n}$.\par
+这个定义与二元情形是统一的.任取$h\otimes v$,它的HS范数为
+\begin{align*}
+    \nm[\mathrm{HS}]{h\otimes v}^2&=\sum_{i,j} \abs{(h\otimes v)(e_i^{(1)},e^{(2)}_j)}^2\\
+    &=\sum_{i,j} \abs{\ipr{h}{e^{(1)}_i}\ipr{v}{e^{(2)}_j}}^2\\
+    &=(\sum_i \ipr{h}{e^{(1)}_i}^2)(\sum_j \ipr{v}{e^{(2)}_j}^2),
+\end{align*}
+由Parsaval等式知,$\nm[\mathrm{HS}]{h\otimes v}=\nm[H_1]{h}\nm[H_2]{v}$.\par
+
+设$S_n$为$n$阶置换群,设$\sigma\in S_n$,对简单张量定义算子$U_\sigma(\tps{h_1}{h_n})=\tps{h_{\sigma(1)}}{h_{\sigma(n)}}$,并将该算子延拓到全空间,
+仍记为$U_\sigma$.然后定义对称化算子
+\[
+    \mathrm{Sym}=\frac{1}{n!} \sum_{\sigma\in S_n} U_\sigma,
+\]
+和反对称化算子
+\[
+    \mathrm{Alt}=\frac{1}{n!} \sum_{\sigma\in S_n} \mathrm{sgn}(\sigma) U_\sigma
+\]
+算子$\mathrm{Sym}$和$\mathrm{Alt}$的值域中的元素分别称为对称张量和交错张量.记$H^{\odot n}=\mathrm{Sym}(H^{\otimes n}),H^{\wedge n}=\mathrm{Alt}(H^{\otimes n})$,
+它们上的内积取为张量积空间上内积的$n!$倍.
+
+\section{Hermite多项式与Wiener混沌分解}
+如无特别说明,以下讨论的随机变量都是定义在一个完备的概率空间$(\Omega,\mathscr{F},\mathbb{P})$上.\par
+
+\begin{definition}
+    给定Hilbert空间$\mathbb{H}$.称随机过程$W=\{W(h):h\in \mathbb{H}\}$是一个等距Gauss过程(或$\mathbb{H}$上的Gauss过程),是指:\par
+    (1)\ $\forall h\in \mathbb{H}$,$\mathbb{E}[W(h)]=0$;\par
+    (2)\ $\forall n\in \mathbb{N},h_1,\cdots ,h_n\in \mathbb{H}$,$(W(h_1),\cdots,W(h_n))$的联合分布是多元正态分布;\par
+    (3)\ $\forall h,g\in \mathbb{H}$,$\mathbb{E}[W(h)W(g)]=\ipr{h}{g}_{\mathbb{H}}$.
+    $W$生成的$\sigma$代数$\sigma(W)$记为$\mathscr{G}$.
+\end{definition}
+
+\begin{remark}
+    显然,等距Gauss过程中的单个随机变量$W(h)$二阶矩和方差为$\mathbb{E}[W(h)^2]=\nm[\mathbb{H}]{h}^2$,且映射$h\mapsto W(h)$是线性的,也即:任意
+    $\lambda,\mu\in \mathbb{R},h,g\in \mathbb{H}$,都有:
+    \[
+        W(\lambda h+\mu g)=\lambda W(h)+\mu W(g),\mathbb{P}-\mathrm{a.s.}.
+    \]\par
+\end{remark}
+以下命题在后续将经常用到.
+\begin{proposition}
+    $\{e^{W(h)}:h\in \mathbb{H} \}$是$L^2(\Omega,\mathscr{G},\mathbb{P})$的一个全子集.
+\end{proposition}
+
+\begin{definition}
+    定义$n$次Hermite多项式为
+    \[
+        H_n(x)=\frac{(-1)^n}{n!}e^{\frac{x^2}{2}}\frac{\mathrm{d}^n}{\mathrm{d}x^n}e^{-\frac{x^2}{2}},n\geq 1,
+    \]
+    特别地,规定$H_0(x)=1$.
+\end{definition}
+
+\begin{remark}
+    令二元函数$F(x,t)=e^{tx-\frac{t^2}{2}}$,对变量$t$做Taylor展开,则
+    \[
+        F(x,t)=\sum_{n=1}^{\infty}t^n H_n(x),
+    \]
+    由以上表示容易得到Hermite多项式的几个基本性质:\par
+    (1)\ $H'_n(x)=H_{n-1}(x)$;\par
+    (2)\ $(n+1)H_{n+1}(x)=xH_n(x)-H_{n-1}(x)$;\par
+    (3)\ $H_n(-x)=(-1)^n H_n(x)$;\par
+    (4)\ 若$n$为奇数,则$H_n(0)=0$;若$n=2k$为偶数,则$H_n(0)=\frac{(-1)^k}{2^k k!}$;\par
+    (5)\ $H_n(x)$的最高次项为$\frac{x^n}{n!}$.\par
+    根据以上性质,实际可以归纳计算$H_n(x)$,如$H_1(x)=x,H_2(x)=\frac{1}{2}(x^2-1)$等.
+\end{remark}
+
+Hermite多项式不是随意定义的,它和正态分布关系密切,具体体现为以下命题.
+\begin{proposition}
+    设$(X,Y)$是二元正态的,$\mathbb{E}[X]=\mathbb{E}[Y]=0,\mathbb{E}[X^2]=\mathbb{E}[Y^2]=1$.则任意$n,m\in \mathbb{N}$,
+    \[
+        \mathbb{E}[H_n(X)H_m(Y)]=\begin{cases}
+            0,&n\ne m\\
+            \frac{(\mathbb{E}[XY])^n}{n!},&n=m.
+        \end{cases}
+    \]
+
+\end{proposition}
+
+命题的证明只需考虑$\mathbb{E}[F(X,s)F(Y,t)]$和零均值的多元正态分布矩母函数为$M(t)=\mathrm{exp}({\frac{1}{2}t^T\Sigma t})$,其中$\Sigma$为协方差矩阵.\par
+借助Hermite多项式,可以给出$L^2(\Omega,\mathscr{G},\mathbb{P})$的直和分解.首先定义$\mathscr{H}_0$表示常值随机变量全体,$\mathscr{H}_n$为$\{H_n(W(h)):h\in \mathbb{H},\nm[\mathbb{H}]{h}=1\}$生成的
+闭线性子空间,$n\geq 1$,由前述命题,当$n\ne m$,$\mathscr{H}_n\perp \mathscr{H}_m$.称$\mathscr{H}_n$为$n$阶Wiener混沌(Wiener chaos),$J_n$为$L^2(\Omega,\mathscr{G},\mathbb{P})$到$\mathscr{H}_n$的正交投影.
+
+\begin{theorem}[Wiener混沌分解]
+    \[
+        L^2(\Omega,\mathscr{G},\mathbb{P})=\oplus_{n=1}^{\infty} \mathscr{H}_n.
+    \]
+\end{theorem}
+
+\begin{proof}
+    设$X\in L^2(\Omega,\mathscr{G},\mathbb{P})$,任意$n$,$X\perp \mathscr{H}_n$,往证X=0,\par
+    注意到多项式$x^n$可以表示为有限个Hermite多项式的线性组合,所以$\mathbb{E}[X(W(h))^n]=0$,从而$\mathbb{E}[Xe^{tW(h)}]=0$,
+    $\forall t\in \mathbb{R},h\in \mathbb{H},\nm{h}=1$,这等价于$\mathbb{E}[Xe^{W(h)}]=0,\forall h\in \mathbb{H}$.由于
+    $\{e^{W(h)}\}$是$L^2(\Omega,\mathscr{G},\mathbb{P})$的全子集,所以$X=0$.
+\end{proof}
+根据直和分解的性质,任意$X\in L^2(\Omega,\mathscr{H},\mathbb{P})$,$\sum_{k=1}^{n} J_k X\to X,n\to \infty$且
+\[
+    \mathbb{E}[X^2]=\sum_{n=1}^{\infty} \mathbb{E}[\abs{J_k X}^2].
+\]
+
+记$\mathcal{P}_n^0$为形如$p(W(h_1),\cdots,W(h_n))$的随机变量全体,其中$k\in \mathbb{N}$,$h_1,\cdots,h_n\in \mathbb{H}$,
+$p$是一个次数不高于$n$的多元多项式,$\mathcal{P}$表示$\mathcal{P}^0_n$在$L^2$中的闭包,则$\mathcal{P}_n=\mathscr{H}_0\oplus \mathscr{H}_1\oplus\cdots\oplus \mathscr{H}_n$.
+
+下面考虑一个简单的例子.
+\begin{example}
+    令$(\Omega,\mathscr{F},\mathbb{P})=(\mathbb{R},\mathscr{B}(\mathbb{R}),\gamma)$,其中$\gamma$为标准正态分布,任意$A\in \mathscr{B}(\mathbb{R})$,
+    \[
+        \gamma(A)=\int_A \frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}\mathrm{d}x,
+    \]
+    Hilbert空间$\mathbb{H}$取为$\mathbb{R}$,等距Gauss过程取为$W(h)(x)=x$.注意到$\mathbb{R}$中模长为$1$的只有$1,-1$,且$H_n(x)=(-1)^nH_n(-x)$,所以
+    $\mathscr{H}_n$是$H_n(x)$生成的一维线性子空间,这实际上也说明Hermite多项式是$L^2(\mathbb{R},\gamma)$中的一个规范正交基.
+\end{example}
+
+设$\mathbb{H}$是无穷维的Hilbert空间,$\{e_i\}$是一个规范正交基.记$\Lambda=\oplus_{n=1}^\infty \mathbb{N}$.对$a\in \Lambda$,定义
+$a!=\Pi_{n=1}^\infty (a_i !),\abs{a}=\sum_{n=1}^{\infty} a_i$,根据直和定义,这两个量分别是有限积和有限和,因而是良定的.定义扩展的Hermite多项式为
+\[
+    H_a(x)=\Pi_{n=1}^\infty H_{a_i} (x_i),x\in \mathbb{R}^{\mathbb{N}}, a\in \Lambda.
+\]
+以及
+\[
+    \Phi_a=\sqrt(a!)\Pi_{n=1}^\infty H_{a_i}(W(e_i)),a\in \Lambda.
+\]
+
+而$\{\Phi_a:a\in \Lambda\}$是一个规范正交系,即元素都为$1$且两两正交.特别地,$\{\Phi_a:\abs{a}=n\}$还是$\mathscr{H}_n$的一个规范正交基.\par
+$\mathbb{H}$上的$n$次对称张量空间$(H^{\odot n},\sqrt{n!}\nm[\mathbb{H}^{\otimes n}]{\cdot})$和$\mathscr{H}_n$间有一个自然的同构:
+\[
+    \mathrm{Sym}(e^{\otimes a})\mapsto \sqrt{a!}\Phi_a,
+\]
+其中$e^{\otimes a}\coloneq \otimes_{n=1}^\infty e_i^{\otimes a_i},a=(a_1,a_2,\cdots)\in \Lambda,\abs{a}=n$
+\begin{remark}
+    对任意Hilbert空间$V$,$L^2(\Omega;V)$也有类似的分解:
+    \[
+        L^2(\Omega;V)=\oplus_{n=1   }^\infty \mathscr{H}_n(V),
+    \]
+    其中$\mathscr{H}_n(V)$是由形如$\sum_{i=1}^{n}F_iv_i,F_i\in \mathscr{H}_n.v_i\in V$的$V$值随机变量生成的闭子空间,并且容易得到
+    $\mathbb{H}^{\odot n}\otimes V$和$\mathscr{H}_n(V)$之间是同构的.
+\end{remark}
+\section{Malliavin导数算子及其相关性质}
+在本节和下一节中取$\mathscr{F}=\mathscr{G}$.\par
+
+记$C^\infty_p(\mathbb{R}^n)$表示$\mathbb{R}^n$上本身及其各阶导数都只有至多多项式增长的无穷可微函数.记$\mathrm{Srv}(\mathbb{R})$为具有以下形式的
+随机变量$F$全体:存在$n\in \mathbb{N},h_1,\cdots,h_n,f\in C^\infty_p(\mathbb{R}^n)$,使得
+\[
+    F=f(W(h_1),\cdots,W(h_n)).
+\]
+$\mathrm{Srv}$中的元素称为光滑随机变量.若$f$及其各阶偏导数还是有界的,则记$F\in \mathrm{Srv}_b(\mathbb{R})$;若$f$还有紧支集,则记$F\in \mathrm{Srv}_0(\mathbb{R})$.若$f$是多项式,记$F\in \mathcal{P}$.当只出现$\mathrm{Srv}$时,就是指$\mathrm{Srv}(\mathbb{R})$,
+$\mathrm{Srv}_b,\mathrm{Srv}_0$同理.$\mathrm{Srv}_0,\mathcal{P}$都是$L^2(\Omega)$的稠密子集.\par
+首先对光滑随机变量定义导数.
+\begin{definition}
+    设$h_1,\cdots,h_n\in \mathbb{H},f\in C^\infty_p(\mathbb{R}^n)$,$F=f(W(h_1),\cdots,W(h_n))$的导数定义为如下
+    $\mathbb{H}$值随机变量:
+    \[
+        DF=\sum_{i=1}^{n} \partial_{i}f(W(h_1),\cdots,W(h_n)) h_i.
+    \]
+\end{definition}
+\begin{remark}
+    同一个光滑随机变量可能有不同的表示形式,最简单的例如$W(h)=\frac{1}{2}W(2h),W(h_1)+W(h_2)=W(h_1+h_2)$,这两个例子展示的表示的不同是由线性性带来的,我们推至一般的情形.
+    将$h_1,\cdots,h_n$视为列向量$(h_1,\cdots,h_n)^T$.记$\vec{h}=(h_1,\cdots,h_n)^T$,借用矩阵乘法的记号和规则,$DF$可记为$(\nabla f )\vec{h}$.\par
+    假设存在矩阵$A\in \mathbb{R}^{n\times m}$和$\vec{l}=(l_1,\cdots,l_m)$使得$\vec{h}=A\vec{l}$.记$\td{f}=f\circ A\in C^\infty_p(\mathbb{R}^m)$.
+    且$F=f(W(h_1),\cdots,W(h_n))=\td{f}(W(l_1),\cdots,W(l_m))$给出了两种不同的表示,但实际上
+    \begin{align*}
+        (\nabla \td{f}(W(l_1),\cdots,W(l_m)))\vec{l}&=(\nabla f(A(W(l_1,\cdots,W(l_n))))A\vec{l}\\
+        &=(\nabla f(W(h_1),\cdots,W(h_n)))\vec{h},
+    \end{align*}
+    其中第二个等号利用了映射$h\mapsto W(h)$的线性性.
+    另外,若对线性无关的$h_1,\cdots,h_n$,有$F=f(W(h_1),\cdots,W(h_n))=g(W(h_1),\cdots,W(h_n))$,则$f=g$,这是因为
+    当$h_1,\cdots,h_n$线性无关时,$W(h_1),\cdots,W(h_n)$诱导了非退化的多元正态分布.
+\end{remark}
+
+由以上注记,还可以给出光滑随机变量的乘积的导数公式.对$F=f(W(h_1),\cdots,W(h_n)),G=g(W(l_1),\cdots,W(l_k))$,定义$\mathbb{R}^{n+k}$上的函数$\td{f}$和$\td{g}$如下:
+\begin{align*}
+    &\td{f}(x_1,\cdots,x_n,x_{n+1},\cdots,x_{n+k})=f(x_1,\cdots,x_n)\\
+    &\td{g}(x_1,\cdots,x_n,x_{n+1},\cdots,x_{n+k})=g(x_{n+1},\cdots,x_{n+k}),
+\end{align*}
+则
+\[
+    FG=\td{f}\td{g}(W(h_1),\cdots,W(h_n),W(l_1),\cdots,W(l_k)),
+\]
+计算即得$D(FG)=F(DG)+G(DF)$.\par
+依定义,对于光滑随机变量$F=f(W(h_1),\cdots,W(h_n))$,导数$DF$是$\mathbb{H}$值的随机变量,自然关心它和$\mathbb{H}$中的元素做内积,对任意$h\in \mathbb{H}$,
+\begin{align*}
+    \ipr{DF}{h}&=\ipr{\sum_{i=1}^{n} \partial_{i}f(W(h_1),\cdots,W(h_n)) h_i}{h}\\
+    &=\sum_{i=1}^{n} \partial_{i}f(W(h_1),\cdots,W(h_n))\ipr{h_i}{h},
+\end{align*}
+所以$\ipr{DF}{h}$是$f$在$(W(h_1),\cdots,W(h_n))$处沿$(\ipr{h_1}{h}),\cdots,\ipr{h_n}{h})$的方向导数.并且对该方向导数还有以下定理.
+\begin{theorem}
+    设$F\in \mathrm{Srv}$,$h\in \mathbb{H}$.则
+    \[
+        \mathbb{E}[\ipr{DF}{h}]=\mathbb{E}[FW(h)].
+    \]
+\end{theorem}
+
+\begin{proof}
+    不妨设$\nm{h}=1$,$F=f(W(h_1),\cdots,W(h_n))$.而$h_1,\cdots,h_n,h$总能通过正交化得到一个极大线性无关的规范正交系,记为$h,e_2,\cdots,e_k$,再由线性变换可得
+    $F=g(W(h),W(e_2),\cdots,W(e_k))$,这样,
+    \[
+        DF=\partial_{1}g(W(h),W(e_2),\cdots,W(e_k))h+\sum_{i=2}^k \partial_{i}g(W(h),W(e_2),\cdots,W(e_k))e_i,
+    \]
+    从而$\ipr{DF}{h}=\partial_{1}g(W(h),W(e_2),\cdots,W(e_k))$.\par
+    记$\phi_k(x)=\frac{1}{(\sqrt{2\pi})^n}e^{-\frac{\abs{x}^2}{2}}$表示$k$元标准正态分布的概率密度函数.则有
+    \begin{align*}
+        \mathbb{E}[\ipr{DF}{h}]&=\int_{\mathbb{R}^k} \partial_{1}g(x)\phi_k(x)\mathrm{d}x\\
+        &=\int_{\mathbb{R}^k} x_1f(x)\phi_k(x)\\
+        &=\mathbb{E}[FW(h)].
+    \end{align*}
+\end{proof}.
+
+用$FG$代替上述定理的$F$,就得到了常用的分部积分公式:
+\begin{equation}
+    \mathbb{E}[FGW(h)]=\mathbb{E}[F\ipr{DG}{h}]+\mathbb{E}[G\ipr{DF}{h}],F,G\in \mathrm{Srv},h\in \mathbb{H}.
+\end{equation}
+
+下面将到导数算子的定义域从Srv"延拓"到更大的集合上.为此,先介绍以下概念.(见\citep{Yosida}第二章第6节)\par
+\begin{definition}
+    给定两个Banach空间$X,Y$,在乘积空间上定义范数
+    \[
+        \nm{(x,y)}=(\nm{x}^2+\nm{y}^2)^\frac{1}{2},
+    \]
+    则乘积空间在此内积下是一个Banach空间.\par
+    给定线性映射$A:X\to Y$,$\Gamma(A)=\{(x,Ax):x\in \mathrm{Dom}(A)\}\subset X\times Y$称为算子$A$的图.\par
+    称$A$为闭算子,是指:$\Gamma(A)$是$X\times Y$的线性闭子空间;称$A$为可闭算子,是指:$\Gamma(A)$在$X\times Y$中的闭包$\overline{\Gamma(A)}$是
+    某线性算子的图,也即$A$有一个闭延拓,此时,将该延拓记为$\bar{A}$.
+\end{definition}
+对于闭算子和可闭算子的判别有以下充要条件.
+\begin{theorem}
+    \ \par
+    (1)\ 算子$A$是闭算子,当且仅当以下蕴含关系成立:
+    \[
+        \left(\{x_n\}\subset \mathrm{Dom}(A),x_n\to x,Ax_n\to y\right)\implies \left(x\in \mathrm{Dom}(A),Ax=y\right).
+    \]\par
+    (2)\ 算子$A$是可闭的,当且仅当以下蕴含关系成立:
+    \[
+        \left(\{x_n\}\subset \mathrm{Dom}(A),x_n\to 0,Ax_n\to y\right)\implies\left(y=0\right)
+    \]
+\end{theorem}
+
+\begin{theorem}
+    导数算子$D$是$L^p(\Omega)$到$L^p(\Omega;\mathbb{H})$的可闭算子.
+\end{theorem}
+\begin{remark}
+    在证明之前对该定理做出一点补充说明.由于正态分布有任意阶矩,所以任一$F\in \mathrm{Srv}$,总有$F\in L^p(\Omega),\forall p\geq 1$.
+    而其导数$DF$作为一个$\mathbb{H}$值随机变量,$\nm[\mathbb{H}]{DF}$是一个实值随机变量也有$p$阶矩,
+    只考虑固定的$p\geq 1$,在该定理之前,导数算子$D$的定义域只有Srv,而该定理说明$D$作为$\mathrm{Srv}\subset L^p(\Omega)$到$L^p(\Omega;\mathbb{H})$的线性算子
+    存在一个闭延拓,使之成为一个闭算子,而闭图像定理又说明闭线性算子总是有界的.
+\end{remark}
+\begin{proof}
+    为证$D$为可闭算子,任取$\{F_n\}\subset \mathrm{Srv}$,满足$F_n\overset{L^p}{\to }0$且存在$\eta\in L^(\Omega;\mathbb{H})$使得
+    $DF_n\overset{L^p}{\to }\eta$.往证$\eta=0$.\par
+    对任意$h\in \mathbb{H}$和光滑随机变量$F$,
+    \begin{align*}
+        \mathbb{E}[\ipr{\eta}{h}F]&=\lim_{n\to \infty} \mathbb{E}[\ipr{DF_n}{h}F]\\
+        &=\lim_{n\to \infty}\mathbb{E}[-F_n\ipr{F}{h}+F_n FW(h)]\\
+        &=0,
+    \end{align*}
+    由光滑随机变量的稠密性可得,$\eta=0$.也就证明了$D$是可闭的.
+\end{proof}
+
+对不同的$p\geq 1$,算子$D$的闭延拓的定义域是不同的.对于固定的$p\geq 1$,$D$的闭延拓仍记为$D$,定义域记为$\mathbb{D}^{1,p}$,实际上,$\mathbb{D}^{1,p}$是
+Srv$\subset L^P(\Omega)$在范数$\nm[1,p]{\cdot}$下的闭包,其中
+\[
+    \nm[1,p]{F}\coloneq (\mathbb{E}[\abs{F^p}]+\mathbb{E}[\nm[\mathbb{H}]{DF}^p])^{\frac{1}{p}},
+\]
+$1$表示导数的阶数,$p$表示算子从哪个空间出发.更具体地说,$\mathbb{D}^{1,p}$是满足以下条件的子空间:若$F_n\overset{L^p}{\to} F$,则$DF_n$在$L^p(\Omega;\mathbb{H})$收敛到某
+$\mathbb{H}$值的随机变量.\par
+特别地,当$p=2$,$\mathbb{D}^{1,2}$在内积$\ipr{\cdot}{\cdot}_{1,2}$下成为一个Hilbert空间,其中
+\[
+    \ipr{F}{G}\coloneq \mathbb{E}[FG]+\mathbb{E}[\ipr{DF}{DG}],F,G\in \mathbb{D}^{1,2}.
+\]
+由此立见$\mathbb{D}^{1,2}$是自反的.实际上,任意$p\in (1,\infty)$,$\mathbb{D}^{1,p}$同构于$L^p(\Omega)\times L^p(\Omega;\mathbb{H})$的一个闭子空间,
+由Pettis定理知,$\mathbb{D}^{1,p}$也是自反的.\par
+对于光滑随机变量$F=f(W(h_1),\cdots,W(h_n))\in \mathrm{Srv}$,可以定义其高阶Malliavin导数.
+\begin{definition}
+    给定$F=f(W(h_1),\cdots,W(h_n))\in \mathrm{Srv}$,其$k$阶Malliavin导数定义为如下$\mathbb{H}^{\otimes k}$值随机变量
+\[
+    D^k F\coloneq \sum_{1\leq i_1,\cdots,i_k\leq n} \frac{\partial^k}{\partial x_{i_1}\cdots \partial x_{i_k}}F(W(h_1),\cdots,W(h_n))h_{i_1}\otimes h_{i_k},
+\]    
+
+\end{definition}
+\begin{remark}
+    在多元微积分中,由于光滑函数偏导算子的可交换性,常使用多重指标简化记号,但由于一般张量不是对称的,所以有必要说明先后次序.
+\end{remark}
+
+类似于一阶导数算子,高阶导数算子也是可闭的,记$\mathbb{D}^{k,p}$表示$p$阶导数算子$D^k$在$L^p(\Omega)$中的闭延拓的定义域,也即Srv关于范数
+$\nm[k,p]{\cdot}$的完备化,其中
+\[
+    \nm[k,p]{F}\coloneq (\mathbb{E}[\abs{F}^p]+\sum_{i=1}^{k}\mathbb{E}[\nm[\mathbb{H}^{\otimes i}]{D^i F}])^{\frac{1}{p}}
+\]
+容易验证$\mathbb{D}^{k+1,p}\subset \mathbb{D}^{k,p}\subset\cdots\subset \mathbb{D}^{1,p}\subset \mathbb{D}^{0,p}=L^p(\Omega)$\footnote{规定$\nm[0,p]{\cdot}=\nm[L^p]{\cdot}$},$\forall p\geq 1$.\par
+对于给定的$h\in \mathbb{H}$,定义算子$D_h F\coloneq \ipr{DF}{h}$,这也是$L^p(\Omega)$上的可闭泛函,记$\mathbb{D}_h^p$表示其在$L^p(\Omega)$中的闭延拓
+的定义域.
+
+$\mathbb{D}^{1,2}$作为Srv关于范数$\nm[1,2]{\cdot}$的闭包,是比较抽象的,不像光滑随机变量有显式的表达式,所以希望找到一些充分条件
+或必要条件来辅助判断一个随机变量是否属于$\mathbb{D}^{1,2}$,也即希望找到平方可积随机变量的可微判别准则.事实上有以下定理给出$L^2(\Omega)$中元素可微的充要条件.
+\begin{theorem}[平方可积随机变量可微的充要条件]\label{principle}
+    设$F\in L^2(\Omega)$,其Wiener混沌分解为$F=\sum_{n=1}^{\infty} J_n F$.则$F\in \mathbb{D}^{1,2}$,当且仅当
+    \begin{equation}
+        \sum_{n=1}^{\infty} n \mathbb{E}[\abs{J_n F}^2] <\infty.
+    \end{equation}
+    此时,$\mathbb{E}[\nm[\mathbb{H}]{DF}^2]=\sum_{n=1}^{\infty} n \mathbb{E}[\abs{J_n F}^2] <\infty$.$D(J_n F)=J_{n-1 }(DF)$.
+\end{theorem}
+\begin{proof}
+    证明需要多次使用空间的完备性和Cauchy列的性质.\par
+    先对固定的$n,a\in \Lambda,\abs{a}=n$考虑$\Phi_a=\sqrt{a!}\prod_{i=1}^{\infty} H_{a_i}(W(e_i))$.注意$\Phi_a$只是有限个单变量多项式的乘积,所以
+    \[
+        D\Phi_a=\sum_{j=1}^{\infty}\big(H_{a_{j-1}}(W(e_j))\prod_{i\ne j}H_{a_i}(W(e_i))\big)e_i,
+    \]
+    且当$a,b\in \Lambda,a\ne b$,$D\Phi_a和D\Phi_b$在$L^2(\Omega;\mathbb{H})$中是正交的,即$\mathbb{E}[\ipr{D\Phi_a}{D\Phi_b}]=0$.
+    另外有限$\{e_1,\cdots,e_l\}$的正交性等价于$W(e_1),\cdots,W(e_l)$的独立性,所以可以计算
+    \[
+        \mathbb{E}[\nm[\mathbb{H}]{D\Phi_a}^2]=\sum_{j=1}^{\infty}\big(\mathbb{E}[(H_{a_{j-1}}(W(e_j)))^2]\prod_{i\ne j}\mathbb{E}[(H_{a_i}(W(e_i)))^2]\big)=\abs{a}=n.
+    \]
+    下面说明:若随机变量$G\in \mathscr{H}_n \cap \mathbb{D}^{1,2}$,则导数算子和极限可交换,具体表述如下:
+    \[
+        DG=\sum_{a\in \Lambda,\abs{a}=n} \ipr{G}{\Phi_a} D\Phi_a.
+    \]\par
+    由于$\{\Phi_a:a\in \Lambda,\abs{a}=n\}$是可数的,为了便于讨论,重排为$\{\Phi_1,\Phi_2,\cdots\}$,则$G=\sum_{i=1}^{\infty}\ipr{G}{\Phi_i}\Phi_i$.
+    记$S_k=\sum_{i=1}^{k} \ipr{G}{\Phi_i}\Phi_i$,则
+    \begin{align*}
+        &\nm[\mathbb{H}]{\sum_{i=m}^{k} \ipr{G}{\Phi_i}D\Phi_i}^2\\
+        \leq &\sum_{i=m}^{k}\ipr{G}{\Phi_k}^2\nm[\mathbb{H}]{D\Phi_i}\\
+        =&n\sum_{i=m}^{k}\ipr{G}{\Phi_k}^2
+    \end{align*}
+    由$\{S_k\}$为Cauchy列,$\{DS_k\}$也是Cauchy列,再结合导数算子的连续性,即得$DG=\sum_{i=1}^{\infty}DS_k$,且$\mathbb{E}[\nm[\mathbb{H}]{DG}^2]=n \mathbb{E}[\abs{G}^2]$.\par
+    由以上说明可知,$J_nF$是可微的,且$D(J_n F)\in \mathscr{H}_{n-1}(\mathbb{H})$.\par
+    记$T_k=\sum_{i=1}^k D(J_i F)$,
+    \begin{align*}
+        \mathbb{E}[\nm[\mathbb{H}]{T_k-T_m}^2]&=\mathbb{E}[\nm[\mathbb{H}]{\sum_{i=m+1}^k D(J_i F)}^2]\\
+        &\leq \sum_{i=m+1}^{k}\mathbb{E}[\nm[\mathbb{H}]{D(J_i F)}^2]\\
+        &=\sum_{i=m+1}^{k} n \mathbb{E}[\abs{J_i F}^2]
+    \end{align*}
+    由条件可得,$\{T_k\}$是一个$L^2(\Omega;H)$中的Cauchy列,结合闭算子的连续性即得
+    \[
+        DF=\sum_{n=1}^{\infty}D(J_n F),
+    \]以及
+    \[
+        \mathbb{E}[\nm[\mathbb{H}]{DF}^2]=\sum_{n=1}^{\infty} n \mathbb{E}[\abs{J_n F}^2].
+    \]
+\end{proof}
+\begin{remark}
+    以上讨论可以逐次反复进行,从而得到$F\in \mathbb{D}^{k,2}$的充要条件为:
+    \[
+        \sum_{n=k}^{\infty}\frac{n!}{(n-k)!} \mathbb{E}[\abs{J_n F}^2]<\infty.
+    \]
+\end{remark}
+
+对于复合函数的Malliavin导数有类似多元微积分的链式法则,具体陈述如下.
+\begin{theorem}
+    设$p\geq 1$,$\phi:\mathbb{R}^m\to \mathbb{R}$连续可微,且偏导数有界,$F=(F^1,\cdots,F^m),F^i\in \mathbb{D}^{1,p},i=1,\cdots,m$.则$\phi(F)\in \mathbb{D}^{1,p}$
+    且
+    \[
+        D\phi(F)=\sum_{i=1}^{m}\partial_{i}\phi(F) DF^i.
+    \]
+\end{theorem}
+
+\begin{proof}
+    先考虑$\phi:\mathbb{R}\to \mathbb{R}$是光滑函数,$F=f(W(h_1),\cdots,W(h_n))\in \mathrm{Srv}$.此时,$\phi\circ f:\mathbb{R}^n\to R$属于$C^\infty_p$,
+    所以$\phi(F)=(\phi\circ f)(W(h_1),\cdots W(h_n))\in \mathrm{Srv}$,且
+    \begin{align*}
+        D\phi(F)&=\sum_{i=1}^{n} \partial_{i}(\phi\circ f)(W(h_1),\cdots W(h_n))h_i\\
+        &=\sum_{i=1}^{n} \phi'(F)\partial_{i}f(W(h_1),\cdots W(h_n))h_i\\
+        &=\phi'(F)DF.
+    \end{align*}
+    设$F\in \mathbb{D}^{1,p}$,由Srv的稠密性,存在一列光滑随机变量$\{F_n\}$使得$F_n$在$\nm[1,p]{\cdot}$下收敛到$F$,也即
+    \[
+        \nm[1,p]{F_n-F}=(\mathbb{E}[\abs{F_n-F}^p]+\mathbb{E}[\nm[\mathbb{H}]{DF_n-DF}^p])^{1/p}\to 0,
+    \]
+    由此,$\phi(F_n)\overset{L^p}{\to}\phi$以及$\{D\phi(F_n)\}$是Cauchy列,结合算子$D$的闭性,可得
+    \[
+        \phi(F)\in \mathbb{D}^{1,p},D\phi(F_n)\overset{L^p}{\to} D\phi(F),
+    \]
+    \begin{align*}
+        &\mathbb{E}[\nm[\mathbb{H}]{D\phi(F)-\phi'(F)DF}^p]\\
+        \leq &C_p\big(\mathbb{E}[\nm[\mathbb{H}]{D\phi(F)-D\phi(F_n)}^p]+\mathbb{E}[\nm[\mathbb{H}]{\phi'(F_n)-\phi'(F)DF}^p]\big)\\
+        \leq &C_p\big(\mathbb{E}[\nm[\mathbb{H}]{D\phi(F)-D\phi(F_n)}^p]+\mathbb{E}[\nm[\mathbb{H}]{\phi'(F_n)DF_n-\phi'(F_n)DF}^p]+\mathbb{E}[\nm[\mathbb{H}]{\phi'(F_n)DF-\phi'(F)DF}^p]\big)
+    \end{align*}
+    令$n\to \infty$,结合之前的收敛性,即得$D\phi(F)=\phi'(F)DF$.\par
+    去掉$\phi$光滑的假设,考虑函数$\mathscr{p}(x)=Ce^{\frac{1}{\abs{x}^2-1}}I_{(0,1)}(x)$,其中常数$C$使得$\mathscr{p}$在整个实轴上积分为1,以及
+    $\mathscr{p}_\epsilon(x)=\frac{1}{\epsilon}\mathscr{p}(\frac{x}{\epsilon})$.则$\mathscr{p}_\epsilon*\phi$是光滑的,
+    且导数有界,由以上结论可得
+    \[
+        D((\mathscr{p}_\epsilon*\phi)(F))=(\mathscr{p}_\epsilon*\phi)'(F)DF=(\mathscr{p}_\epsilon*\phi')(F)DF,
+    \]
+    由于导数有界,所以$\abs{\phi(x)}=\abs{\phi(0)+\int_{0}^{1}\phi'(tx)x \mathrm{d}t}\leq C(1+\abs{x})$,而磨光子的性质保证了逐点收敛,
+    由控制收敛定理可得$(\mathscr{p}_\epsilon*\phi)(F)\overset{L^p}{\to}\phi(F)$,类似可得$(\mathscr{p}_\epsilon*\phi')(F)DF\overset{L^p}{\to }\phi'(F)DF$,最后由算子$D$的闭性可得
+    $\phi(F)\in \mathbb{D}^{1,p}$,且$D\phi(F)=\phi'(F)DF$.
+    对于$\phi$是多元函数的情形,论证是类似的.
+\end{proof}
+\begin{remark}
+    Malliavin导数的链式法则虽然形式上与经典微积分中的链式法则相似,但还是有一定局限性,例如不能直接取$\phi(x,y)=xy$来计算随机变量乘积的导数,尽管形式上看起来十分合理,实际上一般的随机变量乘积未必是Malliavin可导的,还需要合适的
+    可积性条件.
+    其中一个原因是,经典微积分中的导数定义是局部的,固定一点处的导数只取决于局部性态,而太远处的行为则影响不大,但Malliavin导数则不然,它依赖于全空间上的积分.
+\end{remark}
+事实上,注意到证明中对$\phi$的关键要求是导数有界,所以对$\phi$的要求可以减弱到仅是Lipschitz连续的.为了证明Lipschitz函数的链式法则,
+需要以下引理.
+\begin{lemma}
+    设$p>1$,$\{F_n\}\subset \mathbb{D}^{1,p}$,$F_n\overset{L^p(\Omega)}{\longrightarrow} F$,且
+    \[
+        \sup_n \mathbb{E}[\nm[\mathbb{H}]{DF_n}^p]<\infty.
+    \]
+    则$F\in \mathbb{D}^{1,p}$且$DF_n$弱收敛到$DF$.
+\end{lemma}
+\begin{proof}
+    首先由于$F_n$在 $L^p(\Omega)$中按$L^p$范数收敛,自然也是按范数有界的,而当$p\in (0,\infty)$,$\mathbb{D}^{1,p}$是自反的,所以存在$\{F_n\}$的一个子列
+    $\{F_{n_k}\}$弱收敛到$\mathbb{D}^{1,p}$中某元素,暂记为$G$.事实上,$F_{n_k}$作为$L^p(\Omega)$中的点列也弱收敛到$G$,从而$F=G$.也就有了
+    $F\in \mathbb{D}^{1,p}$.\par
+    对$\{F_n\}$的任意子列应用以上讨论,可得该子列有弱收敛的子列,这也就说明$F_n$在$\mathbb{D}^{1,p}$中弱收敛到$F$,也就证明了结论.
+\end{proof}
+\begin{theorem}
+    设对函数$\phi:\mathbb{R}^m\to \mathbb{R}$,存在常数$K$,使得对所有$x,y\in \mathbb{R}^m$,
+    \[
+        \abs{\phi(x)-\phi(y)}\leq K\abs{x-y}.
+    \]
+    $F=(F^1,\cdots,F^m),F^i\in \mathbb{D}^{1,p},i=1,\cdots,m$.\par
+    则$\phi(F)\in \mathbb{D}^{1,p}$且存在一个有界的随机向量$G=(G^1,\cdots,G^m)$,使得
+    \[
+        D\phi(F)=\sum_{i=1}^{m}G_i DF^i
+    \]
+\end{theorem}
+\begin{remark}
+    一个Lipschitz函数几乎处处可导,所以定理中的$G_i$几乎可以视为$\partial_{i}\phi(F)$.
+\end{remark}
+\begin{proof} 为简单起见,依然假设$m=1$.\par
+    记$\phi_n=\mathscr{p}_{\frac{1}{n}}*\phi,n\geq 1$,则$\phi_n$是光滑函数,导数$\abs{\phi_n'}\leq K$,且在整个实轴上,
+    $\phi(x)$一致收敛到$\phi(x)$.\par
+    根据光滑函数的链式法则有$D\phi_n(F)=\phi'_n(F)DF$.\par
+    先考虑等式左边.由于$\phi$是Lipschitz函数,所以$\abs{\phi(x)}\leq \abs{\phi(0)}+\abs{\phi(x)-\phi(0)}\leq \abs{\phi(0)}+K\abs{x}$,
+    由此可得$\phi_n(F)\ova{L^p} \phi(F)$,而$\phi'_n(F)$的有界性给出了$D\phi_n(F)$矩的一致有界性,由以上引理可得
+    $\phi(F)\in \mathbb{D}^{1,2}$,且$D\phi_n(F)$在$L^2(\Omega;H)$中弱收敛到$D\phi(F)$.\par
+    再考虑等式右边.导数的有界性给出了弱收敛和弱极限的存在性,将此极限记为$G$,就得到了结论.\par
+    多元情形类似.
+\end{proof}
+下面说明Malliavin导数与经典导数中"一定条件下,若导数为$0$,则函数为常值函数"的平行对应结果.为此,先陈述以下技术性引理.
+\begin{lemma}
+    随机变量族$\{W(h)G-D_h G:h\in \mathbb{H},G\in \mathrm{Srv}_b\}\cup\{1\}$是$L^2(\Omega)$的全子集.
+\end{lemma}
+\begin{remark}
+    注意到$W(h)G-D_hG$的形式是由分部积分公式自然得到的.
+\end{remark}
+\begin{theorem}
+    设$F\in \mathbb{D}^{1,1}$,$DF=0$.则$F=\mathbb{E}[F]$.
+\end{theorem}
+\begin{proof}
+    若$F\in \mathbb{D}^{1,2}$,由定理\ref{principle}立得结论成立.\par
+    取有界光滑函数$\psi_n$满足以下条件:
+    \[
+        \psi_n(x)=\left\{\begin{aligned}
+            x,&x\in [-n,n],\\
+            0,&x\notin (-n-1,n+1),\\
+            *,&n<\abs{x}<n+1,
+        \end{aligned}
+        \right.
+    \]
+    以及光滑随机变量$F_n\ova{\mathbb{D}^{1,1}} F$.对任意$h\in \mathbb{H}$,$G\in \mathrm{Srv}_b$,
+    \begin{align*}
+        \mathbb{E}[\psi_n(F_m)(W(h)G-D_hG)]=\mathbb{E}[GD_h(\psi_n(F_m))],
+    \end{align*}
+    令$n\to \infty$并结合上一引理即可.
+\end{proof}
+
+作为以上定理的推论,可以给出$\sigma(W)$中的0-1律.
+\begin{corollary}
+    设$A\in \sigma(W)$.则
+    \[
+        I_A\in \mathbb{D}^{1,1} \Leftrightarrow \mathbb{P}(A)=0\text{或}1.
+    \]
+\end{corollary}
+
+下面考虑任意可分Hilbert空间$V$以及取值于$V$的随机变量的Malliavin导数.首先定义$\mathrm{Srv}(V)$为具有以下形式的$V$值随机变量$F$全体:
+\[
+    F=\sum_{i=1}^{n}F_iv_i,n\in \mathbb{N},F_i\in \mathrm{Srv}(\mathbb{R}),v_i\in V,
+\]
+对这样的随机变量,定义其$k$阶导数为$\mathbb{H}^{\otimes k}\otimes V$值的随机变量
+\[
+    D^k F=\sum_{i=1}^{n}(D^k F_i)\otimes v_i,
+\]
+类似于实值情形,可以证明$D^k$是$L^p(\Omega;V)$到$L^p(\Omega;\mathbb{H}^{\otimes k}\otimes V)$的可闭算子,记其闭延拓的定义域
+为$D^{k,p}(V)$,范数$\nm[k,p,V]{\cdot}$定义为:
+\[
+    \nm[k,p,V]{F}=(\mathbb{E}[\nm[V]{F}^p]+\sum_{j=1}^{k}\mathbb{E}[\nm[\mathbb{H}^{\otimes j}\otimes V]{D^jF}^p])^{\frac{1}{p}}.
+\]
+
+
+\section{导数算子的伴随--散度算子}
+\begin{definition}
+    称(无界)算子$\delta :L^2(\Omega;\mathbb{H})\supset \mathrm{Dom}(\delta)\to L^2(\Omega)$为导数算子$D$的伴随,是指:\par
+    (1)\ $u\in \dm{\delta}$,当且仅当存在常数$C=C(u)$,使得对任意$F\in \mathbb{D}^{1,2}$,
+    \[
+        \mathbb{E}[\ipr{DF}{u}_{\mathbb{H}}]^2\leq C \mathbb{E}[F^2];
+    \]\par
+    (2)\ 若$u\in \dm{\delta}$,则$\delta(u)$由
+    \[
+        \mathbb{E}[F\delta(u)]=\mathbb{E}[\ipr{DF}{u}_{\mathbb{H}}],F\in \mathbb{D}^{1,2}
+    \]
+    唯一确定.\par
+    称$\delta$为(Malliavin)散度算子.
+\end{definition}
+\begin{remark}
+    散度算子是闭线性算子,且易见$\mathbb{E}[\delta(u)]=0,\forall u\in \dm{\delta}$.下面使用记号$\delta(u)$时,总默认$u\in \dm{\delta}$.
+\end{remark}
+
+先对$L^2(\Omega;\mathbb{H})$中形式较为简单的元素进行讨论.设$u=\sum_{i=1}^{n}F_ih_i\in \mathrm{Srv}(\mathbb{H})$,
+由导数算子的分部积分公式可得
+\[
+    \delta(u)=\sum_{i=1}^{n}F_iW(h_i)-\sum_{i=1}^{n}\ipr{DF_i}{h_i}_{\mathbb{H}},
+\]
+实际上,有一些文献也以上式为出发点来定义散度算子.\par
+对于$u\in \mathbb{D}^{1,2}(\mathbb{H})$,其导数$Du$是一个$\mathbb{H}\otimes \mathbb{H}$值的随机变量,而$\mathbb{H}\otimes \mathbb{H}$中的元素
+可以视为HS算子,其同构由
+\[
+    e_i\otimes e_j\mapsto \ipr{\cdot}{e_i}e_j
+\]
+给出.在这种观点下,对$u=\sum_{i=1}^{n}F_ih_i\in \mathrm{Srv}(\mathbb{H})$,
+\[
+    Du=\sum_{i=1}^{n} DF_i\otimes h_i,
+\]
+$Du$作为HS算子作用在$h\in \mathbb{H}$则是
+\[
+    \ipr{Du}{h}=\sum_{i=1}^{n}\ipr{DF_i}{h}_{\mathbb{H}}h_i,
+\]
+等号左边的$\ipr{Du}{h}$只是泛函分析中"约定"记号,不代表真正的内积,也记$D_hu=\ipr{Du}{h}$.而二阶Malliavin导数也是
+$\mathbb{H}\otimes \mathbb{H}$值的随机变量:对一个光滑随机变量$G=g(W(v_1),\cdots,W(v_n))$,
+\[
+    D^2 G=\sum_{i,j} \partial_{ij}g(W(v_1),\cdots,W(v_n))v_i\otimes v_j,
+\]
+$D^2G$作为HS算子作用在$h\in \mathbb{H}$上式可记为
+\[
+    \langle D^2 G,h\rangle=\sum_{i,j}\partial_{ij}g(W(v_1),\cdots,W(v_n))\ipr{h}{v_i}_{\mathbb{H}} v_j,
+\]
+将其与$l\in \mathbb{H}$做内积可得
+\[
+    \ipr{\langle D^2 G,h\rangle}{l}_{\mathbb{H}}=\sum_{i,j}\partial_{ij}g(W(v_1),\cdots,W(v_n))\ipr{h}{v_i}_{\mathbb{H}} \ipr{l}{v_j}_{\mathbb{H}},
+\]
+注意光滑函数二阶偏导的对称性,实际上有$\ipr{\langle D^2 G,h\rangle}{l}_{\mathbb{H}}=\ipr{\langle D^2 G,l\rangle}{h}_{\mathbb{H}}$.
+结合以上讨论和分部积分公式计算可得,
+\begin{equation}
+    D_h(\delta(u))-\delta(D_h u)=\ipr{u}{h}_{\mathbb{H}},
+\end{equation}
+借用换位子的记号,上式可记为$\ipr{u}{h}_{\mathbb{H}}=[D_h,\delta](u)$,其中$[D_h,\delta]=D_h\circ \delta-\delta \circ D_h$,将上式简称为对易关系.
+由该对易关系,可得以下重要结论,它说明了$\dm{\delta}$包含了一类重要的$\mathbb{H}$值随机变量.
+\begin{theorem}\label{lab1}
+    $\mathbb{D}^{1,2}(\mathbb{H})\subset \dm{\delta}$.若$u,v\in \mathbb{D}^{1,2}(\mathbb{H})$,则
+    \[
+        \mathbb{E}[\delta(u)\delta(v)]=\mathbb{E}[\ipr{u}{v}_{\mathbb{H}}]+\mathbb{E}[\tr(Du\circ Dv)].
+    \]
+\end{theorem}
+\begin{proof}
+    若$u,v\in \mathrm{Srv}(\mathbb{H})$,由分部积分公式和对易关系可计算定理陈述中的等式成立,并且给出了以下估计:
+    \[
+        \mathbb{E}[\delta(u)^2]\leq \nm[1,2,\mathbb{H}]{u}^2.
+    \]\par
+    对任一$u\in \mathbb{D}^{1,2}(\mathbb{H})$,存在一列$\{u^n\}\subset \mathrm{Srv}(\mathbb{H})$,使得
+    $u^n\ova{L^2(\Omega;\mathbb{H})}u$且$Du^n\ova{L^2(\Omega;\tp{\mathbb{H}}{\mathbb{H}})}Du$,所以由以上估计可得
+    $\delta(u^n)$在$L^2(\Omega)$中收敛到某极限,并且可以验证该极限就是$\delta (u)$.
+\end{proof}
+
+前述对易关系只是对光滑随机变量而言,实际上可以推至更一般的情形.陈述如下.
+\begin{proposition}
+    设$u\in \mathbb{D}^{1,2}$且$D_hu\in \dm{\delta}$.则$\delta(u)\in \mathbb{D}_h^2$,且成立对易关系
+    \[
+        \ipr{u}{h}_{\mathbb{H}}=[D_h,\delta](u).
+    \]
+\end{proposition}
+该命题可看作以下引理的推论.
+\begin{lemma}
+    设$G\in L^2(\Omega)$,存在$Y\in L^2(\Omega)$,使得对所有的$F\in \mathbb{D}^{1,2}$,
+    \[
+        \mathbb{E}[G\delta(hF)]=\mathbb{E}[YF].
+    \]
+    \par
+    则$G\in \mathbb{D}_h^2,D_hG=Y$.
+\end{lemma}
+\begin{remark}
+    引理的证明只需考虑对$Y,G$做Wiener混沌分解.需要注意的是,引理中出现了$\delta(hF)$,但$F$不一定是光滑随机变量,所以暂时无法计算,但下一命题说明
+    在一定条件下可以像光滑随机变量那样作运算.
+\end{remark}
+\begin{proposition}
+    设$F\in \mathbb{D}^{1,2},u\in \dm{\delta}$使得$Fu\in L^2(\Omega;\mathbb{H})$.则当$F\delta(u)-\ipr{DF}{u}_{\mathbb{H}}\in L^2(\Omega)$时,
+    $Fu\in \dm{\delta}$,且\[
+        \delta(Fu)=F\delta(u)-\ipr{DF}{u}_{\mathbb{H}}.
+    \]
+\end{proposition}
+
+\section{白噪声情形的导数算子和散度算子}
+前两节是在一般框架下定义了导数算子和梯度算子,这节集中讨论一种重要模型,即$\mathbb{H}$取为一个测度空间上的平方可积函数的全体.\par
+给定一个完备概率空间$(\Omega,\mathscr{F},\mathbb{P})$.设$(T,\mathscr{B},\mu)$是一个无原子的$\sigma$有限的测度空间,$W$为$L^2(T,\mathscr{B},\mu)$上的等距Gauss过程,
+此时称$W$为强度为$\mu$的Gauss白噪声,简称白噪声.对任意$f,g\in L^2(T)$,有等距同构
+\[
+    \mathbb{E}[W(f)W(g)]=\int_{T}fg \mathrm{d}\mu.
+\]
+若$A\in \mathscr{B},\mu(A)<\infty$,则记$W(A)=W(I_A)$.特别地,若$A,B\in \mathscr{B}$测度有限且$ A\cap B=\emptyset$,则$\mathbb{E}[W(A)W(B)]=0$,即
+$W(A),W(B)$为独立的Gauss随机变量.对于一般的$f\in L^2(T)$,也将$W(f)$形式地记为$\int_T f \mathrm{d}W$.另外,当使用记号$W(A)$时,默认$A\in \mathscr{B},\mu(A)<\infty$.
+\subsection{多元Wiener积分}
+设$m\geq 1$,$\mathscr{B}_0=\{A\in \mathscr{B}:\mu(A)<\infty\}$.首先定义乘积测度空间$(T^m,\mathscr{B}^m,\mu^m)$上平方可积函数$f\in L^2(T^m)=L^2(T^m,\mathscr{B}^m,\mu^m)$的
+Wiener积分.类似于Lebsgue积分的做法,先在一类简单但稠密的函数上定义.令$\mathscr{E}_m$为具有以下形式的简单函数$f$的集合
+\[
+    f(t_1,\cdots,t_m)=\sum_{\sigma\in S_m} a_\sigma I_{A_{\sigma(1)}\times\cdots\times A_{\sigma(m)}}(t_1,\cdots,t_m),
+\]
+其中$a_\sigma\in \mathbb{R},A_1,\cdots,A_m\in \mathscr{B}_0$两两不交.\par
+对于简单函数$f=\sum_{\sigma\in S_m} a_\sigma I_{A_{\sigma(1)}\times\cdots\times A_{\sigma(m)}}$,定义其Wiener积分为
+\[
+    I_m(f)=\sum_{\sigma\in S_m} a_\sigma W(A_1)\cdots W(A_m)
+\]
+算子$I_m$有以下性质:\par
+(1)\ $I_m$是线性的;\par
+(2)\ $I_m(f)=I_m(\mathrm{Sym}(f))$,其中$\mathrm{Sym(f)}$表示函数$f$的对称化:
+\[
+    \mathrm{Sym}(f)(t_1,\cdots,t_m)=\frac{1}{m!}\sum_{\tau\in S_m} f(t_{\tau(1)},\cdots,t_{\tau(m)});
+\]\par
+(3)\ 对$f\in \mathscr{E}_m,g\in \mathscr{E}_q$,
+\[
+    \mathbb{E}[I_m(f)I_q(g)]=\left\{\begin{aligned}
+        0,&m\ne q,\\
+        m!\int_{T^m} \mathrm{Sym}(f)\mathrm{Sym}(g )\mathrm{d}\mu^m,&m=q
+    \end{aligned}
+    \right.
+\]\par
+对以上性质不做证明,仅举一个简单的例子.
+\begin{example}
+    考虑正半轴上Lebsgue测度.取$A=[0,1],B=[2,3]$,$f=I_{A\times B}+2I_{B\times A}$.首先,对任意的$x\geq 0$,$f(x,x)=0$.\par
+    注意到$f(1,2)=1$,而$f(2,1)=2$,说明$f$不是对称的,$f$的对称化$\sym{f}$为
+    \begin{align*}
+        \sym{f}(x,y)&=\frac{1}{2}(f(x,y)+f(y,x))\\
+        &=\frac{1}{2}(I_A(x)I_B(y)+2I_B(x)I_A(y)+I_A(y)I_B(x)+2I_B(y)I_A(x))\\
+        &=\frac{3}{2}(I_{A\times B}(x,y)+I_{B\times A}(x,y))
+    \end{align*}\par
+    $f$的Wiener积分为$I_2(f)=W(A)W(B)+2W(B)W(A)=3W(A)W(B)=I_2(\sym{f})$.
+\end{example}
+\begin{remark}
+    尽管这个例子十分简单,但高维情形基本一致,只是涉及到的组合更复杂.从这个例子也可以看出,简单函数的定义中实际已经
+    有了对称化的操作,其不对称性来源于系数,所以简单函数的对称化,实际上就是各加项系数的平均化.
+\end{remark}
+
+简单函数在$L^2$中是稠密的,证明中要用到$\mu$无原子的条件.无原子的好处之一是对任意的测度有限集$A$,以及任意的$a\in (0,\mu(A))$,都存在
+一个$A$的子集可测且其测度正好为$a$.在正半轴和Lebsgue测度的情形下较为直观.
+
+由Fubini定理和Minkowski定理可得,
+\[
+    \mathbb{E}[I_m(f)^2]=m!\nm[L^2(T^m)]{\sym{f}}^2\leq \nm[L^2(T^m)]{f}^2.
+\]
+从而算子$I_m$可以延拓到整个$L^2(T^m)$上.\par
+对于$f\in L^2(T^p),g\in L^2(T^q)$,定义其$r$-缩并为$f\otimes_r g\in L^2(p+q-2r)$
+\[
+    f\otimes_r g(t_1,\cdots,t_{p-r},s_1,\cdots,s_{q-r})=\int_{T^r} f(t_1,\cdots,t_{p-r},x)g(s_1,\cdots,s_{q-r},x)\mu^r(\mathrm{d}x).
+\]
+
+记$f\td{\otimes} g=\sym{f\otimes g},f\td{\otimes}_r g=\sym{f\otimes_r g}$,以及$L^2_S(T^m)=\sym{L^2(T^m)}$.\par
+借助缩并,可以对任意维中平方可积函数的Wiener积分的乘积表示为若干Wiener积分的线性组合.
+\begin{theorem}
+    设$f\in L^2_S(T^p),g\in L^2_S(T^q)$.则
+    \[
+        I_p(f)I_q(g)=\sum_{r=0}^{p\wedge q} \binom{p}{r}\binom{q}{r} I_{p+q-2r}(f\otimes_r g).
+    \]
+\end{theorem}
+
+上述定理一个重要且常用的特例是取$q=1$,此时有
+\[
+    I_p(f)I_1(g)=I_{p+1}(f\otimes g)+pI_{p-1}(f\otimes_1 g).
+\]
+
+由该公式,可以给出一类特殊的对称函数的递推公式,
+\[
+    I_{m+1}(f^{\otimes (m+1)})=I_{m}(f^{\otimes m})I_1(f)-(m-1)\nm[L^2(T)]{f}I_{m-1}(f^{\otimes (m-1)})
+\]
+根据这个递推公式以及归纳法可以得到以下命题.
+\begin{proposition}
+    设$f\in L^2(T)$且$\nm[L^2]{f}=1$.则
+    \[
+        H_m(W(f))=\frac{1}{m!}I_m(f^{\otimes m}).
+    \]
+\end{proposition}
+
+记$\overline{L^2_S(T^m)}$为$L^2(T^m)$中对称函数生成的闭子空间.由以上命题,$n$阶Wiener混沌$\mathscr{H}_n\subset I_n(\overline{L^2_S(T^n)})$,再结合不同阶的Wiener积分的正交性可得
+$\mathscr{H}_n=I_n(\overline{L^2_S(T^n)})$.从而有以下定理.
+\begin{theorem}
+    设$F\in L^2(\Omega,\sigma(W),\mathbb{P})$.则存在$f_n\in L^2_S(T^n),n\geq 1$,使得
+    \[
+        F=\mathbb{E}[F]+\sum_{n=1}^{\infty} I_n(f_n)
+    \]
+\end{theorem}
+\subsection{作为随机过程的导数}
+考虑简单情形$F=W(f)^k,f\in L^2(T)$,则$DF=kW(f)^{k-1}f$,$W(f)$是一个实值随机变量,而$f$是一个$T$上的函数.
+$DF$作为$L^2(\Omega;L^2(T))$中的元素是说:将任意$\omega\in \Omega$映为一个平方可积函数$k(W(f)(\omega))^{k-1}f$,该函数在$t\in T$处取值为
+$k(W(f)(\omega))^{k-1}f_t$.另一方面,也可以说对任一$t\in T$,由导数确定了一个随机变量$kf_tW(f)^{k-1}$,记为$D_t F$.两种观点只是先后顺序的差异.
+对$DF$再求导得$D^2F=k(k-1)W(f)^{k-2}f\otimes f$,这是一个$L^2(T^2)$值随机变量,也就是说需要给定两个参数$t_1,t_2\in T$才能确定一个实值随机变量
+$k(k-1)f_{t_1}f_{t_2}W(f)^{k-2}$,记为$D^2_{t_1,t_2}F$,反过来说,随机变量族$\{D^2_{t_1,t_2}F\}$也完全确定了二阶导数$D^2F$.\par
+推至一般情形,将$F\in \mathbb{D}^{k,2}$的$k$阶导数
+\[
+    D^k F=\{D^k_{t_1,\cdots,t_k}F:t_1,\cdots,t_k\in T\}
+\]
+视为$T^k\times\Omega$上的可测函数.
+\begin{example}[[0,1]区间上的布朗运动]
+    取$\Omega=C_0([0,1;\mathbb{R}^d])$,$\mathbb{H}=L^2([0,1];\mathbb{R}^d)$.定义
+    \[
+        H^1=\{x\in \mathrm{AC}([0,1];\mathbb{R}^d):\dot{x}\in \mathbb{H}\}
+    \]
+    这里的$\dot{x}$表示绝对连续函数的导数.子空间$H^1$被称为Cameron-Martin空间.在$H^1$上定义内积
+    \[
+        \ipr{x}{y}_{H^1}=\ipr{\dot{x}}{\dot{y}}_{\mathbb{H}},
+    \]
+    在此内积下,$H^1$是一个Hilbert空间.并且嵌入映射$H^1\hookrightarrow \Omega$是连续的.\par
+    为便于讨论,设$d=1$.对任意$t\in[0,1]$,记$W(t)=W(I_{[0,t]})$.考虑光滑随机变量$F=f(W(t_1),\cdots,W(t_n))$,$g\in L^2([0,1])$,
+    \begin{align*}
+        \ipr{DF}{g}&=\sum_{i=1}^{n}\partial_{i}f(W(t_1),\cdots,W(t_n))\ipr{I_{[0,t_i]}}{g}\\
+        &=\sum_{i=1}^{n}\partial_{i}f(W(t_1),\cdots,W(t_n))\int_{0}^{t_i} g(s)\mathrm{d}s,
+    \end{align*}
+    另一方面,固定$\omega$,记$\td{g}(t)=\int_{0}^{t} g(s)\mathrm{d}s$,
+    \begin{align*}
+        &\lim_{\epsilon\downarrow 0}\frac{F(x+\epsilon \td{g})-F(x)}{\epsilon}\\
+        =&\lim_{\epsilon\downarrow 0}\frac{f(W(t_1)(x+\epsilon\td{g}),\cdots,W(t_n)(x+\epsilon\td{g}))-F(\omega)}{\epsilon}\\
+        =&\lim_{\epsilon\downarrow 0}\frac{f(x(t_1)+\epsilon \td{g}(t_1),\cdots,x(t_n)+\epsilon \td{g}(t_n))-f(x(t_1),\cdots,x(t_n))}{\epsilon}\\
+        =&\sum_{i=1}^{n} \partial_{i}f(x(t_1),\cdots,x(t_n))\td{g}(t_i)\\
+        =&\sum_{i=1}^{n} \partial_{i}f(W(t_1)(x),\cdots,W(t_n)(x))\int_{0}^{t_i} g(s)\mathrm{d}s,
+    \end{align*}
+    所以$\ipr{DF}{g}(x)=\frac{\mathrm{d}}{\mathrm{d}\epsilon}|_{\epsilon=0}F(x+\epsilon \int_{0}^{\cdot}g(s)\mathrm{d}s)$.
+    这个等式左边是在Malliavin导数框架下做内积得到的随机变量,而右边则是将$F$看作样本空间$\Omega$上的泛函,在给定的样本点处,计算$F$的方向导数,
+    当然这个方向不是任意的,暂时只是取自$H^1$,但实际上,为了保证一定的合理性,也只能取于$H^1$.
+\end{example}
+
+考虑$F\in L^2(\Omega)$有如下表示:
+\[
+    F=\mathbb{E}[F]+\sum_{n=1}^{\infty} I_n(f_n),f_n\in  L^2_S(T^n).
+\]
+则导数算子和无穷求和可交换,也即如下定理.
+\begin{theorem}
+    设$F=\mathbb{E}[F]+\sum_{n=1}^{\infty} I_n(f_n),f_n\in  L^2_S(T^n)\in \mathbb{D}^{1,2}$.则
+    $D_t F=\sum_{n=1}^{\infty} nI_{n-1}(f(\cdot,t))$.
+\end{theorem}
+
+下面介绍和条件期望相关的性质.对$A\in \mathscr{B}$,记$\mathscr{F}_A=\sigma\big(W(B):B\subset A,\mu(B)<\infty\big)$.首先有以下引理.
+\begin{lemma}
+    设$F=\mathbb{E}[F]+\sum_{n=1}^{\infty} I_n(f_n),f_n\in  L^2_S(T^n)\in L^2(\Omega)$.则
+    \[
+        \mathbb{E}(F| \mathscr{F}_A)=\sum_{n=0}^{\infty}I_n(f_n(I_A)^{\otimes n})
+    \]\footnote{$I_0=\mathrm{id}_{\mathbb{R}}$}
+\end{lemma}
+由以上引理可得以下命题.
+\begin{proposition}
+    设$F\in \mathbb{D}^{1,2}$,$A\in \mathscr{B}$.则$\mathbb{E}(F| \mathscr{F}_A)\in \mathbb{D}^{1,2}$.且
+    \[
+        D_t\mathbb{E}(F| \mathscr{F}_A)=\mathbb{E}(D_t F | \mathscr{F}_A)I_A(t).
+    \]
+\end{proposition}
+
+\subsection{Skorohod随机积分}
+在白噪声情形下,散度算子也称为Skorohod随机积分.对$u\in \dm{\delta}$,将$\delta(u)$形式地记为$\int_T u \mathrm{d}W$或$\int_T u_t \mathrm{d}W_t$.
+$u\in L^2(\Omega;L^2(T))\ova{\sim} L^2(T\times \Omega)$,对任意$t\in T$,$u_t$作为一个平方可积的随机变量有Wiener混沌分解:
+\[
+    u_t=\sum_{n=0}^{\infty}I_{n}(f_n(\cdot,t)),
+\]
+其中$f_n\in L^2(T^{n+1}),n\geq 1$对前$n$个变量是对称的,但不必对所有变量对称.在如上分解的基础上,可以给出$u\in \dm{}$
+\begin{proposition}
+    设$(u_t)=\big(\sum_{n=0}^{\infty}I_{n+1}(f_n(\cdot,t))\big)\in L^2(T\times \Omega)$.则$u\in \dm{\delta}$,当且仅当级数
+\[
+    \sum_{n=0}^{\infty} I_{n+1}(\sym{f}_n)
+\]
+在$L^2(\Omega)$中收敛.
+\end{proposition}
+
+\begin{proof}
+    设$g\in L^2_S(T^n)$.计算可得
+    \begin{align*}
+        \mathbb{E}[\ipr{u}{DG}]&=\mathbb{E}[\int_T u_t D_tG\mu(\mathrm{d}t)]\\
+        &=\mathbb{E}[\int_T u_t(nI_{n-1}(g(\cdot,t)))\mu(\mathrm{d}t)]\\
+        &=\mathbb{E}[\int_T (\sum_{m=0}^{\infty}I_{m}(f_m(\cdot,t)))(nI_{n-1}(g(\cdot,t)))\mu(\mathrm{d}t)]\\
+        &=n\int_T \mathbb{E}[I_{n-1}(f_{n-1}(\cdot,t))I_{n-1}(g(\cdot,t))]\mu(\mathrm{d}t)\\
+        &=n(n-1)!\int_T \ipr{I_{n-1}(f_{n-1}(\cdot,t))}{I_{n-1}(g(\cdot,t))}\mu(\mathrm{d}t)\\
+        &=\mathbb{E}[I_{n-1}(\sym{f}_{n-1})Y].
+    \end{align*}\par
+    若$u\in \dm{\delta}$,则上式蕴含对任意$G\in \mathscr{H}_n$,
+    \[
+        \mathbb{E}[\delta(u)Y]=\mathbb{E}[\ipr{u}{DY}]=\mathbb{E}[I_{n-1}(\sym{f}_{n-1})Y],
+    \]
+    从而说明$J_n(\delta(u))=I_{n-1}(\sym{f}_{n-1})$,进而级数
+    \[
+        \sum_{n=0}^{\infty} I_{n+1}(\sym{f}_n)
+    \]
+    收敛且在$L^2(\Omega)$中收敛到$\delta(u)$.\par
+    反过来,若级数收敛,记其收敛到$Z$,则
+    \[
+        \mathbb{E}[\ipr{u}{DY}]=\mathbb{E}[ZY],\forall Y\in \mathscr{H}_n,
+    \]
+    线性性保证了对$\forall Y\in \oplus_{n=1}^N \mathscr{H}_n$同样有上式成立,再由连续性即得$Z=\delta(u)$.
+\end{proof}
+
+记$\mathbb{L}^{1,2}=\mathbb{D}^{1,2}(L^2(T))$,则$\mathbb{L}^{1,2}$同构于$L^2(T;\mathbb{D}^{1,2})$.依定理\ref{lab1},
+$\mathbb{L}^{1,2}\subset \dm{\delta}$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Ornstein-Uhlenbeck半群}
+Ornstein-Uhlenbeck半群相关内容十分丰富,在此仅介绍一些重要的性质.具体内容和证明参见\citep{Nua1}.
+\begin{definition}
+    定义算子$T_t,t\geq 0$为
+    \[
+        T_t(F)\coloneq \sum_{n=0}^{\infty} e^{-nt}J_n F,F\in L^2(\Omega).
+    \]
+    $T_t$形成的单参数算子半群$\{T_t:t\geq 0\}$称为Ornstein-Uhlenbeck半群,简称为OU半群.\par
+    记$L$为OU半群的无穷小生成元,也即:
+    \[
+        LF=\lim_{t\downarrow 0}\frac{T_tF-F}{t},
+    \]
+    其中$F\in \dm{L}=\{F\in \mathbb{D}^{1,2}:\text{极限}\lim_{t\downarrow 0}\frac{T_tF-F}{t}\text{在强收敛意义下存在}\}$.
+\end{definition}
+
+\begin{remark}
+    OU半群的无穷小生成元$L$有相对具体的表达式:$LF=\sum_{n=0}^{\infty}-nJ_nF$,并且$L$具有一定的对称性,即
+    \[
+        \mathbb{E}[G(LF)]=\mathbb{E}[F(LG)],L,G\in \dm{L}.
+    \]
+\end{remark}
+
+算子$L$和导数算子,散度算子有紧密关联,具体体现在如下命题,这一命题也为实际的计算和应用提供许多便利.
+\begin{proposition}
+    设$F\in L^2(\Omega)$.则$F\in \dm{L}$,当且仅当$F\in \mathbb{D}^{1,2}$且$DF\in \dm{\delta}$,此时
+    \[
+        \delta(DF)=-LF.
+    \]
+\end{proposition}
+
+作为以上命题的应用,可以对$F=f(W(h_1),\cdots,W(h_n))\in \mathrm{Srv}$计算
+\[
+    LF=\sum_{i,j}\partial_{ij}f(W(h_1),\cdots,W(h_n))\ipr{h_i}{h_j}_{\mathbb{H}}-\sum_{i=1}^{n}\partial_{i}f(W(h_1),\cdots,W(h_n))W(h_i)
+\]
+更一般地,类似于链式法则有如下定理.
+\begin{theorem}
+    设$F=(F^1,\cdots,F^m),F_i\in \mathbb{D}^{2,4},i=1,\cdots,m$,$\phi\in C^2(\mathbb{R}^m)$且各一阶,二阶偏导数有界.
+    则$\phi(F)\in \dm{L}$,
+    \[
+        L(\phi(F))=\sum_{i,j} \partial_{ij}\phi(F)\ipr{DF^i}{DF^j}_{\mathbb{H}}+\sum_{i}\partial_{i}\phi(F)LF^i
+    \]
+\end{theorem}
+
+OU半群最重要的性质之一即超压缩性.
+\begin{theorem}[超压缩性]
+    设$p>1$,定义$q(t)=(p-1)e^{2t}+1,t>0$.则对任意$F\in L^p(\Omega)$,
+    \[
+        \nm[q(t)]{T_tF}\leq \nm[p]{F}
+    \]
+\end{theorem}
+\begin{remark}
+    称为超压缩性的原因之一是$q(t)$严格大于$p$,而高阶矩可以控制低阶矩.
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{具有Lipschitz系数的SDE的Malliavin可微性} 
+本章最后介绍随机微分方程解的Malliavin可微性.考虑方程
+\begin{equation}\label{sde1}
+    \mathrm{d}X_t=b_t(X_t)\mathrm{d}t+\sigma_t(X_t)\mathrm{d}W_t,X_0=x_0,t\in [0,T]
+\end{equation}
+其中$(W_t)_{t\geq 0}=(W^1_t,\cdots,W^d_t)$是定义在一个完备带流概率空间$(\Omega,\mathscr{F},(\mathscr{F}_t)_{t\geq 0},\mathbb{P})$上的$d$维布朗运动.
+\begin{align*}
+    &b:[0,T]\times \mathbb{R}^m\to \mathbb{R}^m\\
+    &\sigma:[0,T]\times \mathbb{R}^m\to \mathbb{R}^{m\times d}
+\end{align*}
+为可测映射,分别称为漂移系数和扩散系数.$\sigma$作为一个矩阵值映射,记其第$j$列为$A^j$,所以方程\ref{sde1}还可以写为
+
+\begin{equation}\label{sde2}
+        X_t=x_0+\int_{0}^t b_s(X_s)\mathrm{d}s+\sum_{j=1}^{d}\int_{0}^{t}A^j_t \mathrm{d}W^j_t,t\in [0,T].
+\end{equation}
+
+本节讨论的随机微分方程总假设漂移系数和扩散系数满足Lipschitz连续性和有界性假设,简记为方程\ref{sde1}或\ref{sde2}满足假设(A),其中
+假设(A)具体如下.
+\begin{proof}[A]
+    存在常数$K>0$使得\par
+(A1)\ $\forall x,y\in \mathbb{R}^m,\forall t\in [0,T]$,
+\[
+    \abs{b_t(x)-b_t(y)}+\sum_{j=1}^{d}\abs{A^j_t(x)-A^j_t(y)}\leq K\abs{x-y}.
+\]\par
+(A2)\ 映射$t\mapsto A^j_t(0),t\mapsto b_t(0)$是$[0,T]$上的有界映射.
+\end{proof}
+
+若方程\ref{sde1}满足假设(A),则\ref{sde1}有唯一强解,记该唯一强解为$(X_t)_{t\in [0,T]}=(X^1_t,\cdots,X^m_t)_{t\in [0,T]}$,具体可见\citep{legall}.\par
+
+为了与第二节中的记号对应,取$\Omega=C_0([0,T];\mathbb{R}^d)$为$[0,1]$上在$0$处取值为$0$的$\mathbb{R}^d$值连续函数全体,$\mathbb{P}$为Wiener测度,
+$\mathscr{F}$为$\mathscr{B}(\Omega)$关于$\mathbb{P}$的完备化,$\mathscr{F}_t$为布朗运动产生的自然流,$\mathbb{H}$为$L^2([0,T];\mathbb{R}^d)$.
+另记$\mathbb{D}^{1,\infty}=\cap_{p\geq 1}\mathbb{D}^{1,p}$.
+先陈述本节的主要定理如下.
+\begin{theorem}[SDE解的Malliavin可微性]
+    对任意$t\in [0,T],i=1,\cdots,m$,$X^i_t\in \mathbb{D}^{1,\infty}$.进一步地,
+    \[
+        \sup_{0\leq r\leq t}\mathbb{E}[\sup_{r\leq s\leq T}\abs{D^j_rX^i_s}^p]<\infty,
+    \]
+    且存在一致有界的$m$维适应过程$\bar{A}^{k,l}_s,\bar{B}^k_s$,使得
+    \[
+        ***
+    \]
+\end{theorem}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
