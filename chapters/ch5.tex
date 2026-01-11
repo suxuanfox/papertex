@@ -627,7 +627,8 @@ $\mathbb{D}^{1,2}$作为Srv关于范数$\nm[1,2]{\cdot}$的闭包,是比较抽�
 \begin{remark}
     Malliavin导数的链式法则虽然形式上与经典微积分中的链式法则相似,但还是有一定局限性,例如不能直接取$\phi(x,y)=xy$来计算随机变量乘积的导数,尽管形式上看起来十分合理,实际上一般的随机变量乘积未必是Malliavin可导的,还需要合适的
     可积性条件.
-    其中一个原因是,经典微积分中的导数定义是局部的,固定一点处的导数只取决于局部性态,而太远处的行为则影响不大,但Malliavin导数则不然,它依赖于全空间上的积分.
+    其中一个原因是,经典微积分中的导数定义是局部的,固定一点处的导数只取决于局部性态,而太远处的行为则影响不大,但Malliavin导数则不然,它依赖于全空间上的积分.\par
+    另外,要求导数有界,只是为了是$\phi(F)$和$F$的导数有相同的可积性,实际上可以考虑导数具有多项式增长,依然证$\phi(F)$可导,但要求的导数$\phi'$增长速度越快,$D\phi(F)$可积性越低
 \end{remark}
 事实上,注意到证明中对$\phi$的关键要求是导数有界,所以对$\phi$的要求可以减弱到仅是Lipschitz连续的.为了证明Lipschitz函数的链式法则,
 需要以下引理.
@@ -793,7 +794,7 @@ $D^2G$作为HS算子作用在$h\in \mathbb{H}$上式可记为
 \end{proof}
 
 前述对易关系只是对光滑随机变量而言,实际上可以推至更一般的情形.陈述如下.
-\begin{proposition}
+\begin{proposition}\label{lab2}
     设$u\in \mathbb{D}^{1,2}$且$D_hu\in \dm{\delta}$.则$\delta(u)\in \mathbb{D}_h^2$,且成立对易关系
     \[
         \ipr{u}{h}_{\mathbb{H}}=[D_h,\delta](u).
@@ -980,6 +981,10 @@ $k(k-1)f_{t_1}f_{t_2}W(f)^{k-2}$,记为$D^2_{t_1,t_2}F$,反过来说,随机变�
     \]
 \end{proposition}
 
+特别地还有如下推论.
+\begin{corollary}\label{lab3}
+    设$A\in \mathscr{B}$,$F\in \mathbb{D}^{1,2}$是$\mathscr{F}_A$可测的.则$DF$在$T\times \Omega$上几乎处处为0.
+\end{corollary}
 \subsection{Skorohod随机积分}
 在白噪声情形下,散度算子也称为Skorohod随机积分.对$u\in \dm{\delta}$,将$\delta(u)$形式地记为$\int_T u \mathrm{d}W$或$\int_T u_t \mathrm{d}W_t$.
 $u\in L^2(\Omega;L^2(T))\ova{\sim} L^2(T\times \Omega)$,对任意$t\in T$,$u_t$作为一个平方可积的随机变量有Wiener混沌分解:
@@ -990,7 +995,7 @@ $u\in L^2(\Omega;L^2(T))\ova{\sim} L^2(T\times \Omega)$,对任意$t\in T$,$u_t$�
 \begin{proposition}
     设$(u_t)=\big(\sum_{n=0}^{\infty}I_{n+1}(f_n(\cdot,t))\big)\in L^2(T\times \Omega)$.则$u\in \dm{\delta}$,当且仅当级数
 \[
-    \sum_{n=0}^{\infty} I_{n+1}(\sym{f}_n)
+    \sum_{n=0}^{\infty} I_{n+1}(\sym{f_n}).
 \]
 在$L^2(\Omega)$中收敛.
 \end{proposition}
@@ -1003,7 +1008,7 @@ $u\in L^2(\Omega;L^2(T))\ova{\sim} L^2(T\times \Omega)$,对任意$t\in T$,$u_t$�
         &=\mathbb{E}[\int_T (\sum_{m=0}^{\infty}I_{m}(f_m(\cdot,t)))(nI_{n-1}(g(\cdot,t)))\mu(\mathrm{d}t)]\\
         &=n\int_T \mathbb{E}[I_{n-1}(f_{n-1}(\cdot,t))I_{n-1}(g(\cdot,t))]\mu(\mathrm{d}t)\\
         &=n(n-1)!\int_T \ipr{I_{n-1}(f_{n-1}(\cdot,t))}{I_{n-1}(g(\cdot,t))}\mu(\mathrm{d}t)\\
-        &=\mathbb{E}[I_{n-1}(\sym{f}_{n-1})Y].
+        &=\mathbb{E}[I_{n-1}(\sym{f_{n-1}})Y].
     \end{align*}\par
     若$u\in \dm{\delta}$,则上式蕴含对任意$G\in \mathscr{H}_n$,
     \[
@@ -1022,8 +1027,75 @@ $u\in L^2(\Omega;L^2(T))\ova{\sim} L^2(T\times \Omega)$,对任意$t\in T$,$u_t$�
 \end{proof}
 
 记$\mathbb{L}^{1,2}=\mathbb{D}^{1,2}(L^2(T))$,则$\mathbb{L}^{1,2}$同构于$L^2(T;\mathbb{D}^{1,2})$.依定理\ref{lab1},
-$\mathbb{L}^{1,2}\subset \dm{\delta}$.若$u,v\in \mathbb{L}^{1,2}$,则
+$\mathbb{L}^{1,2}\subset \dm{\delta}$.若$u,v\in \mathbb{L}^{1,2}$,则\ref{lab1}中的等式在白噪声情形下的对应为
+\[
+    \mathbb{E}[\delta(u)\delta(v)]=\int_T \mathbb{E}[u_tv_t]\mu(\mathrm{d}t)+\int_T\int_T \mathbb{E}[(D_su_t) (D_tu_s)]\mu(\mathrm{d}t)\mu(\mathrm{d}s).
+\]
 
+
+在白噪声情形下,对易关系\ref{lab2}表述如下.
+\begin{theorem}
+    设$u\in \mathbb{L}^{1,2}$.对几乎处处$t\in T$,$\{D_tu_s:s\in T\}\in \dm{\delta}$且存在一个版本使得$\{\int_T D_t u_s \mathrm{d}W_s:t\in T\}\in L^2(T\Omega)$.则
+    $\delta(u)\in \mathbb{D}^{1,2}$且
+    \[
+        D_t(\delta(u))=u_t+\delta(D_t u)=u_t+\int_T D_tu_s \mathrm{d}W_s.
+    \]
+\end{theorem}
+
+\subsection{Ito随机积分}
+
+下面将Ito随机积分作为Skorohod随机积分的特例来讨论.\par
+取$T=(0,\infty)$,$\mathscr{B}$为Lebsgue可测集全体,$\mu$为Lebsgue测度.令$B_t=W(t)=W(I_{(0,t]})$为布朗运动.$(\mathscr{F}_t)$为布朗运动生成的自然$\sigma$代数流,并注意到
+$\mathscr{F}_t=\mathscr{F}_{(0,t]}$.\par
+对适应过程$u\in \mathbb{L}^{1,2}$,$u_t$是$\mathscr{F}_t$可测的,所以由\ref{lab3}可得$D_su_t=0,s>t$,所以对易关系蕴含Ito等距:
+\[
+    \mathbb{E}[\delta(u)^2]=\mathbb{E}[\int_0^\infty u_t^2 \mathrm{d}t].
+\]
+考虑具有如下形式的初等随机过程$u$:
+\[
+    u=\sum_{i=1}^n X_iI_{(t_{i},t_{i+1}]},
+\]
+其中$0\leq t_0 < t_1 < \cdots <t_n$,$X_i\in L^2(\Omega,\mathscr{F}_{t_i})$,可得
+$\delta(u)=\sum_{i=1}^{n}X_i(B_{t_{i}}-B_{t_{i-1}})$. 由标准的逼近方法和散度算子的闭性可得:全体初等随机过程在$L^2((0,\infty)\times \Omega)$中的闭包,记为$L^2_{\mathscr{F}}((0,\infty)\times \Omega)$,中的任一元素
+$v$都是适应的,且$v\in \dm{\delta}$.
+下面给出扩散过程的一个重要结论:对随机积分$X_t=\int_0^t u_s \mathrm{d}B_s$,其Malliavin可微性取决于"被积函数"$u_s$的可微性,反过来$X_t$的可微性也蕴含了$u_s$的可微性.
+
+在此之前,先对适应性做出一点简单的说明.考虑$F=f(W(t_1),\cdots,W(t_n)$是$\mathscr{F}_T$可测的,$t_1\leq\cdots t_n\leq t$.
+则$DF=\sum_{i=1}^{n}\partial_{i}f(W(t_1),\cdots,W(t_n))I_{[0,t_i]}$是一个初等随机过程,依\ref{lab3}有$D_s F=0,s\geq t$.而当$s<t$时,
+$D_t F=\sum_{i=1}^{n}\partial_{i}f(W(t_1),\cdots,W(t_n))I_{[0,t_i]}(t)$.定义初等随机过程$u=FI_{(S,R]},S\geq T$.则
+$D_t u_s=\sum_{i=1}^{n}\partial_{i}f(W(t_1),\cdots,W(t_n))I_{[0,t_i]}(t)I_{(S,R]}(s)$.固定$t$,考虑$s>t$.只有在$s>S>\geq t_n$时,
+$D_t u_s\ne 0$才可能成立,此时一定有$D_t u_s\mathscr{F}_s$,从而$\{D_t u_s:s\geq t\}$是适应的.由标准的逼近讨论可知对任一$u\in L^2_{\mathscr{F} }$,
+$\{D_tu_s:s\geq t\}$都是适应的.
+\begin{theorem}
+    设$u\in L^2_{\mathscr{F}}((0,T)\times \Omega)$,$X=\int_{0}^{T}u_s \mathrm{d}B_s$.则$X\in \mathbb{D}^{1,2}$,当且仅当$u\in \mathbb{L}^{1,2}$.\par
+    此时,$\{D_tu_s:t\in (0,T)\}\in L^2_{\mathscr{F}}$且
+    \[
+        D_tX=u(t)+\int_{t}^{T} D_tu_s \mathrm{d}B_s.
+    \]
+\end{theorem}
+\begin{proof}
+    若$u\in L^2_{\mathscr{F}}$,则$D_t u_s$几乎处处存在且平方可积,且$\{D_t u_s:s\leq t\}$是适应和平方可积的,所以$D_t u_\cdot\in \dm{\delta}$,由对易关系可得,
+    \[
+        D_t X=u_t+\int_t^T D_t u_s \mathrm{d}B_s.
+    \]\par
+    反过来,若$X\in \mathbb{D}^{1,2}$.记$u^n_t$为$u_t$在$\mathcal{P}_n=\mathscr{H}_0\oplus\cdots\oplus \mathscr{H}_n$上的正交投影.令
+    $X^n=\int_0^T u_t^n \mathrm{d}B_s$,则$X^n$恰是$X$在$\mathcal{P}_{n+1}$上的正交投影,且在$\mathbb{D}^{1,2}$中收敛到$X$.从而由以下估计,
+    \begin{align*}
+        \mathbb{E}[\nm[L^2((0,T)^2)]{Du^n}]&=\mathbb{E}[\int_{0}^{T}\int_{0}^{s}\abs{D_t u^n_s}^2 \mathrm{d}t \mathrm{d}s]\\
+        &\leq \mathbb{E}[\int_{0}^{T}\int_{0}^{s}\abs{D_t u^n_s}^2 \mathrm{d}t \mathrm{d}s]+\mathbb{E}[\int_{0}^{t} \abs{u_t}^2 \mathrm{d}t]\\
+        &\leq \mathbb{E}[\int_{0}^{T} \abs{D_tX^n}\mathrm{d}t].
+    \end{align*}
+    由该有界性结合引理6.17即可得$u\in \mathbb{L}^{1,2}$.
+
+\end{proof}
+
+下面的定理说明如何已知$X$计算被积函数$u_s$.
+\begin{theorem}[Clark-Ocone公式]
+    设$X\in \mathbb{D}^{1,2}$.则
+    \[
+        X=\mathbb{E}[X]+\int_{0}^{t} \mathbb{E}(D_s X|\mathscr{F}_s)\mathrm{d}B_s.
+    \]
+\end{theorem}
 
 
 
@@ -1122,7 +1194,7 @@ OU半群最重要的性质之一即超压缩性.
     &b:[0,T]\times \mathbb{R}^m\to \mathbb{R}^m\\
     &\sigma:[0,T]\times \mathbb{R}^m\to \mathbb{R}^{m\times d}
 \end{align*}
-为可测映射,分别称为漂移系数和扩散系数.$\sigma$作为一个矩阵值映射,记其第$j$列为$A^j$,所以方程\ref{sde1}还可以写为
+为可测映射,分别称为漂移系数和扩散系数.记$b=(b^1,\cdots,b^m)^T$,$\sigma=(\sigma^{i,j})_{m\times d}$作为一个矩阵值映射,记其第$j$列为$A^j=(\sigma^{j,1},\cdots,\sigma^{j,m})^T$,所以方程\ref{sde1}还可以写为
 
 \begin{equation}\label{sde2}
         X_t=x_0+\int_{0}^t b_s(X_s)\mathrm{d}s+\sum_{j=1}^{d}\int_{0}^{t}A^j_t \mathrm{d}W^j_t,t\in [0,T].
@@ -1141,20 +1213,93 @@ OU半群最重要的性质之一即超压缩性.
 
 若方程\ref{sde1}满足假设(A),则\ref{sde1}有唯一强解,记该唯一强解为$(X_t)_{t\in [0,T]}=(X^1_t,\cdots,X^m_t)_{t\in [0,T]}$,具体可见\citep{legall}.\par
 
-为了与第二节中的记号对应,取$\Omega=C_0([0,T];\mathbb{R}^d)$为$[0,1]$上在$0$处取值为$0$的$\mathbb{R}^d$值连续函数全体,$\mathbb{P}$为Wiener测度,
+与第二节中的记号对应,取$\Omega=C_0([0,T];\mathbb{R}^d)$为$[0,1]$上在$0$处取值为$0$的$\mathbb{R}^d$值连续函数全体,$\mathbb{P}$为Wiener测度,
 $\mathscr{F}$为$\mathscr{B}(\Omega)$关于$\mathbb{P}$的完备化,$\mathscr{F}_t$为布朗运动产生的自然流,$\mathbb{H}$为$L^2([0,T];\mathbb{R}^d)$.
 另记$\mathbb{D}^{1,\infty}=\cap_{p\geq 1}\mathbb{D}^{1,p}$.
 先陈述本节的主要定理如下.
-\begin{theorem}[SDE解的Malliavin可微性]
+\begin{theorem}[SDE解的Malliavin可微性]\label{SDE解的Malliavin可微性}
     对任意$t\in [0,T],i=1,\cdots,m$,$X^i_t\in \mathbb{D}^{1,\infty}$.进一步地,
     \[
         \sup_{0\leq r\leq t}\mathbb{E}[\sup_{r\leq s\leq T}\abs{D^j_rX^i_s}^p]<\infty,
     \]
-    且存在一致有界的$m$维适应过程$\bar{A}^{k,l}_s,\bar{B}^k_s$,使得
+    且存在一致有界的$m$维适应过程$\bar{A}^{k,l}_s,\bar{B}^k_s,k\in\{1,\cdots,m\},l\in\{1,\cdots,d\}$,使得
     \[
-        ***
+        D^j_r X_t=A^{j}_r(X_r)+\sum_{k=1}^{m}\sum_{l=1}^d\int_{r}^{t}\bar{A}^{k,l}_sD_r^jX^k_s \mathrm{d}W_s^l+\sum_{k=1}^{m}\int_{r }^{t }\bar{B}^k_s D^j_rX^k_s \mathrm{d}s,r\leq t ,
     \]
+    以及$D^j_r X_t,r>t$.
 \end{theorem}
+
+在证明该定理之前,先介绍一个技术性引理,具体证明见\citep{Nua1}的命题1.5.5.
+\begin{lemma}\label{lab4}
+    设$p>\alpha>1$,$F\in \mathbb{D}^{1,\alpha}$.若$DF\in L^p(\Omega;\mathbb{H})$,则$F\in L^p(\Omega)$.
+\end{lemma}
+
+
+\begin{proof}[定理\ref{SDE解的Malliavin可微性}的证明]
+    考虑Picard迭代,令$X_0(t)\equiv x_0$,归纳定义
+   \[
+     X_{n+1}(t)=x_0+\int_{0}^{t}b(s,X_n(s))\mathrm{d}s+\sum_{j=1}^{d}\int_{0}^{t}A^j(s,X_n(s))\mathrm{d}W_s,
+   \]记$\psi_n(t)=\sup_{0\leq r\leq t}\mathbb{E}[\sup_{r\leq s\leq T}\abs{D_rX_n(s)}^p],p\geq 2$.\par
+   下面使用归纳法证明$X^k_n(t)\in \mathbb{D}^{1,\infty},i=1,\cdots,m,t\in [0,T]$,$\psi_n(t)<\infty$以及存在常数$c_1,c_2$使得
+   \[
+    \psi_{n+1}(t)\leq c_1+c_2\int_{0}^{t} \psi_n(s)\mathrm{d}s.
+   \]
+   当$n=0$时显然成立,假设对$k=1,\cdots,n$都有以上结论成立,考虑$k=n+1$.\par
+   首先由于系数的Lipschitz连续性,固定$s$,对$\sigma^{i,j}_s,b^i_s,$应用链式法则,可得存在一致有界的随机变量$\bar{A}^{n,i,j,l}_s,\bar{B}^{n,i,l}_s$使得 
+   \begin{align*}
+    &D\sigma^{i,j}_s(X_n(s))=\sum_{l=1}^{m}\bar{A}^{n,i,j,l}_sDX_n^i(s),\\
+    &Db^i_s(X_n(s))=\sum_{l=1}^{n}\bar{B}^{n,i,l}_s DX_n^i(s)
+   \end{align*}
+   根据归纳假设,$DX_n^i(s)\in \mathbb{D}^{1,\infty}$,而系数又是一致有界的,所以$D\sigma^{i,j}_s(X_n(s)),Db^i_s(X_n(s))\in \mathbb{D}^{1,\infty}$.\par
+   由于"被积函数"$D\sigma^{i,j}_s(X_n(s))\in \mathbb{D}^{1,2}$,所以Ito随机积分
+   \[
+    \sum_{j=1}^{m}\int_{0}^{t} \sigma^{i,j}_s(X_n(s)) \mathrm{d}W_s^j\in \mathbb{D}^{1,2},
+   \]
+   且
+   \[
+    D^k_r\left(\sum_{j=1}^{m}\int_{0}^{t} \sigma^{i,j}_s(X_n(s))\mathrm{d}W^j_s\right)=\sigma^{i,k}_r(X_n(r))+\sum_{j=1}^{m}\int_{r}^{t}D^k_r(\sigma^{i,j}_s(X_n(s)))\mathrm{d}W_s^j .
+   \]
+   对于上面等式右边,由Lipchitz连续性可知,$\sigma^{i,k}_r(X_n(r))$和$X_n(r)$有相同的可积性,对于积分项的控制则由BDG不等式和$\psi_n(t)$的有界性得到:
+   \begin{align*}
+        &\mathbb{E}[\abs{\int_{r}^{t}D^k_r(\sigma^{i,j}_s(X_n(s)))\mathrm{d}W_s^j}^p]\\
+        \leq& \mathbb{E}[(\abs{\int_{r}^{t}(D^k_r(\sigma^{i,j}_s(X_n(s))))^2\mathrm{d}s})^{p/2}]
+   \end{align*}
+   结合引理\ref{lab4},可得
+   \[
+    \sum_{j=1}^{m}\int_{0}^{t} \sigma^{i,j}_s(X_n(s)) \mathrm{d}W_s^j\in \mathbb{D}^{1,\infty}.
+   \]\par
+
+   对于确定性积分部分,可以将其看作级数的极限,由于导数算子的闭性,$\int_{0}^{t} b^i_s(X_n(s))\mathrm{d}s\in \mathbb{D}^{1,2}$,以及
+
+   \[
+    D^k_r\left(\int_{0}^{t} b^i_s(X_n(s))\mathrm{d}s\right)=\int_{0}^{t} D^k_r b^i_s(X_n(s))\mathrm{d}s.
+   \]\par
+
+   下面估计$\mathbb{E}[\sup_{r\leq s\leq T}\abs{D_rX_{n+1}(s)}^p]$.
+   \begin{align*}
+        &\mathbb{E}[\sup_{r\leq s\leq T}\abs{D_r^kX_{n+1}(s)}^p]\\
+        =&\mathbb{E}[\sup_{r\leq s\leq T}\abs{\int_{r}^{s}D_r b^k_s(X_n(u))\mathrm{d}u+\sum_{l=1}^{d}(\sigma^{k,l}_r(X_n(r))+\int_{r}^{s}D_r(\sigma^{k,l}_u(X_n(u)))\mathrm{d}W^l_u)}^p]\\
+        =&\mathbb{E}[\sup_{r\leq s\leq T}\abs{\int_{r}^{s}\sum_{i=1}^{m}\bar{B}^{n,k,i}_uD_rX^i_n(u)\mathrm{d}u+\sum_{l=1}^{d} ((\sigma^{k,l}_r(X_n(r))+\int_{r}^{s} \sum_{i=1}^{m} \bar{A}_u^{n,k,l,i}D_rX^i_n(u)\mathrm{d}W_u}^p)]\\
+        \leq &C_p \mathbb{E}[\sup_{r\leq s\leq T}\left( K^p\abs{\int_{r }^{s }\sum_{i=1}^{m}D_rX^i_n(u)\mathrm{d}u}^p +dK^p\abs{\int_{r }^{s }\sum_{i=1}^{m}D_rX^i_n(u)\mathrm{d}W_u^i}^p+\sum_{l=1}^{d} \sigma^{k,l}_r(X_n(r))\right)]\\
+        \leq &C_p K^p\mathbb{E}[\sup_{r\leq s\leq T}\abs{\abs{\int_{r }^{s }\sum_{i=1}^{m}D_rX^i_n(u)\mathrm{d}u}^p}]+dC_pK^p \sum_{i=1}^{m}\mathbb{E}[\abs{\int_{r }^{u }\abs{D_rX^i_n(u)}^2\mathrm{d}u}^{p/2}]+C_p\gamma_p.
+   \end{align*}
+   其中$\gamma_p=\sup_{n,k}\mathbb{E}[\sup_{0\leq s\leq T}\abs{A^k_s(X_n(s))}^p]<\infty$.
+   先估计第一个期望.由Holder不等式可得,
+   \begin{align*}
+    &\mathbb{E}[\sup_{r\leq s\leq T}\abs{\int_{r }^{s }D_rX^i_n(u)\mathrm{d}u}^p]\\
+    \leq & (s-r)^{p-1}\mathbb{E}[\sup_{r\leq s\leq T}\int_{r }^{s }\abs{D_rX^i_n(u)}^p\mathrm{d}u]\\
+    \leq &T^{p-1}\mathbb{E}[\int_{r }^{T }\abs{D_rX^i_n(u)}^p\mathrm{d}u].
+   \end{align*}\par
+   再估计第二个期望.由BDG不等式和Holder不等式可得,
+   \begin{align*}
+    &\mathbb{E}[\sup_{r\leq s\leq T}\abs{\int_{r }^{s }D_rX^i_n(u)\mathrm{d}W_u^i}^p]\\
+    \leq & C_p \mathbb{E}[\left(\int_{r}^{T} \abs{D_rX^i_n(u)}^2 \mathrm{d}u\right)^{p/2}]\\
+    \leq & C_p(T-r)^{\frac{p}{2}-1} \mathbb{E}[\int_{r}^{T} \abs{D_rX^i_n(u)}^p \mathrm{d}u].
+   \end{align*}
+   结合以上可得$\psi_{n+1}(t)\leq c_1+c_2\int_{0}^{t} \psi_n(s)\mathrm{d}s$成立.\par
+   由归纳计算可得$\psi_n(t) \leq c_1\sum_{i=1}^{n}\frac{(c_2t)^i}{i!} \leq c_1e^{c_2t}$,也即$X^i_n$的导数在$L^p(\Omega;\mathbb{H})$中是一致有界的,
+   结合\ref{lab4}就说明了$X^i(t)\in \mathbb{D}^{1,\infty}$.证明完成.
+\end{proof}
 
 
 
