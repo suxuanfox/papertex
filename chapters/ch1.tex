@@ -14,7 +14,7 @@ $\mr{L}_k(X;Y)$表示从$\underbrace{X\times\cdots\times X}_{k\text{个}}$到$Y$
 \section{Fr\'{e}chet导数和G\^{a}teaux导数的定义和例子}
 \subsection{Fr\'{e}chet导数的定义}
 \begin{definition}\label{2.1}
-    给定映射$f:\Omega\rightarrow Y,x\in \Omega$,称$f$在$x$处Frechet可微,是指:存在$A\in\mathscr{L}(X;Y)$,使得当
+    给定映射$f:\Omega\rightarrow Y,x\in \Omega$,称$f$在$x$处Fr\'{e}chet可微,是指:存在$A\in\mathscr{L}(X;Y)$,使得当
     $h\rightarrow 0_X$,时
     \begin{equation}
         \delta(h)\coloneq \frac{f(x+h)-f(h)-Ah}{\Vert h\Vert_X} \rightarrow 0_Y.
@@ -22,7 +22,7 @@ $\mr{L}_k(X;Y)$表示从$\underbrace{X\times\cdots\times X}_{k\text{个}}$到$Y$
     记此连续线性算子$A$为$f'(x)$或$\dif f(x)$,称为$f$在$x$处的Fr\'{e}chet导数.
 \end{definition}
 
-根据定义,可以得到Frechet导数以下两个基本性质.
+根据定义,可以得到Fr\'{e}chet导数以下两个基本性质.
 \begin{proposition}
     给定映射$f:\Omega\rightarrow Y,x\in \Omega$,若$f'(x)$存在,则$f'(x)$是唯一的.
 \end{proposition}
@@ -46,7 +46,7 @@ $\mr{L}_k(X;Y)$表示从$\underbrace{X\times\cdots\times X}_{k\text{个}}$到$Y$
     令$R\rightarrow\infty$即可.
 \end{proof}
 \begin{proposition}
-    若$f:\Omega\rightarrow Y$在$x\in \Omega$处Frechet可微,则$f$在$x$处连续.
+    若$f:\Omega\rightarrow Y$在$x\in \Omega$处Fr\'{e}chet可微,则$f$在$x$处连续.
 \end{proposition}
 \begin{definition}
     称$f:\Omega\rightarrow Y$在$\Omega$内可微,是指:任意$x\in \Omega$,$f$在$x$处可微.此时定义映射
@@ -150,21 +150,21 @@ $\mr{L}_k(X;Y)$表示从$\underbrace{X\times\cdots\times X}_{k\text{个}}$到$Y$
     且$\nm[Y]{A_1 h_1}=\nm[Y]{f'(a)(h_1,0)}\leq \nm[\mr{L}(X;Y)]{f'(a)}\nm[X_1]{h_1}$,
     所以$A_1=\partial_1 f(a)\in\mr{L}(X_1;Y)$.对第二个分量的证明类似.
 \end{proof}
-\subsection{Gateaux导数的定义}
-Frechet可微可以看作是欧氏空间之间映射局部线性逼近的自然推广,下面考虑推广方向导数的概念.
+\subsection{G\^{a}teaux导数的定义}
+Fr\'{e}chet可微可以看作是欧氏空间之间映射局部线性逼近的自然推广,下面考虑推广方向导数的概念.
 \begin{definition}
     给定映射$f:\Omega\to Y$,$a\in\Omega,h\in X$以及一个开区间$I_h\in\mb{R}$,其中$I_h$满足:\\
     (1)\ $0\in I_h$;\\
     (2)\ $\forall\theta\in I_h$,$a+\theta h\in\Omega$.\par
-    称$f$在$a$处有沿方向$h$的Gateaux导数,是指:极限
+    称$f$在$a$处有沿方向$h$的G\^{a}teaux导数,是指:极限
     $$
     \partial_h f(a)\coloneq \lim_{\theta\to 0}\frac{f(a+\theta h)-f(a)}{\theta}
     $$
-    在$Y$中存在,$\partial_h f(a)$即为$f$在$a$处沿方向$h$的Gateaux导数.
+    在$Y$中存在,$\partial_h f(a)$即为$f$在$a$处沿方向$h$的G\^{a}teaux导数.
 \end{definition}
 \begin{remark}
-    与欧式空间之间的映射相同,若$f$在一点处可微,则沿任意方向的Gateaux导数均存在,并且$\partial_h f(a)=f'(a)h$;反之则不成立.此外,
-定义\ref{2.3}中的偏导数可以看作特殊方向上的Gateaux导数.
+    与欧式空间之间的映射相同,若$f$在一点处可微,则沿任意方向的G\^{a}teaux导数均存在,并且$\partial_h f(a)=f'(a)h$;反之则不成立.此外,
+定义\ref{2.3}中的偏导数可以看作特殊方向上的G\^{a}teaux导数.
 \end{remark}
 \subsection{若干例子}
 下面介绍几个简单的例子.
@@ -200,7 +200,7 @@ Frechet可微可以看作是欧氏空间之间映射局部线性逼近的自然�
 \begin{example}[方阵的函数]\label{eg2.4}
     记$M_n(\mb{R})$为$n$阶实方阵的全体,$U_n(\mb{R})$为$n$阶可逆实方阵的全体,$M_n(\mb{R})\stackrel{\tr}{\longrightarrow}\mb{R}$和$M_n(\mb{R})\stackrel{\det}{\longrightarrow}\mb{R}$
     分别表示取迹和行列式运算.\par
-    $\tr(\cdot)$作为连续线性泛函,$\forall W\in M_n(\mb{R})$,$\tr(\cdot)$在$W$处的Frechet导数
+    $\tr(\cdot)$作为连续线性泛函,$\forall W\in M_n(\mb{R})$,$\tr(\cdot)$在$W$处的Fr\'{e}chet导数
     由$(\tr)'(W)(H)=\tr(H)=\langle I_n,H\rangle$决定,
     其中$\langle A,B\rangle\coloneq \tr(A^* B)$表示$n$阶实方阵上的内积.\par
     另一方面,若$W\in U_n(\mb{R})$,则
@@ -228,7 +228,7 @@ Frechet可微可以看作是欧氏空间之间映射局部线性逼近的自然�
     所以$f'(A)(H)=-A^{-1}HA^{-1}$.
 \end{example}
 \section{链式法则}
-在古典微积分中,链式法则是计算导数的重要工具,在一般的Banach空间中对Frechet同样有链式法则.
+在古典微积分中,链式法则是计算导数的重要工具,在一般的Banach空间中对Fr\'{e}chet同样有链式法则.
 \begin{theorem}[链式法则]
     给定Banach空间$X,Y,Z$,$U,V$分别为$X,Y$中开集.映射$f:U\to Y$在$a\in U$处可微且$f(U)\subset V$,
     映射$g:V\to Z$在$f(a)\in V$处可微.则映射$g\circ f:U\to Z$在$a$处可微,且
@@ -273,7 +273,7 @@ Frechet可微可以看作是欧氏空间之间映射局部线性逼近的自然�
 \section{高阶导数和Taylor展开}
 在古典微积分中,如果一个函数$f:\mb{R}\to \mb{R}$处处可导,则自然地有一个导函数$f':\mb{R}\to\mb{R}$,
 则可以考察导函数的连续性和可微性.而对于一般的向量空间,若$X,Y$是Banach空间,则$\mr{L}(X;Y)$也是Banach空间,所以对于
-$f\in C^1(\Omega;Y)$,同样可以考察$f':\Omega\to \mr{L}(X;Y)$的Frechet可微性,也就是二阶导数.
+$f\in C^1(\Omega;Y)$,同样可以考察$f':\Omega\to \mr{L}(X;Y)$的Fr\'{e}chet可微性,也就是二阶导数.
 \begin{definition}
     设$f:\Omega\to Y$在$\Omega$内可微.称$f$在$a\in\Omega$处二次可微,是指:映射
     \begin{align}
@@ -312,7 +312,7 @@ $f\in C^1(\Omega;Y)$,同样可以考察$f':\Omega\to \mr{L}(X;Y)$的Frechet可�
     $$
     \phi'(t)=f'(ta+(1-t)b)(b-a),t\in (0,1)\ \implies \sup_{t\in(0,1)} \nm{\phi'(t)}\leq M\nm{b-a}
     $$\par
-    以下讨论被称为"连续性方法".\par
+    以下讨论被称为“连续性方法”.\par
     对任意$\epsilon>0$,定义映射
     \begin{align}
         F:[0,1]&\to \mb{R}\notag\\

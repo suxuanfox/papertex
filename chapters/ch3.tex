@@ -1,6 +1,6 @@
 \chapter{外在导数,内蕴导数和线性泛函导数}
 本章内容主要参考引用自\citep{wrde},\citep{mpsa},\citep{brw}和\citep{ddsde}.\par
-Lions导数可以看作是Frechet导数的延伸,这一章则主要介绍Gateaux导数或方向导数的概念在测度变量的函数
+Lions导数可以看作是Fr\'{e}chet导数的延伸,这一章则主要介绍G\^{a}teaux导数或方向导数的概念在测度变量的函数
 上的应用.
 参考文献是在Riemann流形上对一般情况定义了几种导数,为简单起见,此处只考虑欧氏空间$\mathbb{R}^d$的情形.$\mathscr{M}$表示$\mathbb{R}^d$上有限测度全体,
 记$\mathscr{M}_p=\{\mu\in\mathscr{M}:\mu(\abs{\cdot}^p)<\infty\}$表示$\mathbb{R}^d$上$p$阶矩有限测度的全体,$p\in [0,\infty)$,配备通常的加法,减法和数乘.对$p>0$,定义Wasserstein距离
@@ -86,7 +86,7 @@ $\mu\in \mathscr{P}_p$,
 \end{remark}
 
 作为比较,这里给出Lions导数的另一种定义.在第二章中,是将测度变量函数$f:\mathscr{P}_2\to \mathbb{R}$提升为以随机变量
-为变量的函数$\td{f}=f\circ \mathscr{L}:L^2(\Omega;\mathbb{R}^d)\to \mathbb{R}$,然后用随机变量空间上的Frechet导数来刻画$f$的局部性态.
+为变量的函数$\td{f}=f\circ \mathscr{L}:L^2(\Omega;\mathbb{R}^d)\to \mathbb{R}$,然后用随机变量空间上的Fr\'{e}chet导数来刻画$f$的局部性态.
 在考虑差$\td{f}(X+Y)-\td{f}(X)$以及$\nm[L^2]{Y}$逐渐趋于$0$时,如果固定一个方向取$Y=s\phi(X)$,则
 \begin{equation}
     \begin{aligned}
@@ -95,8 +95,8 @@ $\mu\in \mathscr{P}_p$,
         &=f(\mathscr{L}(X)\circ \phi_s^{-1})-f(\mathscr{L}(X)),
     \end{aligned}\notag
 \end{equation}
-这就是内蕴导数的形式.而Lions导数本质是Frechet导数,应该考虑任意方向,所以在令$Y$的二阶矩趋于$0$的过程不应该通过
-给一个固定的函数做伸缩来实现,而应该让函数本身充分"小",用严格的数学语言来叙述即如下定义.
+这就是内蕴导数的形式.而Lions导数本质是Fr\'{e}chet导数,应该考虑任意方向,所以在令$Y$的二阶矩趋于$0$的过程不应该通过
+给一个固定的函数做伸缩来实现,而应该让函数本身充分“小”,用严格的数学语言来叙述即如下定义.
 \begin{definition}\label{L可微的第二定义}
     给定$p\in [0,2]$.称函数$f:\mathscr{M}_p\to \mathbb{R}$在$\eta\in \mathscr{M}_p$L-可导,是指:$f$是内蕴可导的,且
     \[
@@ -114,7 +114,7 @@ $\mu\in \mathscr{P}_p$,
     
 
 在第一章中,对于Banach空间之间的映射如果是可微的并满足合适的条件,则有中值定理成立.对于$\mathscr{M}_p$或$\mathscr{P}_p$,则可以
-用"中值定理"来定义一点处的导数,从而一定程度上在形式上与Banach空间上的Frechet导数保持一致.
+用“中值定理”来定义一点处的导数,从而一定程度上在形式上与Banach空间上的Fr\'{e}chet导数保持一致.
 \begin{definition}
     设$p\in [0,\infty)$.给定$f:\mathscr{M}_p\to \mathbb{R}$,称可测函数
     $D^F f(\eta):\mathbb{R}^d\to \mathbb{R}$是$f$在$\eta$处的线性泛函导数,是指:对任意$L>0$,存在$C_L$使得
@@ -134,7 +134,7 @@ $\mu\in \mathscr{P}_p$,
 看作一类,线性泛函导数看作一类,这三类导数之间都存在一定的联系.\par
 
 由于L-导数可以视为更强的内蕴导数,所以这里只讨论外在导数和L-导数的关系.从定义的形式上来看,外在导数的定义要比
-L-导数的计算"简单"一些,所以希望能找到它们间的关联,从而通过计算外在导数来简化L-导数的计算.事实上,有以下定理.
+L-导数的计算“简单”一些,所以希望能找到它们间的关联,从而通过计算外在导数来简化L-导数的计算.事实上,有以下定理.
 \begin{theorem}
     设$p\in[0,2]$.\ 若$f\in C^{E,1,1}_b(\mathscr{M}_p)$,则$f\in C^{L,1}_b(\mathscr{M}_p)$,
     且
@@ -267,7 +267,7 @@ L-导数的计算"简单"一些,所以希望能找到它们间的关联,从而�
 \end{definition}
 \begin{remark}
     可以证明,该内蕴导数的定义与之前也是一致的.实际上,在上一节已经指出:在一定条件下,内蕴导数就是L导数,线性泛函导数就是外在导数,而L导数又是
-    外在导数关于空间变量的梯度,因此这些不同定义可以看作用不同性质刻画"同一个对象",所以这些一致性的保持是自然的.
+    外在导数关于空间变量的梯度,因此这些不同定义可以看作用不同性质刻画“同一个对象”,所以这些一致性的保持是自然的.
 \end{remark}
 
 依照同样的观点,在一定条件下,当固定空间变量$y$时,可以对线性泛函导数$\frac{\delta U}{\delta m}$再求一次线性泛函导数,这样
@@ -278,14 +278,14 @@ $D_{mm}^2 U(m,y,y')=D_{y,y'}^2 \frac{\delta^2 U}{\delta m^2}(m,y,y')$则是从$\
 (1)\ $\frac{\delta^2 U}{\delta m^2}(m,y,y')-\frac{\delta^2 U}{\delta m^2}(m,y)=\frac{\delta U}{\delta m}(m,y',y)-\frac{\delta U}{\delta m}(m,y')$;\par
 (2)\ $D_y\frac{\delta^2 U}{\delta m^2}(m,y,y')=\frac{\delta}{\delta m}(D_m(m,y))(y')$;\par
 (3)\ $D_m(D_mU(\cdot,y))(m,y')=D^2_{mm}U(m,y,y')$.\par
-需要说明的是,上面的第三个等式并不是"天然"成立的,因为二阶内蕴导数并不是归纳定义得到的.
+需要说明的是,上面的第三个等式并不是“天然”成立的,因为二阶内蕴导数并不是归纳定义得到的.
 
 设$(B_t),(W_t)$是一个完备带流概率空间上的两个布朗运动.考虑方程
 \[
     dX_t=-\beta_t(X_t)\mathrm{d}t+\sqrt{2}(\mathrm{d}B_t+\mathrm{d}W_t),t\in[0,T],
 \]
 $(m_t)=(\mathscr{L}(X_t))$.映射$U:[0,T]\times \mathbb{T}^d\times \mathscr{P}(\mathbb{T}^d)$满足一系列正则性条件(具体见\citep{pfjp}的定义2.4.4),则存在一族随机变量
-$(\epsilon_{s,t})_{t\in [0,T],s\leq t}$,使得如下局部Ito-Taylor展开成立:
+$(\epsilon_{s,t})_{t\in [0,T],s\leq t}$,使得如下局部It\^{o}-Taylor展开成立:
 \begin{align*}
 &\frac{1}{h}\biggl(\mathbb{E}\bigl[U\bigl(t + h, x + \sqrt{2}(W_{t+h}), m_{t+h}\bigr) - U\bigl(t + h, x + \sqrt{2}(W_{t+h} ), m_t\bigr) \bigm| \mathcal{F}_t\bigr]\biggr) \\
 =& \Delta_x U\bigl(t, x + \sqrt{2}(W_t), m_t\bigr) \\

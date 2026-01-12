@@ -210,9 +210,9 @@ $X$的二次变差,是一个取值于$S^+_d$的过程,其中$S^+_d$表示全体$
     \end{equation}
     所以水平导数总是0.而垂直导数为
     $$D^V_t F(x)=\nabla h(x_t-x_{t_n -})I_{t\geq t_n} g(x(t_1 -),\cdots,x(t_n -)).$$\par
-    注意对古典微积分或Banach空间中的Frechet导数,如果一个函数的导数在一个连通开集上恒为0,则可以得到该函数在这个开集上取常值,
+    注意对古典微积分或Banach空间中的Fr\'{e}chet导数,如果一个函数的导数在一个连通开集上恒为0,则可以得到该函数在这个开集上取常值,
     但这个例子则说明,水平导数一般没有这样的性质,这是因为在水平导数的定义中,路径的变化实际上是通过水平延拓实现的,但水平延拓只是
-    扩展了函数的定义域,没有真正带来更多"信息",这也是\citep{fic}和\citep{Peng2023}中水平导数的定义稍有差异但很多时候没有本质区别的原因之一.
+    扩展了函数的定义域,没有真正带来更多“信息”,这也是\citep{fic}和\citep{Peng2023}中水平导数的定义稍有差异但很多时候没有本质区别的原因之一.
 \end{example}
 
 \begin{example}
@@ -234,7 +234,7 @@ $X$的二次变差,是一个取值于$S^+_d$的过程,其中$S^+_d$表示全体$
     \[
         F_{t+r}(x^{t,\to r})-F_t(x^t)=x^{t,\to r}(t+r-\epsilon)-x^t(t-\epsilon)=x(t+r-\epsilon)-x(t-\epsilon),
     \]
-    由于$x$只是右连左极的,所以$F$在"绝大多数"点处都不是水平可导的.\par
+    由于$x$只是右连左极的,所以$F$在“绝大多数”点处都不是水平可导的.\par
     这一例子说明水平可导和垂直可导之间不必有关联.
 \end{example}  
 
@@ -258,12 +258,12 @@ $X$的二次变差,是一个取值于$S^+_d$的过程,其中$S^+_d$表示全体$
     类似可得$\nabla \psi (v)=D^V_t F(x^{t,\uparrow v})$和$\nabla^2 \psi (v)=D^{V,2}_t F(x^{t,\uparrow v})$
 \end{example}
 
-\section{Ito公式}
+\section{It\^{o}公式}
 
-下面给出路径导数的Ito公式.
+下面给出路径导数的It\^{o}公式.
 \begin{theorem}
     设泛函$F\in C^{1,2}([0,T])$.则对任意$0\leq t <T$,
-    \begin{equation}\label{ito公式}
+    \begin{equation}\label{It\^{o}公式}
         \begin{aligned}
             &F_t(X^t,A^t)-F_0(X^0,A^0)\\
             =&\int_{0}^{t} D^H_s F(X^s,A^s)\mathrm{d}s+\int_{0}^{t} D^V_s F(X^s,A^s)\mathrm{d}s\\
@@ -311,7 +311,7 @@ $X$的二次变差,是一个取值于$S^+_d$的过程,其中$S^+_d$表示全体$
             =&\int_{0}^{h^n_k} D^H_{\tau^n_k+s}F ((X^{(n)})^{\tau^n_k,\to s},(A^{(n)})^{\tau^n_k,\to s})\mathrm{d}s,
         \end{aligned}
     \end{equation}
-    这对应于\ref{ito公式}的第一项.\par
+    这对应于\ref{It\^{o}公式}的第一项.\par
     定义$\phi(v)=F_{\tau^n_k}((X^{(n)})^{\tau^n_k-,\uparrow (v-X_{\tau^n_k})},(A^{(n)})^{\tau_k^n})$,这是一个从$\mathbb{R}^d$到$\mathbb{R}$的函数.
     易见$\phi(X_{\tau^n_k})=F_{\tau^n_{k}}((X^{{(n)}})^{\tau_{k}^n-},(A^{{(n)}})^{\tau_{k}^n-})$,而
     \begin{equation}
@@ -321,7 +321,7 @@ $X$的二次变差,是一个取值于$S^+_d$的过程,其中$S^+_d$表示全体$
         \end{aligned}
     \end{equation}
     另一方面,由于$F\in C^{1,2}_b([0,T])$,所以$\phi\in C^2(\mathbb{R}^d)$,且$\nabla \phi(v)=D^{V}_{\tau^n_k} F((X^{(n)})^{\tau^n_k-,\uparrow v},(A^{(n)})^{\tau_k^n})$,
-    $\nabla^2\phi(v)=D^{V,2}_{\tau^n_k}(X^{(n)})^{\tau^n_k-,\uparrow v},(A^{(n)})^{\tau_k^n}$,所以可以应用经典的Ito公式
+    $\nabla^2\phi(v)=D^{V,2}_{\tau^n_k}(X^{(n)})^{\tau^n_k-,\uparrow v},(A^{(n)})^{\tau_k^n}$,所以可以应用经典的It\^{o}公式
     \begin{equation}
         \begin{aligned}
             &I_2=\phi(X_{\tau^n_{k+1}})-\phi(X_{\tau^n_k})\\
@@ -339,11 +339,11 @@ $X$的二次变差,是一个取值于$S^+_d$的过程,其中$S^+_d$表示全体$
         &\quad +\int_{0   }^{t} D^V_{\tau^n_{k(s)}}F((X^{(n)})^{\tau^n_{k(s)}-,\uparrow (X_s-X_{\tau^n_{k(s)}})},(A^{(n)})^{\tau^n_{k(s)}-})\cdot\mathrm{d}X_s\\
             &\quad +\frac{1}{2}\int_{0}^{t} \tr(D^{V,2}_{\tau^n_{k(s)}}F((X^{(n)})^{\tau^n_{k(s)}-,\uparrow (X_s-X_{\tau^n_{k(s)}})},(A^{(n)})^{\tau^n_{k(s)}-})\mathrm{d}\langle X\rangle_s)
     \end{align*}
-    令$n\to \infty$即得\ref{ito公式}成立.\par
+    令$n\to \infty$即得\ref{It\^{o}公式}成立.\par
     对于一般的$X,A$,取$\overline{B_n}\coloneq \{v\in \mathbb{R}^d:\abs{x}\leq n\}$.定义停时
     \[
         \tau_n=t\wedge \{s:X_s\notin B_n\text{或}\abs{A_s}>n\}.
     \]
-    对$(X^{t\wedge \tau_n},A^{t\wedge \tau_n})$应用公式\ref{ito公式},再令$n\to \infty$即可.
+    对$(X^{t\wedge \tau_n},A^{t\wedge \tau_n})$应用公式\ref{It\^{o}公式},再令$n\to \infty$即可.
 \end{proof}
 
