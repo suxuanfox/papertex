@@ -1,5 +1,5 @@
 \chapter{Malliavin分析入门}
-本章主要内容参考引用自\citep{Nua1}.\par
+本章内容主要参考引用自\citep{Nua1}.\par
 
 \section{Hilbert空间相关预备}
 由于Malliavin分析理论与Hilbert空间紧密关联,所以先在此陈述一些可能用到的Banach空间,Hilbert空间和线性代数相关内容.本节关于泛函分析
@@ -543,7 +543,7 @@ $\mathbb{D}^{1,2}$作为Srv关于范数$\nm[1,2]{\cdot}$的闭包,是比较抽�
     \[
         D\Phi_a=\sum_{j=1}^{\infty}\big(H_{a_{j-1}}(W(e_j))\prod_{i\ne j}H_{a_i}(W(e_i))\big)e_i,
     \]
-    且当$a,b\in \Lambda,a\ne b$,$D\Phi_a和D\Phi_b$在$L^2(\Omega;\mathbb{H})$中是正交的,即$\mathbb{E}[\ipr{D\Phi_a}{D\Phi_b}]=0$.
+    且当$a,b\in \Lambda,a\ne b$,$D\Phi_a,D\Phi_b$在$L^2(\Omega;\mathbb{H})$中是正交的,即$\mathbb{E}[\ipr{D\Phi_a}{D\Phi_b}]=0$.
     另外有限$\{e_1,\cdots,e_l\}$的正交性等价于$W(e_1),\cdots,W(e_l)$的独立性,所以可以计算
     \[
         \mathbb{E}[\nm[\mathbb{H}]{D\Phi_a}^2]=\sum_{j=1}^{\infty}\big(\mathbb{E}[(H_{a_{j-1}}(W(e_j)))^2]\prod_{i\ne j}\mathbb{E}[(H_{a_i}(W(e_i)))^2]\big)=\abs{a}=n.
@@ -928,7 +928,7 @@ $k(k-1)f_{t_1}f_{t_2}W(f)^{k-2}$,记为$D^2_{t_1,t_2}F$,反过来说,随机变�
     D^k F=\{D^k_{t_1,\cdots,t_k}F:t_1,\cdots,t_k\in T\}
 \]
 视为$T^k\times\Omega$上的可测函数.
-\begin{example}[[0,1]区间上的布朗运动]
+\begin{example}[[0,1]区间上的布朗运动]\label{经典Wiener空间}
     取$\Omega=C_0([0,1;\mathbb{R}^d])$,$\mathbb{H}=L^2([0,1];\mathbb{R}^d)$.定义
     \[
         H^1=\{x\in \mathrm{AC}([0,1];\mathbb{R}^d):\dot{x}\in \mathbb{H}\}
@@ -1301,7 +1301,7 @@ $\mathscr{F}$为$\mathscr{B}(\Omega)$关于$\mathbb{P}$的完备化,$\mathscr{F}
    结合\ref{lab4}就说明了$X^i(t)\in \mathbb{D}^{1,\infty}$.证明完成.
 \end{proof}
 
-
+\input{chapters/appd}
 
 
 

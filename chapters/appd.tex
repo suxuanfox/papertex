@@ -1,0 +1,204 @@
+\section{例\ref{经典Wiener空间}的扩展}
+本节内容主要参考引用自\citep{Shigekawa}和\citep{yanhuang}.\par
+在第2节引入的Mailliavin分析框架好处是从性质充分好的光滑随机变量出发,直接给出导数显式表达,相对易于入门,但缺少了一点直观.在\ref{经典Wiener空间}中,可以发现,在经典Wiener空间中,
+Malliavin导数算子可以看作是关于样本点的方向导数,这节扩展Wiener空间的定义并从另一角度定义Malliavin导数.\par
+首先回顾经典的Wiener空间.令$B=C_0([0,T];\mathbb{R}^d)$,配备一致范数,$\mu$为其上的Wiener测度,当$T<\infty$时,这是一个Banach空间,所以以下都只考虑
+有限时间.记$W_t(x)=x_t,x\in B$,则$(W_t),t\in [0,T]$为典范布朗运动.\par
+$B$上的连续线性泛函$\phi$由于连续性自然有可测性,因此是一个随机变量,另一方面,根据Riesz表示定理,$\phi$可以等同于一个Radon测度,可以用
+有限Dirac测度的线性组合逼近.注意到对$[0,T]$上的Dirac测度$\delta_{t},t\in [0,T]$,作为一个随机变量服从正态分布,所以可得$\phi$的分布也是正态的,且均值为0.\par
+对$\phi\in B^*$,令$\td{\phi}(t)=\phi([0,t])$,令$F(t,x)=\td{\phi}(t)x$应用I\^{o}公式可得,
+\[
+    \td{\phi}(T)W_T=\int_{0}^{T} W_t \phi(\mathrm{d}t)+\int_{0}^{T}\td{\phi}(t)\mathrm{d}W_t,
+\] 
+也即
+\[
+    \int_{0}^{T} W_t \phi(\mathrm{d}t)=\int_{0}^{T}(\td{\phi}(T)-\td{\phi}(t))\mathrm{d}W_t,
+\]                          
+定义$h_\phi(t)=\int_{0}^{T}(\td{\phi}(T)-\td{\phi}(s))\mathrm{d}s$   ,注意到任意给定一个$x\in B$,$W_{\cdot}(x)=x$,将
+$\int_{0}^{T} W_t \phi(\mathrm{d}t)$记为$\phi(W)$,则
+$\phi(W)=\int_{0}^{T}\dot{h}_\phi(t)\mathrm{d}W_t$.
+定义Cameron-Martin空间为
+\[
+    H=\{h\in \mathrm{AC}([0,T];\mathbb{R}^d):\dot{h}\in L^2([0,T];\mathbb{R}^d)\},
+\]
+内积为$\ipr{h}{k}_{H}=\ipr{\dot{h}}{\dot{k}}_{L^2([0,T];\mathbb{R}^d)}$.$(H,\ipr{\cdot}{\cdot}_{H})$是一个Hilbert空间.
+记嵌入映射为$\iota:H\hookrightarrow B$,并且其伴随就是上面定义的$\phi\mapsto h_\phi$,记为$\iota^*$.\par
+将以上结构抽象出来,就可以给出抽象Wiener空间的定义.
+\subsection{抽象Wiener空间}
+\begin{definition}
+    给定一个Banach空间$B$和一个Hilbert空间$H$,$\mu$为$B$上的测度.若存在连续单射$\iota :H\hookrightarrow B$使得$\iota(H)$在$B$中稠密
+    且$\mu$为Gauss测度,即
+    \begin{align*}\label{laba.1}
+        \int_B \exp(\iu \ipr{x}{y}_H)\mu(\mathrm{d}y)=\exp(-\frac{\nm[H]{y}^2}{2}),y\in B^*\subset H,
+\end{align*}
+    则称三元组$(B,H,\mu)$为一个抽象Wiener空间.
+\end{definition}
+这种结构的选择不是偶然的,有多方面原因.一方面,对于有限维的Banach空间总和相同维数的欧氏空间是代数同构,拓扑同胚的,而欧式空间作为一个性质足够好的模型,可以在上面构造Lebsgue测度.Lebsgeue测度最重要的
+性质之一是平移不变性:将任意可测集沿任意方向平移任意有限距离,测度保持不变.但对于无限维的Banach空间则不存在平移不变的测度.
+退而求其次,希望找到一个测度,在平移下,零测集依然为零测集,称为“拟不变性,但即便如此,也不一定能做到;只能再退一步,希望找到一个测度,在尽量多的方向上,零测性不变.之所以要求保持零测性,
+是因为通常情况下谈论的可测函数$f$实际上在几乎处处意义下的等价类$[f]=\{g:f=g\quad \mu-\mathrm{a.e.}\}$,做微小平移时,零测性的保持可以
+使得$\forall g\in [f],g(\cdot+h)\in [f(\cdot +h)]$.具体地说,设存在$\mu-$零测集$A$,$\forall x\in B-A,f(x)=g(x)$,考虑平移,则$\forall x\in B-(A-h),f(x+h)=g(x+h)$,如果$\mu$在平移下保持零测性,则$f(\cdot+h)$和$g(\cdot+h)$依然在$\mu-$a.e.意义下等价,   这样在考虑方向导数时才可以不依赖于等价类代表元的选取.\par
+
+另一方面则是出于对测度的构造的考虑.设$K\subset B^*$是一个有限维的线性子空间,称形如
+\[
+    C=\{x\in B:(\phi_1(x),\cdots,\phi_n(x))\in E\},n\in \mathbb{N},E\in \mathscr{B}(\mathbb{R}^n),\phi_1,\cdots,\phi_n\in K,
+\]
+的集合为以$K$为底的柱集,$\sigma(K)$为以$K$为底的集合生成的$\sigma$代数.在其上可以定义测度,称为柱测度.但需要注意的是,一般$\sigma(K)$比$\mathscr{B}(B)$小得多,
+实际上$\mathscr{B}(B)=\sigma(\cup_{K} \sigma(K))$.如何判断一个柱测度能否延拓到整个$\mathscr{B}(B)$上?Gross定理给出了充分条件,简单地说即$B$是某个Hilbert空间
+关于某范数的完备化.具体细节见\citep{yanhuang}的 第一章$\S$4节和\citep{stroock}的第三章.\par
+在此先简要介绍无穷维空间上的测度涉及的一些概念.
+\begin{definition}
+    给定一个Hilbert空间和其上的Borel概率测度$\mu$.\par
+    称$m\in H$是$\mu$的均值向量,是指:对任意$x\in H$,函数$z\mapsto \langle x,z\rangle$是可积的,且
+    \[
+        \ipr{m}{x}=\int_H \ipr{x}{z}\mu(\mathrm{d}z).
+    \]
+    进一步地,称对称正定线性算子$B$为$\mu$的协方差算子,是指:对任意的$x,y\in H$
+    \[
+        \ipr{Bx}{y}=\int_H \ipr{z-m}{x}\ipr{z-m}{y}\mu(\mathrm{d}z).
+    \]
+\end{definition}
+\begin{definition}
+    给定一个Hilbert空间.称Borel概率测度$\mu$是$H$上的Gauss测度,是指:任意$x\in H=H^*$作为一个随机变量服从正态分布.
+\end{definition}
+
+\begin{remark}
+    均值向量和协方差算子不一定存在.但如果$\mu$有一阶矩,即$\int_H \nm[H]{x}\mu(\mathrm{d}x)<\infty$,则均值向量存在;如果$\mu$有二阶矩,
+    即$\int_H \nm[H]{x}^2\mu(\mathrm{d}x)<\infty$,则协方差算子存在.$\mu$为$H$上Gauss测度的充要条件是存在$m \in H$和对称正定迹算子$B$使得其Fourier变换
+    \[
+        \hat{\mu}(x)\coloneq \int_H e^{\iu \ipr{x}{z}}\mu(\mathrm{d}z)=e^{\iu \ipr{m}{x}-\frac{1}{2}\ipr{Bx}{x}}.
+    \]
+\end{remark}
+\begin{definition}
+    给定可分Banach空间$B$.称Borel概率测度$\mu$是$B$上的对称Gauss测度,是指:任意$\phi\in B^*$作为一个随机变量都服从零均值的正态分布.
+\end{definition}
+
+回到抽象Wiener空间.设$(B,H,\mu)$是一个抽象Wiener空间,对任意$\phi\in B^*$,
+\[
+    \int_B \phi(x)\psi(x)\mu(\mathrm{d}x)=\ipr{\iota^* \phi}{\iota^* \psi}_{H^*},
+\]
+则$\iota^*\phi\mapsto \phi$g给出了$\iota^* (B^*)$到$L^2(B,\mathscr{B},\mu)$的线性等距同构,由稠密性可延拓为$H^*$到$L^2(B,\mathscr{B},\mu)$的线性等距同构,记该同构为$I_1$.
+
+以下定理再次说明了抽象Wiener空间定义的合理性和必要性.
+\begin{theorem}
+    设$(B,H,\mu)$是一个抽象Wiener空间.对任意$h\in H$,平移测度$\mu(\cdot-h)$与$\mu$相互绝对连续.且其Radon-Nikod\'{y}m导数为
+    \[
+        \frac{\mathrm{d}\mu(\cdot-h)}{\mathrm{d}\mu}(x)=e^{-\frac{\nm[H]{h}^2}{2}+I_1(h)(x)},
+    \]
+\end{theorem}
+\begin{proof}
+    首先注意到$\forall h\in H^*$,可以用一列$B^*$中的元素去逼近,所以$I_1(h)$也是正态的,并且对任意的$\phi\in B^*$,$(\phi,I_1(h)$是二元正态的,
+    显然均值为0,而协方差为$\mathbb{E}[\phi I_1(h)]=\ipr{\iota^*\phi}{h}_{H^*}=\ipr{\phi}{\iota h}=\phi(h)$.
+    所以其特征函数为
+    \[
+        \int_B e^{\iu(\xi_1 \phi(x)+\xi_2 I_1(h)(x))}\mu(\mathrm{d}x)=e^{-\frac{1}{2}(\nm[H^*]{\phi}^2\xi_1^2+2\phi(h)\xi_1\xi_2+\nm[H]{h}^2\xi_2^2)},
+    \]
+    将其解析延拓到$\mathbb{C^2}$上并取$\xi_1=1,\xi_2=-\iu$,
+\begin{align*}
+    &\int_B e^{\iu\phi(x) + I_1({h})(x)}\mu(\mathrm{d}x) \\
+    =& e^{-\frac{1}{2}|\nm[H^*]{\phi}^2 + \iu\phi(x) + \frac{1}{2}\nm[H]{h}^2} \\
+    =& e^{\frac{1}{2}\nm[H]{h}^2}\int_B e^{\iu\phi(x) + \iu\phi(h)}\mu(\mathrm{d} x).
+\end{align*}
+这就证明了结论.
+\end{proof}
+\begin{remark}
+    以上定理说明了Gauss测度沿$H$中的方向平移具有拟不变性,实际上,在任意其他方向平移得到的测度一定与$\mu$是互相奇异的,具体参见\citep{stroock}的定理3.3.5.
+\end{remark}
+
+下面的定理说明了一般Banach空间上的Gauss测度和有限维空间上的Gauss测度基本具有相同的可积性.
+\begin{theorem}[Fernique定理]
+    设$\mu$为Banach空间上$B$的Gauss测度,则存在常数$\lambda$,使得
+    \[
+        \int_B e^{\lambda \nm[B]{x}^2}\mu(\mathrm{d}x)<\infty.
+    \]
+\end{theorem}
+\begin{remark}
+    实际上对$B$上任一半范数都有类似的可积性,只是常数$\lambda$可能不同.
+\end{remark}
+
+\subsection{“平移”算子和导数算子}
+下面从另一个角度定义Malliavin导数,首先和第2节一样,整个框架的基础是Gauss概率空间$(\Omega,\mathscr{F},\mathbb{P};\mathbb{H})$,其中$(\Omega,\mathscr{F},\mathbb{P})$是一个完备
+概率空间,$\mathbb{H}$是一个可分Hilbert空间,$W=\{W(h):h\in \mathbb{H}\}$是一个等距Gauss过程.抽象Wiener空间$(B,H,\mu)$也是一个Gauss概率空间,等距Gauss过程由$W(\phi)=\phi,\phi\in B^*\subset H$延拓得到,若$\mathscr{F}$是$\sigma(W)$的完备化,则称
+该Gauss概率空间不可约.\par
+基本的想法是类似于G\^{a}teaux方向导数那样定义关于样本点的方向导数,但对于一般的概率测度空间而言,并没有天然的代数结构,也就不能进行加法或者说平移,因此需要考虑一个合适的样板模型,在这个模型上做加法运算,然后建立和原来概率空间和随机变量的对应,
+注意到任意可分的Hilbert空间均同构于$l^2$,所以一个合适的Gauss概率空间即$(\mathbb{R}^{\mathbb{N}},\mathscr{B}(\mathbb{R})^{\mathbb{N}},\gamma^{\mathbb{N}};l^2)$.其中$\gamma$为一维Gauss测度,
+$(\mathbb{R}^{\mathbb{N}},\mathscr{B}(\mathbb{R})^{\mathbb{N}},\gamma^{\mathbb{N}})$为$(\mathbb{R},\mathscr{B}(\mathbb{R}),\gamma)$的无穷独立乘积空间.\par
+给定$\mathbb{H}$的一个规范正交基$\{e_i\}$,定义映射$T$为
+\begin{align*}
+    T:\Omega&\to \mathbb{R}^{\mathbb{N}}\\
+    \omega&\mapsto (W(e_i)(\omega)).
+\end{align*}
+这是一个保测映射,即$\gamma^{\mathbb{N}}=\mathbb{P}\circ T^{-1}$.另外,任意$1\leq p\leq \infty$,$\phi\in L^p((\mathbb{R}^{\mathbb{N}},\mathscr{B}(\mathbb{R})^{\mathbb{N}},\gamma^{\mathbb{N}})$,定义 
+$T_*\phi=\phi\circ T$,则$T_*$是$L^p((\mathbb{R}^{\mathbb{N}},\mathscr{B}(\mathbb{R})^{\mathbb{N}},\gamma^{\mathbb{N}})$到$L^p(\Omega,\mathscr{F},\mathbb{P})$的同构.\par
+下面将$\mathbb{R}^{\mathbb{N}}$上的加法结构“移植”到$\Omega$上,更准确地说是找一个合适的映射来代替函数的平移$f\mapsto f(\cdot+h)$.首先定义
+\[
+    L^{\infty -}(\Omega,\mathscr{F},\mathbb{P})=\cap_{1<p<\infty}L^p(\Omega,\mathscr{F},\mathbb{P})
+\]
+和一个Hilbert空间
+\[
+    L^{1+}(\Omega,\mathscr{F},\mathbb{P})=\cup_{1<p<\infty}L^p(\Omega,\mathscr{F},\mathbb{P}),
+\]
+分别称为投影极限和归纳极限,$L^{\infty -}(\Omega,\mathscr{F},\mathbb{P})$关于有限乘积封闭,且乘法运算连续.另外定义$\mathbb{R}^{\mathbb{N}}$上泛函的平移:$\tau_h:f\mapsto f(\cdot+h)$.
+\begin{definition}
+    给定不可约Gauss概率空间$(\Omega,\mathscr{F},\mathbb{P};\mathbb{H})$,取定$\mathbb{H}$的一个规范正交基$\{e_i\}$,$\mathbb{H}$到$l^2$的同构
+    记为$J:\mathbb{H}\to l^2$.对任意$h\in \mathbb{H}$,定义$L^{1+}(\Omega,\mathscr{F},\mathbb{P})$上的算子
+    \[
+        \rho_h=T_*\circ \tau_{J(h)}\circ T_*^{-1}
+    \]
+    称$\rho$为$\mathbb{H}$中加群的典则表示.
+\end{definition}
+\[\begin{tikzcd}
+	{L^p(\mathbb{R}^{\mathbb{N}})} && {L^p(\mathbb{R}^{\mathbb{N}})} \\
+	\\
+	{L^p(\Omega)} && {L^p(\Omega)}
+	\arrow["{\tau_{J(h)}}", from=1-1, to=1-3]
+	\arrow["{T_*}", from=1-3, to=3-3]
+	\arrow["{T^{-1}_*}", from=3-1, to=1-1]
+	\arrow["{\rho_h}", from=3-1, to=3-3]
+\end{tikzcd}\]
+\begin{remark}
+    为更清晰,这里给出逐点的表示.设$F\in L^p(\Omega,\mathscr{F},\mathbb{P}),1<p<\infty$.则
+    \begin{align*}
+        (\rho_hF)(x)&=(T_*\circ \tau_{J(h)}\circ T_*^{-1} f)(\omega)\\
+        &=T_*((T^{-1}_* F)(\cdot+J(h)))(\omega)\\
+        &=((T^{-1}_* F)(\cdot+J(h))(T\omega)\\
+        &=(T^{-1}_* F)(T\omega+J(h)).
+    \end{align*}\par
+    $\{\rho_h \}$也有群结构,即$\rho_{h+g}=\rho(h)\rho_g,h,g\in \mathbb{H}$.
+\end{remark}
+这种取定一个性质足够好的样板模型,利用模型的结构和性质来定义一些对象再拉回到原空间的做法不是偶然或独立的,例如定义流形的光滑结构和光滑映射时也是将其归结为欧式空间
+之间的光滑映射.
+
+下面的定理说明测度$\mathbb{P}$关于这种平移的替代$\rho_h$具有拟不变性.
+\begin{theorem}[Cameron-Martin定理]
+    设$(\Omega,\mathscr{F},\mathbb{P};\mathbb{H})$为不可约Gauss概率空间,$\rho$为$\mathbb{H}$中加群的典则表示,定义指数泛函
+    \[
+        \mathcal{E}(h)=e^{W(h)-\frac{1}{2}\nm[\mathbb{H}]{h}^2},h\in \mathbb{H}.
+    \]
+    则$\mathcal(E)(h)\in L^{\infty-}(\Omega)$,且 
+    \[
+       \nm[p]{\mathcal{E}(h)}\leq e^{\frac{p-1}{2}\nm[\mathbb{H}]{h}^2},1<p<\infty.
+    \]
+    对任意$F\in L^{1+}(\Omega)$,
+    \[
+        \int_\Omega \rho_h F \mathrm{d}\mathbb{P}=\int_\Omega F \mathcal{E}(h)\mathrm{d}\mathbb{P}.
+    \]
+    另外$\lim_{t\downarrow 0}\frac{\mathcal{E}(th)-1}{t}=W(h)$.
+\end{theorem}
+证明只需考虑有限维欧氏空间情形,取极限得到无穷独立乘积中的结论,再利用同构回到一般的不可约Gauss概率空间.\par
+
+有了以上准备,可以对不可约Gauss概率空间上的随机变量定义Malliavin导数.
+\begin{definition}
+    设$(\Omega,\mathscr{F},\mathbb{P};\mathbb{H})$为不可约Gauss概率空间,$\rho$为$\mathbb{H}$中加群的典则表示.
+    $F\in \mathrm{Srv}$为光滑随机变量,定义其导数为$DF\in \mathrm{Srv}(\mathbb{H})$,并由下式唯一确定:
+    \[
+        \ipr{DF}{h}_{\mathbb{H}}=\lim_{\epsilon\downarrow 0}\frac{\rho_{\epsilon h}F-F}{\epsilon}.
+    \]
+\end{definition}
+可以验证,对于光滑随机变量,该定义与第二节中给出的定义是完全一致的.这样,导数算子的闭延拓,散度算子的定义等都可以往下继续构建,不再赘述.\par
+
+再次回顾抽象Wiener空间和其上的泛函$\phi$,第二章已经有了G\^{a}teaux方向导数的概念,但G\^{a}teaux方向导数实际是属于$B^*$的,所以Malliavin导数比G\^{a}teaux导数
+更强,因为$B^*\subset H^*=H$.
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                             
