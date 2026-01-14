@@ -9,7 +9,7 @@
 \begin{definition}
     设$\mathbb{H}$是一个Hilbert空间.称$\{e_n\}_{n\in \mathbb{N}}\subset \mathbb{H}$是$\mathbb{H}$的一个规范
     正交基(orthonormal basis,有时简记为O.N.B.)\footnote{在有些教材或文献中会使用完备规范正交系(complete orthonormal system)一词来表示线性张成的正交补为零空间的集合,
-    而O.N.B.表示有限或无限线性组合张成整个空间的集合,二者是等价的,所以不作区分,具体见\citep{zgq}的1.6节},是指:\par
+    而O.N.B.表示有限或无限线性组合张成整个空间的集合,二者是等价的,所以不作区分,具体见\citep{zgq}的1.6节.},是指:\par
     (1)\ $\abs{e_n}=1,\forall n\geq 1$且当$n\ne m,\ipr{e_n}{e_m}=0$;\par
     (2)\ $\overline{\text{span}\{e_1,e_2,\cdots\}}=\mathbb{H}$,其中$\overline{\text{span}\{e_1,e_2,\cdots\}}$表示$\{e_n\}_{n\in \mathbb{N}}$所有可能的线性组合.
 \end{definition}
@@ -40,7 +40,7 @@
 \begin{definition}
     给定Hilbert空间$\mathbb{H}$和一列闭子空间$\{E_n\}_{n\in \mathbb{N}}$.称$\mathbb{H}$是$\{E_n\}$的Hilbert和,是指:\par
     (1)\ $\{E_n\}$两两正交,即:若$n\ne m$,则$\forall v_n\in E_n,\forall v_m\in E_m,\ipr{v_n}{v_m}=0$;\par
-    (2)\ $\overline{\text{span}(\cup_{n\geq 1}E_n)}=\mathbb{H}$.
+    (2)\ $\overline{\text{span}(\cup_{n\geq 1}E_n)}=\mathbb{H}$.\par
     也记为$\mathbb{H}=\oplus_{n}E_n$
 \end{definition}
 对任一$\mathbb{H}$的闭子空间$M$,对应的正交投影算子记为$\mathrm{Proj}_M$.在一定意义下,Hilbert和给出了$\mathbb{H}$中元素的
@@ -49,7 +49,7 @@
     设Hilbert空间$\mathbb{H}=\oplus_{n\geq 1}E_n$.给定$u\in \mathbb{H}$,定义$u_n=\mathrm{Proj}_{E_n} u$,以及$S_n=\sum_{i=1   }^{n} u_n$.
     则$\lim_{n\to \infty} S_n=u$且
     \[
-        \abs{u}^2=\sum_{n=1}^{\infty}\abs{u_n}^2 
+        \abs{u}^2=\sum_{n=1}^{\infty}\abs{u_n}^2 .
     \]
 \end{theorem}
 \subsection{张量积}
@@ -102,7 +102,7 @@
 类似于二元情形,将$(M_u,c_u)$称为$V_1,\cdots,V_n$的张量积,其中$M_u$记为$V_1\otimes \cdots \otimes V_n$.根据以上泛性质,实际上给出了双射
 \begin{align*}
     \mathrm{Hom}(V_1\otimes \cdots \otimes V_n;M)&\overset{\sim}{\to} \mathrm{Mul}(V_1\times \cdots\times V_n;M)\\
-    \phi&\mapsto \phi\circ C_u
+    \phi&\mapsto \phi\circ C_u.
 \end{align*}
 
 我们还可以定义多重线性函数的张量积.
@@ -408,7 +408,7 @@ $\mathrm{Srv}_b,\mathrm{Srv}_0$同理.$\mathrm{Srv}_0,\mathcal{P}$都是$L^2(\Om
 
 由以上注记,还可以给出光滑随机变量的乘积的导数公式.对$F=f(W(h_1),\cdots,W(h_n)),G=g(W(l_1),\cdots,W(l_k))$,定义$\mathbb{R}^{n+k}$上的函数$\td{f}$和$\td{g}$如下:
 \begin{align*}
-    &\td{f}(x_1,\cdots,x_n,x_{n+1},\cdots,x_{n+k})=f(x_1,\cdots,x_n)\\
+    &\td{f}(x_1,\cdots,x_n,x_{n+1},\cdots,x_{n+k})=f(x_1,\cdots,x_n),\\
     &\td{g}(x_1,\cdots,x_n,x_{n+1},\cdots,x_{n+k})=g(x_{n+1},\cdots,x_{n+k}),
 \end{align*}
 则
@@ -632,7 +632,7 @@ $\mathbb{D}^{1,2}$作为Srv关于范数$\nm[1,2]{\cdot}$的闭包,是比较抽�
 \end{remark}
 事实上,注意到证明中对$\phi$的关键要求是导数有界,所以对$\phi$的要求可以减弱到仅是Lipschitz连续的.为了证明Lipschitz函数的链式法则,
 需要以下引理.
-\begin{lemma}
+\begin{lemma}\label{labint}
     设$p>1$,$\{F_n\}\subset \mathbb{D}^{1,p}$,$F_n\overset{L^p(\Omega)}{\longrightarrow} F$,且
     \[
         \sup_n \mathbb{E}[\nm[\mathbb{H}]{DF_n}^p]<\infty.
@@ -970,7 +970,7 @@ $k(k-1)f_{t_1}f_{t_2}W(f)^{k-2}$,记为$D^2_{t_1,t_2}F$,反过来说,随机变�
 \begin{lemma}
     设$F=\mathbb{E}[F]+\sum_{n=1}^{\infty} I_n(f_n),f_n\in  L^2_S(T^n)\in L^2(\Omega)$.则
     \[
-        \mathbb{E}(F| \mathscr{F}_A)=\sum_{n=0}^{\infty}I_n(f_n(I_A)^{\otimes n}).\footnote{$I_0=\mathrm{id}_{\mathbb{R}}$}
+        \mathbb{E}(F| \mathscr{F}_A)=\sum_{n=0}^{\infty}I_n(f_n(I_A)^{\otimes n}).\footnote{$I_0=\mathrm{id}_{\mathbb{R}}$.}
     \]
 \end{lemma}
 由以上引理可得以下命题.
@@ -1229,11 +1229,6 @@ $\mathscr{F}$为$\mathscr{B}(\Omega)$关于$\mathbb{P}$的完备化,$\mathscr{F}
     以及$D^j_r X_t,r>t$.
 \end{theorem}
 
-在证明该定理之前,先介绍一个技术性引理,具体证明见\citep{Nua1}的命题1.5.5.
-\begin{lemma}\label{lab4}
-    设$p>\alpha>1$,$F\in \mathbb{D}^{1,\alpha}$.若$DF\in L^p(\Omega;\mathbb{H})$,则$F\in L^p(\Omega)$.
-\end{lemma}
-
 
 \begin{proof}[定理\ref{SDE解的Malliavin可微性}的证明]
     考虑Picard迭代,令$X_0(t)\equiv x_0$,归纳定义
@@ -1247,11 +1242,15 @@ $\mathscr{F}$为$\mathscr{B}(\Omega)$关于$\mathbb{P}$的完备化,$\mathscr{F}
    当$n=0$时显然成立,假设对$k=1,\cdots,n$都有以上结论成立,考虑$k=n+1$.\par
    首先由于系数的Lipschitz连续性,固定$s$,对$\sigma^{i,j}_s,b^i_s,$应用链式法则,可得存在一致有界的随机变量$\bar{A}^{n,i,j,l}_s,\bar{B}^{n,i,l}_s$使得 
    \begin{align*}
-    &D\sigma^{i,j}_s(X_n(s))=\sum_{l=1}^{m}\bar{A}^{n,i,j,l}_sDX_n^i(s),\\
-    &Db^i_s(X_n(s))=\sum_{l=1}^{n}\bar{B}^{n,i,l}_s DX_n^i(s)
-   \end{align*}
-   根据归纳假设,$DX_n^i(s)\in \mathbb{D}^{1,\infty}$,而系数又是一致有界的,所以$D\sigma^{i,j}_s(X_n(s)),Db^i_s(X_n(s))\in \mathbb{D}^{1,\infty}$.\par
-   由于“被积函数”$D\sigma^{i,j}_s(X_n(s))\in \mathbb{D}^{1,2}$,所以It\^{o}随机积分
+    &D\sigma^{i,j}_s(X_n(s))=\sum_{l=1}^{m}\bar{A}^{n,i,j,l}_sDX_n^i(s)\in \mathbb{D}^{1,\infty},\\
+    &Db^i_s(X_n(s))=\sum_{l=1}^{n}\bar{B}^{n,i,l}_s DX_n^i(s)\in \mathbb{D}^{1,\infty}.
+   \end{align*}\par
+   对于确定性积分部分,可以将其看作级数的极限,由于导数算子的闭性,$\int_{0}^{t} b^i_s(X_n(s))\mathrm{d}s\in \mathbb{D}^{1,2}$,以及
+
+   \[
+    D^k_r\left(\int_{0}^{t} b^i_s(X_n(s))\mathrm{d}s\right)=\int_{0}^{t} D^k_r b^i_s(X_n(s))\mathrm{d}s.
+   \]\par
+   对于随机积分,由于“被积函数”$D\sigma^{i,j}_s(X_n(s))\in \mathbb{D}^{1,2}$,所以It\^{o}随机积分
    \[
     \sum_{j=1}^{m}\int_{0}^{t} \sigma^{i,j}_s(X_n(s)) \mathrm{d}W_s^j\in \mathbb{D}^{1,2},
    \]
@@ -1259,23 +1258,13 @@ $\mathscr{F}$为$\mathscr{B}(\Omega)$关于$\mathbb{P}$的完备化,$\mathscr{F}
    \[
     D^k_r\left(\sum_{j=1}^{m}\int_{0}^{t} \sigma^{i,j}_s(X_n(s))\mathrm{d}W^j_s\right)=\sigma^{i,k}_r(X_n(r))+\sum_{j=1}^{m}\int_{r}^{t}D^k_r(\sigma^{i,j}_s(X_n(s)))\mathrm{d}W_s^j .
    \]
-   对于上面等式右边,由Lipchitz连续性可知,$\sigma^{i,k}_r(X_n(r))$和$X_n(r)$有相同的可积性,对于积分项的控制则由BDG不等式和$\psi_n(t)$的有界性得到:
+   这个等式说明了随机积分项的可导性,下面说明可积性由BDG不等式得到:
    \begin{align*}
         &\mathbb{E}[\abs{\int_{r}^{t}D^k_r(\sigma^{i,j}_s(X_n(s)))\mathrm{d}W_s^j}^p]\\
-        \leq& \mathbb{E}[(\abs{\int_{r}^{t}(D^k_r(\sigma^{i,j}_s(X_n(s))))^2\mathrm{d}s})^{p/2}]
+        \leq& \mathbb{E}[(\abs{\int_{r}^{t}(D^k_r(\sigma^{i,j}_s(X_n(s))))^2\mathrm{d}s})^{p/2}].
    \end{align*}
-   结合引理\ref{lab4},可得
-   \[
-    \sum_{j=1}^{m}\int_{0}^{t} \sigma^{i,j}_s(X_n(s)) \mathrm{d}W_s^j\in \mathbb{D}^{1,\infty}.
-   \]\par
-
-   对于确定性积分部分,可以将其看作级数的极限,由于导数算子的闭性,$\int_{0}^{t} b^i_s(X_n(s))\mathrm{d}s\in \mathbb{D}^{1,2}$,以及
-
-   \[
-    D^k_r\left(\int_{0}^{t} b^i_s(X_n(s))\mathrm{d}s\right)=\int_{0}^{t} D^k_r b^i_s(X_n(s))\mathrm{d}s.
-   \]\par
-
-   下面估计$\mathbb{E}[\sup_{r\leq s\leq T}\abs{D_rX_{n+1}(s)}^p]$.
+    这样就得到了$X_{n+1}(t)\in \mathbb{D}^{1,\infty}$.
+   下面估计$\mathbb{E}[\sup_{r\leq s\leq T}\abs{D_rX_{n+1}(s)}^p], p\geq 2$.
    \begin{align*}
         &\mathbb{E}[\sup_{r\leq s\leq T}\abs{D_r^kX_{n+1}(s)}^p]\\
         =&\mathbb{E}[\sup_{r\leq s\leq T}\abs{\int_{r}^{s}D_r b^k_s(X_n(u))\mathrm{d}u+\sum_{l=1}^{d}(\sigma^{k,l}_r(X_n(r))+\int_{r}^{s}D_r(\sigma^{k,l}_u(X_n(u)))\mathrm{d}W^l_u)}^p]\\
@@ -1298,8 +1287,14 @@ $\mathscr{F}$为$\mathscr{B}(\Omega)$关于$\mathbb{P}$的完备化,$\mathscr{F}
    \end{align*}
    结合以上可得$\psi_{n+1}(t)\leq c_1+c_2\int_{0}^{t} \psi_n(s)\mathrm{d}s$成立.\par
    由归纳计算可得$\psi_n(t) \leq c_1\sum_{i=1}^{n}\frac{(c_2t)^i}{i!} \leq c_1e^{c_2t}$,也即$X^i_n$的导数在$L^p(\Omega;\mathbb{H})$中是一致有界的,
-   结合\ref{lab4}就说明了$X^i(t)\in \mathbb{D}^{1,\infty}$.证明完成.
+   根据\ref{labint},可得$X(t)\in L^p(\Omega),\forall p\geq 2$,也就完成了证明.
 \end{proof}
+\begin{remark}
+    若系数是连续可微且导数有界,则$\bar{A}_{k,l},\bar{B}_k$就是对应的偏导数.\par
+    在SDE的一阶可导性中,一次连续可微和Lipschitz连续的差别并不大,因为可以用磨光子逼近.有了一阶可导,自然会关心更高阶的可导性或者说光滑性.
+    直觉上需要提高系数的光滑性,实际上SDE的解任意次Malliavin可导的一个充分条件就是系数是光滑的且各阶导数有界,证明的大概思路还是使用归纳法,
+    只是不再是对Picard迭代做归纳,而是对导数阶数做归纳,具体可见\citep{Nua1}的定理2.2.2.
+\end{remark}
 
 \input{chapters/appd}
 

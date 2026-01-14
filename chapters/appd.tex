@@ -3,7 +3,7 @@
 在第2节引入的Mailliavin分析框架好处是从性质充分好的光滑随机变量出发,直接给出导数显式表达,相对易于入门,但缺少了一点直观.在\ref{经典Wiener空间}中,可以发现,在经典Wiener空间中,
 Malliavin导数算子可以看作是关于样本点的方向导数,这节扩展Wiener空间的定义并从另一角度定义Malliavin导数.\par
 首先回顾经典的Wiener空间.令$B=C_0([0,T];\mathbb{R}^d)$,配备一致范数,$\mu$为其上的Wiener测度,当$T<\infty$时,这是一个Banach空间,所以以下都只考虑
-有限时间.记$W_t(x)=x_t,x\in B$,则$(W_t),t\in [0,T]$为典范布朗运动.\par
+有限时间.记$W_t(x)=x_t,x\in B$,则$\{(W_t),t\in [0,T]\}$为典范布朗运动.\par
 $B$上的连续线性泛函$\phi$由于连续性自然有可测性,因此是一个随机变量,另一方面,根据Riesz表示定理,$\phi$可以等同于一个Radon测度,可以用
 有限Dirac测度的线性组合逼近.注意到对$[0,T]$上的Dirac测度$\delta_{t},t\in [0,T]$,作为一个随机变量服从正态分布,所以可得$\phi$的分布也是正态的,且均值为0.\par
 对$\phi\in B^*$,令$\td{\phi}(t)=\phi([0,t])$,令$F(t,x)=\td{\phi}(t)x$应用I\^{o}公式可得,
@@ -35,7 +35,7 @@ $\phi(W)=\int_{0}^{T}\dot{h}_\phi(t)\mathrm{d}W_t$.
 \end{definition}
 这种结构的选择不是偶然的,有多方面原因.一方面,对于有限维的Banach空间总和相同维数的欧氏空间是代数同构,拓扑同胚的,而欧式空间作为一个性质足够好的模型,可以在上面构造Lebsgue测度.Lebsgeue测度最重要的
 性质之一是平移不变性:将任意可测集沿任意方向平移任意有限距离,测度保持不变.但对于无限维的Banach空间则不存在平移不变的测度.
-退而求其次,希望找到一个测度,在平移下,零测集依然为零测集,称为“拟不变性,但即便如此,也不一定能做到;只能再退一步,希望找到一个测度,在尽量多的方向上,零测性不变.之所以要求保持零测性,
+退而求其次,希望找到一个测度,在平移下,零测集依然为零测集,称为“拟不变性”,但即便如此,也不一定能做到;只能再退一步,希望找到一个测度,在尽量多的方向上,零测性不变.之所以要求保持零测性,
 是因为通常情况下谈论的可测函数$f$实际上在几乎处处意义下的等价类$[f]=\{g:f=g\quad \mu-\mathrm{a.e.}\}$,做微小平移时,零测性的保持可以
 使得$\forall g\in [f],g(\cdot+h)\in [f(\cdot +h)]$.具体地说,设存在$\mu-$零测集$A$,$\forall x\in B-A,f(x)=g(x)$,考虑平移,则$\forall x\in B-(A-h),f(x+h)=g(x+h)$,如果$\mu$在平移下保持零测性,则$f(\cdot+h)$和$g(\cdot+h)$依然在$\mu-$a.e.意义下等价,   这样在考虑方向导数时才可以不依赖于等价类代表元的选取.\par
 
@@ -134,7 +134,7 @@ $T_*\phi=\phi\circ T$,则$T_*$是$L^p((\mathbb{R}^{\mathbb{N}},\mathscr{B}(\math
 \[
     L^{\infty -}(\Omega,\mathscr{F},\mathbb{P})=\cap_{1<p<\infty}L^p(\Omega,\mathscr{F},\mathbb{P})
 \]
-和一个Hilbert空间
+和
 \[
     L^{1+}(\Omega,\mathscr{F},\mathbb{P})=\cup_{1<p<\infty}L^p(\Omega,\mathscr{F},\mathbb{P}),
 \]
