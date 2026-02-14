@@ -1,14 +1,28 @@
+% ============================================================
+% 使用与修改声明
+% ============================================================
 %
-% Copyright (C) 2015-2025 by USTC TeX Users Group <https://github.com/ustctug>
+% 本文档使用的 LaTeX 模板基于 USTC TeX Users Group
+% 提供的模板（Copyright (C) 2015-2025 USTC TeX Users Group）。
 %
-% This file may be distributed and/or modified under the
-% conditions of the LaTeX Project Public License, either version 1.3c
-% of this license or (at your option) any later version.
-% The latest version of this license is in
-%    https://www.latex-project.org/lppl.txt
-% and version 1.3c or later is part of all distributions of LaTeX
-% version 2008 or later.
+% 原模板遵循 LaTeX Project Public License (LPPL) 1.3c 或更高版本,可以合法地分发和修改该模板，但需遵守 LPPL 的条款：
+%   1. 修改后的文件请明确标注已修改，避免混淆原作者作品。
+%   2. 不得移除或隐藏原始版权声明。
 %
+% 本人在原模板基础上进行了极少量修改，主要为删除了一些暂时不需要的功能和选项。
+%
+% 本修改遵循 CC BY 4.0 国际许可协议：
+%   - 必须署名原作者（USTC TeX Users Group）
+%   - 可用于商业和非商业用途
+%   - 可修改并再发布
+%   - 署名示例：
+%       原作者: USTC TeX Users Group（必须说明）
+%       原模板链接:https://github.com/ustctug/ustcthesis
+%       修改者: Su Xuan（可选项）
+%       许可证: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+%
+% ============================================================
+
 
 \NeedsTeXFormat{LaTeX2e}[2017/04/15]
 \newcommand\ustcthesisversion{4.0.0-beta.9}
